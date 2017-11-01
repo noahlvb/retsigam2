@@ -1,0 +1,27 @@
+{
+  "name": "retsigam2",
+  "version": "0.1.0",
+  "description": "Digital JC administration platform for Subury schools",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noahlvb/retsigam2.git"
+  },
+  "keywords": [
+    "Sudbury",
+    "JC",
+    "Administration"
+  ],
+  "author": "Noah van Bochove",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/noahlvb/retsigam2/issues"
+  },
+  "homepage": "https://github.com/noahlvb/retsigam2#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
