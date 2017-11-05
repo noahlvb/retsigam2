@@ -1,0 +1,14 @@
+<% if ( locals.messages.error ) { %>
+    <div class="flash alert alert-danger" role="alert"><%= locals.messages.error %></div>
+<% } %>
+
+<div class="container" style="width: 500px;">
+    <form class="form-signin" action='/account/login/local', method='post'>
+        <label for="inputNaam" class="sr-only">username: </label>
+        <input type="text" id="inputNaam" name='username' class="form-control" placeholder="<%= __('LOGIN_normalUserPlaceholderName')%>" required="" autofocus="">
+        <label for="inputPassword" class="sr-only">Password: </label>
+        <input type="password" id="inputPassword" name='password' class="form-control" placeholder="<%= __('LOGIN_normalUserPlaceholderPass')%>" required="">
+        <br>
+        <button class="btn btn-lg btn-primary btn-block" type="submit"><%= __('LOGIN_normalUserButton')%></button>
+    </form>
+</div>

@@ -1,0 +1,6 @@
+{
+	"LOGIN_normalUserPlaceholderPass": "Enter password here",
+	"LOGIN_normalUserButton": "Login",
+	"LOGIN_normalUserPlaceholderName": "Enter username here",
+	"GLOBAL_loggedIn": "Logged in as "
+}

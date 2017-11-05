@@ -1,12 +1,25 @@
 const express = require('express')
 const sessions = require('express-session')
 const flash = require('express-flash')
+const ejsLayout = require('express-ejs-layouts')
 const bodyParser = require('body-parser')
 const connectMongo = require('connect-mongo')(sessions)
 const passport = require('passport')
+const gitRev = require('git-rev')
 
 const config = require('./config')
 const app = express()
+
+require('./helpers/passport')(passport)
+
+app.set('view engine', 'ejs')
+app.set('views', __dirname + '/views')
+app.use('/public', express.static(__dirname + '/public'))
+app.use(ejsLayout)
+app.use(require('./helpers/langauge'))
+gitRev.short(function(str){
+    app.locals.commit = str;
+})
 
 app.use(flash())
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -19,9 +32,14 @@ app.use(sessions({
 }))
 
 // Passport middleware
-require('./helpers/passport')
 app.use(passport.initialize())
 app.use(passport.session())
+
+app.use(require('./middlewares/insertUserProfile'))
+
+app.use(function (err, req, res, next) {
+    res.status(500).render('error/500', { error : err })
+})
 
 app.use(require('./controllers'))
 

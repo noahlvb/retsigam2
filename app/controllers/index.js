@@ -1,9 +1,17 @@
 const express = require('express')
 
+const auth = require('./../middlewares/auth')
+
 const router = express.Router()
 
-router.get('/', function (req, res) {
-    res.send('Retsigam2')
+router.use('/account', require('./account'))
+
+router.get('/', auth, function (req, res) {
+    res.render('home')
+})
+
+router.use(function (req, res) {
+    res.status(404).render('error/404', { page_url : req.hostname + req.path })
 })
 
 module.exports = router
