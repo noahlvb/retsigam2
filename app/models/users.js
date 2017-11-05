@@ -3,6 +3,9 @@ const crypto = require('crypto')
 
 const userSchema = mongoose.Schema({
     username: String,
+    firstName: String,
+    SecondName: String,
+    email: String,
     password: String,
     salt: String,
     groups: Array
@@ -29,9 +32,37 @@ const userModel = mongoose.model('users', userSchema)
 
 module.exports = userModel
 
+module.exports.add = function (newUser, callback) {
+    username = (newUser.firstName + '.' + newUser.secondName.split(' ').pop()).toLowerCase()
+
+    userModel.findOne({username: username}, function (err, document) {
+        if (!document) {
+            var hashed = userSchema.statics.generateHash(newUser.password)
+            var document = {
+                username: username,
+                firstName: newUser.firstName,
+                secondName: newUser.secondName,
+                email: newUser.email,
+                password: hashed.hash,
+                salt: hashed.salt
+            }
+
+            new userModel(document).save(function (err, document) {
+                if (err) {
+                    callback([false, 1])
+                } else {
+                    callback([true], username)
+                }
+            })
+        } else {
+            callback([false, 2])
+        }
+    })
+}
+
 userModel.findOne({ groups: 'admin' }, function (err, document) {
     if (!document) {
-        var hashed = userModel.generateHash('retsigam2')
+        var hashed = userSchema.statics.generateHash('retsigam2')
         var document = {
             username: 'admin',
             password: hashed.hash,

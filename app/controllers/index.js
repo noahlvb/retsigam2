@@ -6,7 +6,7 @@ const router = express.Router()
 
 router.use('/account', require('./account'))
 
-router.get('/', auth, function (req, res) {
+router.get('/', auth.auth, function (req, res) {
     res.render('home')
 })
 

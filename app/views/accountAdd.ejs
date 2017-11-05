@@ -1,0 +1,29 @@
+<h3><%= __('ACCOUNTADD_header')%></h3>
+<br>
+<% if ( locals.messages.error ) { %>
+    <div class="flash alert alert-danger" role="alert"><%= locals.messages.error %></div>
+<% } %>
+<form id="user-add-form" method="post" action="/account/manage/add">
+	<table>
+		<tr>
+			<th><label><%= __('ACCOUNTADD_formFirstName')%></label></th>
+			<th><input name="firstName" type='text'></input></th>
+		</tr>
+        <tr>
+			<th><label><%= __('ACCOUNTADD_formSecondName')%></label></th>
+			<th><input name="secondName" type='text'></input></th>
+		</tr>
+		<tr>
+			<th><label><%= __('ACCOUNTADD_formPassword')%></label></th>
+			<th><input name="password" type='password'></input></th>
+		</tr>
+        <tr>
+			<th><label><%= __('ACCOUNTADD_formEmail')%></label></th>
+			<th><input name="email" type='email'></input></th>
+		</tr>
+		<tr>
+			<th></th>
+			<th><input type='submit' value="<%= __('ACCOUNTADD_formSubmit')%>"></input></th>
+		</tr>
+	</table>
+</form>
