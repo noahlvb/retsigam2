@@ -34,6 +34,14 @@ router.get('/manage/add', auth.groups(['admin']), function (req, res) {
 })
 
 router.post('/manage/add', auth.groups(['admin']), function (req, res) {
+
+    for (var key in req.body) {
+        if (req.body[key].length <= 0) {
+            req.flash('warning', res.__('ACCOUNTADD_flashFillFields'))
+            return res.redirect('/account/manage/add')
+        }
+    }
+
     users.add(req.body, function (feedback, username) {
         if (feedback[0] === true) {
             req.flash('info', res.__('ACCOUNTADD_flashSucces') + username)

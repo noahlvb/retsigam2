@@ -20,5 +20,6 @@
 	"ACCOUNTADD_formSubmit": "Create user",
 	"ACCOUNTADD_flashSucces": "The new user was created succesfully created with username: ",
 	"ACCOUNTADD_flashError": "An error occurred while creating a new user",
-	"ACCOUNTADD_flashExisting": "The user you tried to create already existed"
+	"ACCOUNTADD_flashExisting": "The user you tried to create already existed",
+	"ACCOUNTADD_flashFillFields": "Not all fields are filled in"
 }
