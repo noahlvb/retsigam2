@@ -4,7 +4,7 @@ const crypto = require('crypto')
 const userSchema = mongoose.Schema({
     username: String,
     firstName: String,
-    SecondName: String,
+    secondName: String,
     email: String,
     password: String,
     salt: String,
@@ -65,6 +65,9 @@ userModel.findOne({ groups: 'admin' }, function (err, document) {
         var hashed = userSchema.statics.generateHash('retsigam2')
         var document = {
             username: 'admin',
+            firstName: 'Admin',
+            secondName: 'van der Nol',
+            email: 'test@test.nl',
             password: hashed.hash,
             salt: hashed.salt,
             groups: ['admin']
