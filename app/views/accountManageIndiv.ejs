@@ -1,0 +1,87 @@
+<style type="text/css">
+
+	#edit_group_window {
+		display: none;
+		position: absolute;
+		top: 20%;
+		left: 50%;"
+		margin-left: auto;
+  		margin-right: auto;
+	}
+
+	#edit_group_window_content{
+		z-index: 10;
+		position: relative;
+		left: -50%;
+		background: #DBDBDB;
+		width: 500px;
+		height: 500px;
+		border-radius: 2px;
+		padding: 10px;
+		box-shadow: -0px -0px 5px #888888;
+	}
+
+	button#dropdownMenu1{
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+	#group_list li {
+		margin-bottom: 5px;
+	}
+
+</style>
+
+<h3><%= userProfile.username %>'s profile</h3>
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><a href="#"><%= __('ACCOUNTPROFILE_tabPerson')%></a></li>
+  <li><a href="#"><%= __('ACCOUNTPROFILE_tabProjects')%></a></li>
+</ul>
+<div class="panel panel-default">
+	<div class="list-group">
+		<a href="#" class="list-group-item">id: <%= userProfile.id%></a>
+		<a href="#" class="list-group-item"><%= __('ACCOUNTPROFILE_infoUsername')%> <%= userProfile.username%></a>
+        <a href="#" class="list-group-item"><%= __('ACCOUNTPROFILE_infoFullname')%> <%= userProfile.firstName%> <%= userProfile.secondName %></a>
+		<a href="#" class="list-group-item"><%= __('ACCOUNTPROFILE_infoEmail')%> <%= userProfile.email%></a>
+		<a href="#edit_groups" class="list-group-item"><%= __('ACCOUNTPROFILE_infoGroup')%> <%= userProfile.groups%></a>
+	</div>
+</div>
+
+<div id="edit_group_window">
+	<div id="edit_group_window_content">
+		<span href="#edit_group_close" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+
+		<div class="dropdown">
+		  	<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+		    		Add Group
+		    		<span class="caret"></span>
+		  	</button>
+		  	<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+		    		<li role="presentation"><a href="/backend/account/update/group/<%= userProfile.id%>/add/JC_voorzitter/" role="menuitem" tabindex="-1" href="#">JC_voorzitter</a></li>
+		    		<li role="presentation"><a href="/backend/account/update/group/<%= userProfile.id%>/School-Meeting_voorzitter/" role="menuitem" tabindex="-1" href="#">School-Meeting_voorzitter</a></li>
+		  	</ul>
+		</div>
+
+		<ul id="group_list" class="list-group"></ul>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+    userProfile = JSON.parse('<%- JSON.stringify(userProfile) %>')
+
+    for(i = 0; i < userProfile.groups.length; i++){
+        $('ul[id="group_list"]').append('<li class="list-group-item"><a href="/backend/account/update/group/<%= userProfile.id%>/remove/' + userProfile.groups[i] + '/"><span  style="float: right;" class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>' + userProfile.groups[i] + '</li>');
+    }
+
+	$('a[href="#edit_groups"]').click(function() {
+		if($('#edit_group_window').is(':visible') === false){
+
+			$('#edit_group_window').show();
+		}
+	});
+
+	$('span[href="#edit_group_close"]').click(function  () {
+		$('#edit_group_window').hide();
+	});
+
+</script>

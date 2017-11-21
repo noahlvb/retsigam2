@@ -1,35 +1,35 @@
 <h2><%= __('ACCOUNT_header')%><button type="button" class="btn btn-default" onclick="window.location.href='/account/manage/add'"><%= __('ACCOUNT_headerAddUser')%></button></h2>
 <div class="panel panel-default">
-   <div class="panel-heading"><%= __('ACCOUNT_headerTable')%></div>
-   <table id="user-table" class="table">
-   </table>
+    <div class="panel-heading"><%= __('ACCOUNT_headerTable')%></div>
+    <table id="user-table" class="table">
+    </table>
 </div>
 
 <script type="text/javascript">
-   $.ajax({
-       dataTypeL: "json",
-       url: "/account/userList",
-       beforeSend: function( xhr ) {
-           xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
-       }
-   }).done(function (data) {
-       var users = $.parseJSON(data);
-       draw_table_users(users);
-   });
+    $.ajax({
+        dataTypeL: "json",
+        url: "/account/userList",
+        beforeSend: function( xhr ) {
+            xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
+        }
+    }).done(function (data) {
+        var users = $.parseJSON(data);
+        draw_table_users(users);
+    });
 
-   function draw_table_users (users) {
-       var table = document.getElementById('user-table');
-       var row0 = table.insertRow(0);
-       row0.insertCell(0).innerHTML = '<b><%= __("ACCOUNT_tableName")%></b>';
-       row0.insertCell(1).innerHTML = '<b><%= __("ACCOUNT_tableEmail")%></b>';
-       row0.insertCell(2).innerHTML = '<b><%= __("ACCOUNT_tableGroup")%></b>';
-       row0.insertCell(3).innerHTML = '<b><%= __("ACCOUNT_tableAction")%></b>';
-       for (var i = 0; i < Object.keys(users).length; i++) {
-           var row = table.insertRow(1);
-           row.insertCell(0).innerHTML = '<a href="/account/manage/' + users[i]._id + '/">' + users[i].username + '</a>';
-           row.insertCell(1).innerHTML = users[i].email;
-           row.insertCell(2).innerHTML = users[i].groups;
-           row.insertCell(3).innerHTML = '<a href="/backend/account/del/' + users[i].id + '/"><%= __("ACCOUNT_tableDelete")%></a>';
-       }
-   }
+    function draw_table_users (users) {
+        var table = document.getElementById('user-table');
+        var row0 = table.insertRow(0);
+        row0.insertCell(0).innerHTML = '<b><%= __("ACCOUNT_tableName")%></b>';
+        row0.insertCell(1).innerHTML = '<b><%= __("ACCOUNT_tableEmail")%></b>';
+        row0.insertCell(2).innerHTML = '<b><%= __("ACCOUNT_tableGroup")%></b>';
+        row0.insertCell(3).innerHTML = '<b><%= __("ACCOUNT_tableAction")%></b>';
+        for (var i = 0; i < Object.keys(users).length; i++) {
+            var row = table.insertRow(1);
+            row.insertCell(0).innerHTML = '<a href="/account/manage/' + users[i]._id + '/">' + users[i].username + '</a>';
+            row.insertCell(1).innerHTML = users[i].email;
+            row.insertCell(2).innerHTML = users[i].groups;
+            row.insertCell(3).innerHTML = '<a href="/backend/account/del/' + users[i].id + '/"><%= __("ACCOUNT_tableDelete")%></a>';
+        }
+    }
 </script>

@@ -20,5 +20,11 @@
 	"ACCOUNTADD_flashSucces": "The new user was created succesfully created with username: ",
 	"ACCOUNTADD_flashError": "An error occurred while creating a new user",
 	"ACCOUNTADD_flashExisting": "The user you tried to create already existed",
-	"ACCOUNTADD_flashFillFields": "Not all fields are filled in"
+	"ACCOUNTADD_flashFillFields": "Not all fields are filled in",
+	"ACCOUNTPROFILE_tabPerson": "Person",
+	"ACCOUNTPROFILE_tabProjects": "Test",
+	"ACCOUNTPROFILE_infoUsername": "Username: ",
+	"ACCOUNTPROFILE_infoEmail": "Email: ",
+	"ACCOUNTPROFILE_infoFullname": "Fullname: ",
+	"ACCOUNTPROFILE_infoGroup": "Groups: "
 }

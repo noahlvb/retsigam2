@@ -58,6 +58,16 @@ router.post('/manage/add', auth.groups(['admin']), function (req, res) {
     })
 })
 
+router.get('/manage/:id', auth.groups(['admin']), function (req, res) {
+    users.findOne({ _id: req.params.id }, function (err, document) {
+        if (err) {
+            return console.log(err)
+        }
+
+        res.render('accountManageIndiv', { userProfile: document})
+    })
+})
+
 router.get('/userList', auth.groups(['admin']), function (req, res) {
     users.find({}, function (err, document) {
         if (err) {
