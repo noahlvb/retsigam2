@@ -21,17 +21,15 @@
        var table = document.getElementById('user-table');
        var row0 = table.insertRow(0);
        row0.insertCell(0).innerHTML = '<b><%= __("ACCOUNT_tableName")%></b>';
-       row0.insertCell(1).innerHTML = '<b><%= __("ACCOUNT_tableMonthMaterial")%></b>';
-       row0.insertCell(2).innerHTML = '<b><%= __("ACCOUNT_tableMaterial")%></b>';
-       row0.insertCell(3).innerHTML = '<b><%= __("ACCOUNT_tableType")%></b>';
-       row0.insertCell(4).innerHTML = '<b><%= __("ACCOUNT_tableAction")%></b>';
+       row0.insertCell(1).innerHTML = '<b><%= __("ACCOUNT_tableEmail")%></b>';
+       row0.insertCell(2).innerHTML = '<b><%= __("ACCOUNT_tableGroup")%></b>';
+       row0.insertCell(3).innerHTML = '<b><%= __("ACCOUNT_tableAction")%></b>';
        for (var i = 0; i < Object.keys(users).length; i++) {
            var row = table.insertRow(1);
-           row.insertCell(0).innerHTML = '<a href="/admin/account/profile/' + users[i].id + '/">' + users[i].username + '</a>';
-           row.insertCell(1).innerHTML = users[i].monthlyMaterial + ' gram';
-           row.insertCell(2).innerHTML = users[i].materialAmount + '(' + users[i].materialAmountReserved + ') gram';
-           row.insertCell(3).innerHTML = users[i].type;
-           row.insertCell(4).innerHTML = '<a href="/backend/account/del/' + users[i].id + '/"><%= __("ACCOUNT_tableDelete")%></a>';
+           row.insertCell(0).innerHTML = '<a href="/account/manage/' + users[i]._id + '/">' + users[i].username + '</a>';
+           row.insertCell(1).innerHTML = users[i].email;
+           row.insertCell(2).innerHTML = users[i].groups;
+           row.insertCell(3).innerHTML = '<a href="/backend/account/del/' + users[i].id + '/"><%= __("ACCOUNT_tableDelete")%></a>';
        }
    }
 </script>
