@@ -68,6 +68,40 @@ router.get('/manage/:id', auth.groups(['admin']), function (req, res) {
     })
 })
 
+router.post('/manage/:id/group/add', auth.groups(['admin']), function (req, res) {
+    users.findOne({ _id: req.params.id}, function (err, document) {
+        if (err) {
+            return console.log(err)
+        }
+
+        document.group('add', req.body.group, function (status) {
+            if (status === 0) {
+                req.flash('info', 'Group succesfully added')
+            } else if (status === 2) {
+                req.flash('warning', 'Group already exists')
+            }
+            res.redirect('/account/manage/' + req.params.id)
+        })
+    })
+})
+
+router.get('/manage/:id/group/remove', auth.groups(['admin']), function (req, res) {
+    users.findOne({ _id: req.params.id}, function (err, document) {
+        if (err) {
+            return console.log(err)
+        }
+
+        document.group('remove', req.query.group, function (status) {
+            if (status === 0) {
+                req.flash('info', 'Group succesfully removed')
+            } else if (status === 2) {
+                req.flash('warning', 'Group does not exists')
+            }
+            res.redirect('/account/manage/' + req.params.id)
+        })
+    })
+})
+
 router.get('/userList', auth.groups(['admin']), function (req, res) {
     users.find({}, function (err, document) {
         if (err) {

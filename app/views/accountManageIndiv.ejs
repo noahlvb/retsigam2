@@ -51,14 +51,15 @@
 		<span href="#edit_group_close" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 
 		<div class="dropdown">
-		  	<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-		    		Add Group
-		    		<span class="caret"></span>
-		  	</button>
-		  	<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-		    		<li role="presentation"><a href="/backend/account/update/group/<%= userProfile.id%>/add/JC_voorzitter/" role="menuitem" tabindex="-1" href="#">JC_voorzitter</a></li>
-		    		<li role="presentation"><a href="/backend/account/update/group/<%= userProfile.id%>/School-Meeting_voorzitter/" role="menuitem" tabindex="-1" href="#">School-Meeting_voorzitter</a></li>
-		  	</ul>
+			<form class="form-inline" action="/account/manage/<%= userProfile.id %>/group/add" method="post">
+				<label for="email">Add group:</label>
+				<select name="group" class="form-control" onchange="this.form.submit()">
+					<option selected disabled>---</option>
+			    	<option value="admin">admin</option>
+			    	<option value="jc">JC</option>
+					<option value="schoolMeetingVoorzitter">School Meeting Voorzitter</option>
+				</select>
+			</form>
 		</div>
 
 		<ul id="group_list" class="list-group"></ul>
@@ -70,7 +71,7 @@
     userProfile = JSON.parse('<%- JSON.stringify(userProfile) %>')
 
     for(i = 0; i < userProfile.groups.length; i++){
-        $('ul[id="group_list"]').append('<li class="list-group-item"><a href="/backend/account/update/group/<%= userProfile.id%>/remove/' + userProfile.groups[i] + '/"><span  style="float: right;" class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>' + userProfile.groups[i] + '</li>');
+        $('ul[id="group_list"]').append('<li class="list-group-item"><a href="/account/manage/' + userProfile._id + '/group/remove?group=' + userProfile.groups[i] + '"><span  style="float: right;" class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>' + userProfile.groups[i] + '</li>');
     }
 
 	$('a[href="#edit_groups"]').click(function() {
