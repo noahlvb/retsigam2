@@ -1,0 +1,33 @@
+<h1>Klacht indienen</h1>
+
+<form action="/jc/apply" method="post">
+    <div class="form-group form-inline">
+        <label for="locatie">Locatie:</label>
+        <input class="form-control" type="text" id="locatie" name="locatie">
+    </div>
+    <div class="form-group form-inline">
+        <div class="form-group">
+            <label for="date">Datum van indicent:</label>
+            <input class="form-control" type="date" id="date" name="date">
+        </div>
+        <div class="form-group">
+            <label for="time">Tijd van indicent:</label>
+            <input class="form-control" type="time" id="time" name="time">
+        </div>
+    </div>
+    <div class="form-group form-inline">
+        <div class="form-group">
+            <label for="accused">Beschuldigde:</label>
+            <input class="form-control" type="text" id="accused" name="accused">
+        </div>
+        <div class="form-group">
+            <label for="witnesses">Getuigen:</label>
+            <input class="form-control" type="text" id="witnesses" name="witnesses">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="happend">Wat is er gebeurd:</label>
+        <textarea rows="6" class="form-control" id="happend" name="happend"></textarea>
+    </div>
+    <input type="submit" value="Opsturen">
+</form>

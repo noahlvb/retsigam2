@@ -5,6 +5,7 @@ const auth = require('./../middlewares/auth')
 const router = express.Router()
 
 router.use('/account', require('./account'))
+router.use('/jc', require('./jc'))
 
 router.get('/', auth.auth, function (req, res) {
     res.render('home')
