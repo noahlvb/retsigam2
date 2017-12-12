@@ -29,7 +29,7 @@
             row.insertCell(0).innerHTML = '<a href="/account/manage/' + users[i]._id + '/">' + users[i].username + '</a>';
             row.insertCell(1).innerHTML = users[i].email;
             row.insertCell(2).innerHTML = users[i].groups;
-            row.insertCell(3).innerHTML = '<a href="/backend/account/del/' + users[i].id + '/"><%= __("ACCOUNT_tableDelete")%></a>';
+            row.insertCell(3).innerHTML = '<a href="/account/manage/' + users[i]._id + '/delete"><%= __("ACCOUNT_tableDelete")%></a>';
         }
     }
 </script>

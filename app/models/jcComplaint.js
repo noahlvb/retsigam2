@@ -1,33 +1,18 @@
 const mongoose = require('mongoose')
+const async = require('async');
 
-const getNames = require('./../helpers/getNames');
+const namesToId = require('./../helpers/namesToId');
 
 const jcComplaintSchema = mongoose.Schema({
     // Data from originator
     record: String,
-    originator: Array,
+    originator: String,
     complaintDateTime: Date,
     complaintLocation: String,
     accused: Array,
     witnesses: Array,
     happend: String,
 
-    // JC handeling portion
-    handle: {
-        handle: Number, // -2: Trashed, -1: Not yet decided, 0: being handled
-        subcommitteeRecord: String,
-    },
-    report: String,
-    reportDate: Date,
-    action: {
-        action: Number, // -2: end, -1: Not yet decided, 0: Proceed, 1: ombudsmans
-        ombudsmansRecord: String
-    },
-    schoolMeeting: {
-        sendin: Boolean,
-        sendinDate: Date,
-        passed: Boolean
-    }
 }, {timestamps: { createdAt: 'created_at' } })
 
 const jcComplaintModel = mongoose.model('jcComplaints', jcComplaintSchema)
@@ -49,14 +34,37 @@ module.exports.generateRecord = (callback) => {
 }
 
 module.exports.apply = function (user, newComplaint, callback) {
-    module.exports.generateRecord(function (record) {
+
+    for (field in newComplaint) {
+        if ((newComplaint[field] === '' || newComplaint[field] === null || newComplaint[field] === undefined) && field !== 'witnesses' && field !== 'accused') {
+            return callback(2)
+        }
+    }
+
+    async.parallel({
+        record: function(callback) {
+            module.exports.generateRecord(function (record) {
+                callback(null, record)
+            })
+        },
+        accused: function(callback) {
+            namesToId(newComplaint.accused, function (peopleIDs) {
+                callback(null, peopleIDs)
+            })
+        },
+        witnesses: function(callback) {
+            namesToId(newComplaint.witnesses, function (peopleIDs) {
+                callback(null, peopleIDs)
+            })
+        }
+    }, function(err, results) {
         let document = {
-            record: record,
+            record: results['record'],
             originator: user.username,
             complaintDateTime: new Date(newComplaint.datetime),
             complaintLocation: newComplaint.location,
-            accused: getNames(newComplaint.accused),
-            witnesses: getNames(newComplaint.witnesses),
+            accused: results['accused'],
+            witnesses: results['witnesses'],
             happend: newComplaint.happend
         }
 
@@ -67,5 +75,5 @@ module.exports.apply = function (user, newComplaint, callback) {
                 callback(0)
             }
         })
-    })
+    });
 }

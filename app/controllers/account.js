@@ -58,6 +58,19 @@ router.post('/manage/add', auth.groups(['admin']), function (req, res) {
     })
 })
 
+router.get('/manage/:id/delete', auth.groups(['admin']), function (req, res) {
+    users.findByIdAndRemove(req.params.id, function (err) {
+        if (err) {
+            console.log(err);
+            req.flash('error', 'Er is iets mis gegaan')
+        } else {
+            req.flash('info', 'Account is verwijderd')
+        }
+
+        res.redirect('/account/manage')
+    })
+})
+
 router.get('/manage/:id', auth.groups(['admin']), function (req, res) {
     users.findOne({ _id: req.params.id }, function (err, document) {
         if (err) {

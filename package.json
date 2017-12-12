@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/noahlvb/retsigam2#readme",
   "dependencies": {
+    "async": "^2.6.0",
     "body-parser": "^1.18.2",
     "connect-mongo": "^2.0.0",
     "ejs": "^2.5.7",
