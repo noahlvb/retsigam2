@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const async = require('async');
 
-const namesToId = require('./../helpers/namesToId');
+const namesConverter = require('./../helpers/namesConverter');
 
 const jcComplaintSchema = mongoose.Schema({
     // Data from originator
@@ -48,19 +48,19 @@ module.exports.apply = function (user, newComplaint, callback) {
             })
         },
         accused: function(callback) {
-            namesToId(newComplaint.accused, function (peopleIDs) {
+            namesConverter.toID(newComplaint.accused, function (peopleIDs) {
                 callback(null, peopleIDs)
             })
         },
         witnesses: function(callback) {
-            namesToId(newComplaint.witnesses, function (peopleIDs) {
+            namesConverter.toID(newComplaint.witnesses, function (peopleIDs) {
                 callback(null, peopleIDs)
             })
         }
     }, function(err, results) {
         let document = {
             record: results['record'],
-            originator: user.username,
+            originator: user._id,
             complaintDateTime: new Date(newComplaint.datetime),
             complaintLocation: newComplaint.location,
             accused: results['accused'],

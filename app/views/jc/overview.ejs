@@ -1,0 +1,28 @@
+<div class="panel panel-default">
+    <div class="panel-heading">Klachten</div>
+    <table id="complaints-table" class="table">
+    </table>
+</div>
+
+<script type="text/javascript">
+    var complaints = $.parseJSON('<%- JSON.stringify(complaints) %>');
+    draw_table_complaints(complaints);
+
+    function draw_table_complaints (complaints) {
+        var table = document.getElementById('complaints-table');
+        var row0 = table.insertRow(0);
+        row0.insertCell(0).innerHTML = '<b>Klachtnummer</b>';
+        row0.insertCell(1).innerHTML = '<b>Opbrenger</b>';
+        row0.insertCell(2).innerHTML = '<b>Aangeklaagde</b>';
+        row0.insertCell(3).innerHTML = '<b>Getuigen</b>';
+        row0.insertCell(4).innerHTML = '<b>Wat is er gebeurd</b>';
+        for (var i = 0; i < Object.keys(complaints).length; i++) {
+            var row = table.insertRow(1);
+            row.insertCell(0).innerHTML = '<a href="/jc/complaint/' + complaints[i]._id + '/">' + complaints[i].record + '</a>';
+            row.insertCell(1).innerHTML = complaints[i].originator;
+            row.insertCell(2).innerHTML = complaints[i].accused;
+            row.insertCell(3).innerHTML = complaints[i].witnesses;
+            row.insertCell(4).innerHTML = complaints[i].happend;
+        }
+    }
+</script>
