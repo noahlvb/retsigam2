@@ -5,6 +5,8 @@ const jcComplaints = require('./../../models/jcComplaint');
 
 const router = express.Router()
 
+router.use('/complaint', require('./complaint'))
+
 router.get('/apply', auth.auth, function (req, res) {
     res.render('jc/apply')
 })
