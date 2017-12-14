@@ -17,4 +17,4 @@ The application is currently not ready for use so further instructions will foll
 
 ### Stuff used to make this:
 
- * [Sudbury School Harderwijk](https://github.com/markdown-it/markdown-it) for there ernourmously usefull input
+ * [Sudbury School Harderwijk](http://sudburyschoolharderwijk.nl/) for there ernourmously usefull input
