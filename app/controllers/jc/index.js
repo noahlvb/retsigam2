@@ -2,7 +2,6 @@ const express = require('express')
 
 const auth = require('./../../middlewares/auth')
 const jcComplaints = require('./../../models/jcComplaint');
-const namesConverter = require('./../../helpers/namesConverter')
 
 const router = express.Router()
 
@@ -10,11 +9,7 @@ router.use('/complaint', require('./complaint'))
 
 router.get('/overview', auth.groups(['jc']), function (req, res) {
     jcComplaints.find({}, function (err, document) {
-        // this name conversion is still under construction
-        namesConverter.toName(document[0].accused, function(peopleNames) {
-            document[0].accused = peopleNames
-            res.render('jc/overview', {complaints: document})
-        })
+        res.render('jc/overview', {complaints: document})
     })
 })
 

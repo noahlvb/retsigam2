@@ -31,6 +31,7 @@ module.exports.toID = function (peopleString, callback) {
     })
 }
 
+// Currently not used
 module.exports.toName = function (peopleIDs, callback) {
     calls = []
 

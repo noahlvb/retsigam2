@@ -2,11 +2,13 @@ const mongoose = require('mongoose')
 const async = require('async');
 
 const namesConverter = require('./../helpers/namesConverter');
+const idsToNamesFunc = require('./functions/idsToNames')
+
 
 const jcComplaintSchema = mongoose.Schema({
     // Data from originator
     record: String,
-    originator: String,
+    originator: Array,
     complaintDateTime: Date,
     complaintLocation: String,
     accused: Array,
@@ -14,6 +16,8 @@ const jcComplaintSchema = mongoose.Schema({
     happend: String,
 
 }, {timestamps: { createdAt: 'created_at' } })
+
+jcComplaintSchema.post('find', idsToNamesFunc(['accused', 'originator', 'witnesses']))
 
 const jcComplaintModel = mongoose.model('jcComplaints', jcComplaintSchema)
 
