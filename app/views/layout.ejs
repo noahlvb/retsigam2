@@ -32,8 +32,8 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <% if(locals.user){ %>
-                        <li><a href="#"><b>test</b></a></li>
+                    <% if(locals.user && user.groups.indexOf('jc') !== -1){ %>
+                        <li><a href="/jc/overview"><b>JC</b></a></li>
                     <% } %>
                     <% if(locals.user && user.groups.indexOf('admin') !== -1) { %>
                         <li><a href="/account/manage">accounts</a></li>
