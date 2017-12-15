@@ -7,25 +7,19 @@ module.exports = function (convertFields) {
         calls = []
 
         document.forEach(function (doc, index) {
-            calls.push(function (callback) {
-                calls = []
-                convertFields.forEach(function (field) {
-                    document[index][field].forEach(function (id, indexId) {
-                        calls.push(function (callback) {
-                            users.findOne({_id: id}, function (err, documentUser) {
-                                if (err) {
-                                    return console.log(err);
-                                }
+            convertFields.forEach(function (field) {
+                document[index][field].forEach(function (id, indexId) {
+                    calls.push(function (callback) {
+                        users.findOne({_id: id}, function (err, documentUser) {
+                            if (err) {
+                                return console.log(err);
+                            }
 
-                                document[index][field][indexId] = [id, documentUser.username]
+                            document[index][field][indexId] = [id, documentUser.username]
 
-                                callback()
-                            })
+                            callback()
                         })
                     })
-                })
-                async.parallel(calls, function (err, result) {
-                    callback()
                 })
             })
         })
