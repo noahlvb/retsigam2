@@ -5,17 +5,11 @@
 
     <!-- style -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/public/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/public/css/bootstrap-social.css">
-    <link rel="stylesheet" type="text/css" href="/public/css/jasny-bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="/public/css/main.css">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
     <!-- javascript -->
     <script src="/public/js/jquery-2.1.1.min.js" type="text/javascript"></script>
-    <script src="/public/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="/public/js/jasny-bootstrap.min.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -66,6 +60,8 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $(".dropdown-button").dropdown();
+            $('.modal').modal();
+            $('select').material_select();
         })
     </script>
 </body>

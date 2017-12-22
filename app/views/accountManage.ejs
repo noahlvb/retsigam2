@@ -1,9 +1,5 @@
-<h2><%= __('ACCOUNT_header')%><button type="button" class="btn" onclick="window.location.href='/account/manage/add'"><%= __('ACCOUNT_headerAddUser')%></button></h2>
-<div class="panel panel-default">
-    <div class="panel-heading"><%= __('ACCOUNT_headerTable')%></div>
-    <table id="user-table" class="table">
-    </table>
-</div>
+<h2><%= __('ACCOUNT_headerTable')%> <button type="button" class="btn" onclick="window.location.href='/account/manage/add'"><%= __('ACCOUNT_headerAddUser')%></button></h2>
+<table id="user-table" class="table"></table>
 
 <script type="text/javascript">
     $.ajax({

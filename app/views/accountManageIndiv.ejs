@@ -1,68 +1,36 @@
 <style type="text/css">
 
-	#edit_group_window {
-		display: none;
-		position: absolute;
-		top: 20%;
-		left: 50%;"
-		margin-left: auto;
-  		margin-right: auto;
-	}
-
-	#edit_group_window_content{
-		z-index: 10;
-		position: relative;
-		left: -50%;
-		background: #DBDBDB;
-		width: 500px;
-		height: 500px;
-		border-radius: 2px;
-		padding: 10px;
-		box-shadow: -0px -0px 5px #888888;
-	}
-
-	button#dropdownMenu1{
-		margin-top: 5px;
-		margin-bottom: 5px;
-	}
 	#group_list li {
 		margin-bottom: 5px;
 	}
 
 </style>
 
-<h3><%= userProfile.username %>'s profile</h3>
-<ul class="nav nav-tabs" role="tablist">
-  <li class="active"><a href="#"><%= __('ACCOUNTPROFILE_tabPerson')%></a></li>
-  <li><a href="#"><%= __('ACCOUNTPROFILE_tabProjects')%></a></li>
+<ul class="collection with-header">
+    <li class="collection-header"><h3><%= userProfile.username %></h3></li>
+	<li class="collection-item">id: <%= userProfile.id%></li>
+    <li class="collection-item"><%= __('ACCOUNTPROFILE_infoFullname')%> <%= userProfile.firstName%> <%= userProfile.secondName %></li>
+    <li class="collection-item"><%= __('ACCOUNTPROFILE_infoEmail')%> <%= userProfile.email%></li>
+    <li class="collection-item"><a class="modal-trigger" href="#modal1"><%= __('ACCOUNTPROFILE_infoGroup')%> <%= userProfile.groups%></a></li>
 </ul>
-<div class="panel panel-default">
-	<div class="list-group">
-		<a href="#" class="list-group-item">id: <%= userProfile.id%></a>
-		<a href="#" class="list-group-item"><%= __('ACCOUNTPROFILE_infoUsername')%> <%= userProfile.username%></a>
-        <a href="#" class="list-group-item"><%= __('ACCOUNTPROFILE_infoFullname')%> <%= userProfile.firstName%> <%= userProfile.secondName %></a>
-		<a href="#" class="list-group-item"><%= __('ACCOUNTPROFILE_infoEmail')%> <%= userProfile.email%></a>
-		<a href="#edit_groups" class="list-group-item"><%= __('ACCOUNTPROFILE_infoGroup')%> <%= userProfile.groups%></a>
-	</div>
-</div>
 
-<div id="edit_group_window">
-	<div id="edit_group_window_content">
-		<span href="#edit_group_close" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+<div id="modal1" class="modal" style="min-height: 400px;">
+	<div class="modal-content">
+		<h4>Groepen aanpassen</h4>
+		<p>Hieronder kunt u groepen toewijzen aan deze gebruiker of juist verwijderen</p>
 
-		<div class="dropdown">
-			<form class="form-inline" action="/account/manage/<%= userProfile.id %>/group/add" method="post">
-				<label for="email">Add group:</label>
-				<select name="group" class="form-control" onchange="this.form.submit()">
-					<option selected disabled>---</option>
+		<form action="/account/manage/<%= userProfile.id %>/group/add" method="post">
+			<div class="input-field">
+				<select name="group" onchange="this.form.submit()">
+					<option value="" disabled selected>Groep toevoegen</option>
 			    	<option value="admin">admin</option>
 			    	<option value="jc">JC</option>
 					<option value="schoolMeetingVoorzitter">School Meeting Voorzitter</option>
 				</select>
-			</form>
-		</div>
+			</div>
+		</form>
 
-		<ul id="group_list" class="list-group"></ul>
+		<ul id="group_list" class="collection"></ul>
 	</div>
 </div>
 
@@ -71,18 +39,7 @@
     userProfile = JSON.parse('<%- JSON.stringify(userProfile) %>')
 
     for(i = 0; i < userProfile.groups.length; i++){
-        $('ul[id="group_list"]').append('<li class="list-group-item"><a href="/account/manage/' + userProfile._id + '/group/remove?group=' + userProfile.groups[i] + '"><span  style="float: right;" class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>' + userProfile.groups[i] + '</li>');
+        $('ul[id="group_list"]').append('<li class="collection-item"><a href="/account/manage/' + userProfile._id + '/group/remove?group=' + userProfile.groups[i] + '"><i class="material-icons left">cancel</i></a>' + userProfile.groups[i] + '</li>');
     }
-
-	$('a[href="#edit_groups"]').click(function() {
-		if($('#edit_group_window').is(':visible') === false){
-
-			$('#edit_group_window').show();
-		}
-	});
-
-	$('span[href="#edit_group_close"]').click(function  () {
-		$('#edit_group_window').hide();
-	});
 
 </script>
