@@ -2,8 +2,8 @@ input, label, select {
 	margin:5px;
 }
 
-#dashboardStopButton {
-	margin-bottom: 10px;
+nav {
+	margin-bottom: 20px;
 }
 
 .blackOverlay {
@@ -29,19 +29,4 @@ input, label, select {
 	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;
 	display: none;
 	overflow: auto;
-}
-
-#waitForSliceWindow {
-	width: 400px;
-	height: 120px;
-}
-
-#stopPromt {
-	width: 400px;
-	height: 300px;
-}
-
-#stopPromt textarea {
-	margin-left: 5px;
-	width: 100%;
 }
