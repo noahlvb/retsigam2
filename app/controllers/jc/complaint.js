@@ -13,7 +13,7 @@ router.get('/:id', auth.groups(['jc']), function (req, res) {
                 return console.log(err);
             }
 
-            if (!document) {
+            if (document.length == 0) {
                 req.flash('warning', 'Deze klacht bestaat niet!')
                 return res.redirect('/jc/overview')
             }

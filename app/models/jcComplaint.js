@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
 const async = require('async');
 
+const jcSubcommittees = require('./jcSubcommittee')
+
 const namesConverter = require('./../helpers/namesConverter');
 const idsToNamesFunc = require('./functions/idsToNames')
 
@@ -19,6 +21,28 @@ const jcComplaintSchema = mongoose.Schema({
     report: String
 
 }, {timestamps: { createdAt: 'created_at' } })
+
+jcComplaintSchema.methods.accept = function (action, subnames, callback) {
+    if (!this.accepted && action == 'accept') {
+        this.accepted = true
+        this.save()
+        callback(null, 'accepted')
+    } else if (!this.accepted && action == 'deny') {
+        this.accepted = false
+        this.save()
+        callback(null, 'denied')
+    } else if (action == 'subcommittee') {
+        jcSubcommittees.create(this.id, subnames, function (err) {
+            if (err) {
+                callback('subcommitteeNoPeople')
+            } else {
+                callback(null, 'subcommitteeOK')
+            }
+        })
+    } else {
+        callback('noAction')
+    }
+}
 
 jcComplaintSchema.post('find', idsToNamesFunc(['accused', 'originator', 'witnesses']))
 

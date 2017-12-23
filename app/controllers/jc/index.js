@@ -6,6 +6,7 @@ const jcComplaints = require('./../../models/jcComplaint');
 const router = express.Router()
 
 router.use('/complaint', require('./complaint'))
+router.use('/accepting', require('./accepting'))
 
 router.get('/overview', auth.groups(['jc']), function (req, res) {
     jcComplaints.find({}, function (err, document) {
