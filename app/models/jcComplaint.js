@@ -31,7 +31,7 @@ jcComplaintSchema.methods.accept = function (action, subnames, callback) {
         this.accepted = false
         this.save()
         callback(null, 'denied')
-    } else if (action == 'subcommittee') {
+    } else if (!this.accepted && action == 'subcommittee') {
         jcSubcommittees.create(this.id, subnames, function (err) {
             if (err) {
                 callback('subcommitteeNoPeople')
