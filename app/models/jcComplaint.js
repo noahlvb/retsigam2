@@ -15,6 +15,9 @@ const jcComplaintSchema = mongoose.Schema({
     witnesses: Array,
     happend: String,
 
+    accepted: Boolean,
+    report: String
+
 }, {timestamps: { createdAt: 'created_at' } })
 
 jcComplaintSchema.post('find', idsToNamesFunc(['accused', 'originator', 'witnesses']))

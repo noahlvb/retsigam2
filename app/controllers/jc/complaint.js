@@ -18,7 +18,7 @@ router.get('/:id', auth.groups(['jc']), function (req, res) {
                 return res.redirect('/jc/overview')
             }
 
-            res.render('jc/complaint', {complaint: document[0]})
+            res.render('jc/complaint', {complaint: document[0], subcommittee: 'fsdf'})
         })
     } else {
         req.flash('warning', 'Deze klacht bestaat niet!')
