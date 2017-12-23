@@ -22,7 +22,7 @@ const jcComplaintSchema = mongoose.Schema({
 
 }, {timestamps: { createdAt: 'created_at' } })
 
-jcComplaintSchema.methods.accept = function (action, subnames, callback) {
+jcComplaintSchema.methods.accept = function (action, assigned, callback) {
     if (!this.accepted && action == 'accept') {
         this.accepted = true
         this.save()
@@ -32,9 +32,11 @@ jcComplaintSchema.methods.accept = function (action, subnames, callback) {
         this.save()
         callback(null, 'denied')
     } else if (!this.accepted && action == 'subcommittee') {
-        jcSubcommittees.create(this.id, subnames, function (err) {
-            if (err) {
+        jcSubcommittees.create(this, assigned, function (err) {
+            if (err && err == 'subcommitteeNoPeople') {
                 callback('subcommitteeNoPeople')
+            } else if (err) {
+                callback('subcommitteeFailed')
             } else {
                 callback(null, 'subcommitteeOK')
             }

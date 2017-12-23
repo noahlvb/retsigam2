@@ -18,7 +18,7 @@ router.get('/:id/:action', auth.groups(['jc']), function (req, res) {
                 return res.redirect('/jc/overview')
             }
 
-            document[0].accept(req.params.action, req.query.subnames, function (err, feedback) {
+            document[0].accept(req.params.action, req.query.assigned, function (err, feedback) {
                 if (feedback == 'accepted') {
                     req.flash('info', 'De klacht is in behandeling genomen')
                 } else if (feedback == 'denied') {
@@ -27,6 +27,8 @@ router.get('/:id/:action', auth.groups(['jc']), function (req, res) {
                     req.flash('info', 'Het subcommittee is aangemaakt')
                 } else if (err == 'subcommitteeNoPeople') {
                     req.flash('warning', 'Geef op zijn minst een persoon op voor het subcommittee!')
+                } else if (err == 'subcommitteeFailed') {
+                    req.flash('error', 'Something went wrong while creating a subcommittee')
                 } else if (err == 'noAction') {
                     req.flash('warning', 'Deze actie is niet mogelijk!')
                 }
