@@ -4,8 +4,8 @@ Retsigam is a web application that is made to digitalise various portions of sud
 
 Futures currently being developed / implemented:
 
-- [ ] JC
-- - [ ] Subcommittees
+- [ ] JC -- IN CONSTRUCTION
+- - [x] Subcommittees
 - - [ ] Santions
 - - [ ] Ombudsman
 - [ ] School Meeting
