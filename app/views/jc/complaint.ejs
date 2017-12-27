@@ -29,7 +29,7 @@
                 <div class="collapsible-body"><span><%= complaint.report %></span></div>
             </li>
             <% } %>
-            <% if (subcommittee.length > 0) { %>
+            <% if (subcommittee.length > 0 && subcommittee[0].done === true) { %>
             <li>
                 <div class="collapsible-header"><i class="material-icons">search</i>subcommittee</div>
                 <div class="collapsible-body"><span><%= subcommittee[0].report %></span></div>
