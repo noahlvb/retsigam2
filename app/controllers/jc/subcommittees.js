@@ -56,8 +56,13 @@ router.post('/:id', auth.auth, function (req, res) {
             } else if (req.body.saveApply == 'inleveren') {
                 documentSubcommittee[0].done = true
                 documentSubcommittee[0].save(function (err) {
-                    req.flash('info', 'Het subcommittee onderzoek is afgerond')
-                    return res.redirect('/')
+                    jcComplaints.find({ record: documentSubcommittee[0].complaint }, function (err, documentComplaint) {
+                        documentComplaint[0].accepted = true
+                        documentComplaint[0].save(function (err) {
+                            req.flash('info', 'Het subcommittee onderzoek is afgerond')
+                            return res.redirect('/')
+                        })
+                    })
                 })
             }
         })
