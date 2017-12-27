@@ -4,6 +4,7 @@
             <div class="card-content white-text">
                 <span class="card-title">Klacht</span>
                 <p>
+                    <b>Klacht nr:</b> <%= complaint.record %><br>
                     <b>Opbrenger:</b> <%= complaint.originator.map(user => {return ' ' + user[1]}) %><br>
                     <b>Datum en tijd incident:</b> <%= complaint.complaintDateTime %><br>
                     <b>Locatie:</b> <%= complaint.complaintLocation %><br>
