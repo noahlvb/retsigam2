@@ -1,5 +1,16 @@
-<h2>JC klachten</h2>
-<table id="complaints-table" class="table"></table>
+<div class="row">
+    <h2>JC klachten</h2>
+    <div class="col s3">
+        <div class="collection">
+            <a href="#!" class="collection-item"><span class="badge">1</span>Open</a>
+            <a href="#!" class="collection-item"><span class="new badge">4</span>Rechtzaken</a>
+            <a href="#!" class="collection-item">iets ander</a>
+        </div>
+    </div>
+    <div class="col s9">
+        <table id="complaints-table" class="table"></table>
+    </div>
+</div>
 
 <script type="text/javascript">
     var complaints = $.parseJSON('<%- JSON.stringify(complaints) %>');

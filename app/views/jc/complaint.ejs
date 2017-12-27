@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col s6">
-        <div class="card blue-grey darken-1">
+        <div class="card blue-grey darken">
             <div class="card-content white-text">
                 <span class="card-title">Klacht</span>
                 <p>
@@ -9,7 +9,12 @@
                     <b>Datum en tijd incident:</b> <%= complaint.complaintDateTime %><br>
                     <b>Locatie:</b> <%= complaint.complaintLocation %><br>
                     <b>Beschuldigde:</b> <%= complaint.accused.map(user => {return ' ' + user[1]}) %><br>
-                    <b>Getuigen:</b> <%= complaint.witnesses.map(user => {return ' ' + user[1]}) %>
+                    <b>Getuigen:</b> <%= complaint.witnesses.map(user => {return ' ' + user[1]}) %><br>
+
+                    <% if (complaint.accepted !== undefined) { %>
+                    <br>
+                    <b>Inbehandeling genomen:</b> <%- (complaint.accepted) ? '<b class="green-text">Ja</b>' : '<b class="red-text">Nee</b>' %>
+                    <% } %>
                 </p>
             </div>
         </div>
@@ -33,6 +38,8 @@
         </ul>
     </div>
     <div class="col s6">
+        <% console.log(subcommittee.length); %>
+        <% if (!complaint.accepted && subcommittee.length == 0) { %>
         <div class="card blue-grey darken-4">
             <div class="card-content white-text">
                 <span class="card-title">Behandelen</span>
@@ -54,5 +61,6 @@
                 </form>
             </div>
         </div>
+        <% } %>
     </div>
 </div>
