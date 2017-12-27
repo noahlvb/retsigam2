@@ -24,10 +24,10 @@
                 <div class="collapsible-body"><span><%= complaint.report %></span></div>
             </li>
             <% } %>
-            <% if (locals.subcommittee) { %>
+            <% if (subcommittee.length > 0) { %>
             <li>
                 <div class="collapsible-header"><i class="material-icons">search</i>subcommittee</div>
-                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                <div class="collapsible-body"><span><%= subcommittee[0].report %></span></div>
             </li>
             <% } %>
         </ul>

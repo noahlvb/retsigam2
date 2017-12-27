@@ -3,22 +3,25 @@ const mongoose = require('mongoose');
 
 const auth = require('./../../middlewares/auth')
 const jcComplaints = require('./../../models/jcComplaint')
+const jcSubcommittee = require('./../../models/jcSubcommittee')
 
 const router = express.Router()
 
 router.get('/:id', auth.groups(['jc']), function (req, res) {
     if (mongoose.Types.ObjectId.isValid(req.params.id)) {
-        jcComplaints.find({_id: req.params.id}, function (err, document) {
+        jcComplaints.find({_id: req.params.id}, function (err, documentComplaint) {
             if (err) {
                 return console.log(err);
             }
 
-            if (document.length == 0) {
+            if (documentComplaint.length == 0) {
                 req.flash('warning', 'Deze klacht bestaat niet!')
                 return res.redirect('/jc/overview')
             }
 
-            res.render('jc/complaint', {complaint: document[0], subcommittee: 'fsdf'})
+            jcSubcommittee.find({ complaint: documentComplaint[0].record, done: true }, function (err, documentSubcommittee) {
+                res.render('jc/complaint', {complaint: documentComplaint[0], subcommittee: documentSubcommittee})
+            })
         })
     } else {
         req.flash('warning', 'Deze klacht bestaat niet!')
