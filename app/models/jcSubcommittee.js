@@ -25,7 +25,7 @@ module.exports.create = function (complaint, assigned, callback) {
             callback('subcommitteeNoPeople')
         } else {
             let document = {
-                complaint: complaint.id,
+                complaint: complaint.record,
                 assigned: peopleIDs,
                 report: '',
                 done: false

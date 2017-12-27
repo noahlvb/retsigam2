@@ -22,6 +22,8 @@ const jcComplaintSchema = mongoose.Schema({
 
 }, {timestamps: { createdAt: 'created_at' } })
 
+jcComplaintSchema.index({ record: 1 }, { unique: true })
+
 jcComplaintSchema.methods.accept = function (action, assigned, callback) {
     if (!this.accepted && action == 'accept') {
         this.accepted = true

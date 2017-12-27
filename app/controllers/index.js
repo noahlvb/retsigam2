@@ -2,13 +2,17 @@ const express = require('express')
 
 const auth = require('./../middlewares/auth')
 
+const jcSubcommittees = require('./../models/jcSubcommittee')
+
 const router = express.Router()
 
 router.use('/account', require('./account'))
 router.use('/jc', require('./jc'))
 
 router.get('/', auth.auth, function (req, res) {
-    res.render('home')
+    jcSubcommittees.find({ assigned: { '$in': [req.user._id] } }, function (err, document) {
+        res.render('home', { jcSubcommittees: document })
+    })
 })
 
 router.use(function (req, res) {

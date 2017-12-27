@@ -11,6 +11,8 @@ const userSchema = mongoose.Schema({
     groups: Array
 }, {timestamps: { createdAt: 'created_at'} })
 
+userSchema.index({ username: 1 }, { unique: true })
+
 userSchema.statics.validatePassword = function (password, hashed, salt) {
     var hash = crypto.pbkdf2Sync(password, salt, 10000, 64, 'sha256')
 
