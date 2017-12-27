@@ -23,7 +23,7 @@
                     </tr>
                     <% jcSubcommittees.forEach(function (subcommittee) { %>
                     <tr>
-                        <td><a href="/subcommittees/<%= subcommittee.id %>" class="white-text"><%= subcommittee.complaint %></a></td>
+                        <td><a href="/jc/subcommittees/<%= subcommittee.id %>" class="white-text"><%= subcommittee.complaint %></a></td>
                         <td><%= subcommittee.assigned.map(user => {return ' ' + user[1]}) %></td>
                     </tr>
                     <% }) %>

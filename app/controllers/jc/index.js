@@ -7,6 +7,7 @@ const router = express.Router()
 
 router.use('/complaint', require('./complaint'))
 router.use('/accepting', require('./accepting'))
+router.use('/subcommittees', require('./subcommittees'))
 
 router.get('/overview', auth.groups(['jc']), function (req, res) {
     jcComplaints.find({}, function (err, document) {
