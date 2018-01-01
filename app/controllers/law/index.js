@@ -15,7 +15,7 @@ router.get('/', function (req, res) {
     })
 })
 
-router.post('/', function (req, res) {
+router.post('/', auth.groups(['rechtscoordinator']), function (req, res) {
     for (field in req.body) {
         if (req.body[field] === '' || req.body[field] === null || req.body[field] === undefined) {
             req.flash('warning', 'Niet alle velden zijn ingevuld!')
