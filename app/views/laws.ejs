@@ -1,0 +1,47 @@
+<h2>Huishoudelijk reglement <a href="#addLaw" class="btn waves-effect waves-light modal-trigger">Regel toevoegen</a></h2>
+
+<table id="laws-table" class="table bordered">
+    <col width="20%">
+    <col width="65%">
+    <col width="15%">
+</table>
+
+<div id="addLaw" class="modal">
+    <div class="modal-content">
+        <h4>Regel toevoegen</h4>
+        <form action="/law" method="post">
+            <div class="row">
+                <div class="input-field col s3">
+                    <label for="number">Regelnummer</label>
+                    <input type="number" step=".01" name="number" required>
+                </div>
+                <div class="input-field col s9">
+                    <label for="content">Regel inhoud</label>
+                    <input type="text" name="content" required>
+                </div>
+            </div>
+            <input type="submit" value="Toevoegen" class="right btn waves-effect waves-light">
+        </form>
+    </div>
+    <div class="modal-footer"></div>
+</div>
+
+<script type="text/javascript">
+    var laws = $.parseJSON('<%- JSON.stringify(laws) %>');
+
+    draw_table_laws(laws);
+
+    function draw_table_laws (laws) {
+        var table = document.getElementById('laws-table');
+        var row0 = table.insertRow(0);
+        row0.insertCell(0).innerHTML = '<b>Regel nummer</b>';
+        row0.insertCell(1).innerHTML = '<b>Inhoud</b>';
+        row0.insertCell(2).innerHTML = '<b>Actie\'s</b>';
+        for (var i = 0; i < Object.keys(laws).length; i++) {
+            var row = table.insertRow(1);
+            row.insertCell(0).innerHTML = laws[i].number;
+            row.insertCell(1).innerHTML = laws[i].content;
+            row.insertCell(2).innerHTML = '<a href="/law/' + laws[i]._id  + '/delete"><i class="material-icons">delete</i></a>';
+        }
+    }
+</script>
