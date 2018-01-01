@@ -25,7 +25,7 @@
             </li>
             <% if (complaint.report && complaint.report.length > 0 && complaint.reportAccepted) { %>
             <li>
-                <div class="collapsible-header"><i class="material-icons">forum</i>Raport</div>
+                <div class="collapsible-header"><i class="material-icons">forum</i>Raport -<b class="green-text">&nbsp;aangenomen&nbsp;</b>op: <%= complaint.reportAcceptedDate.getDate() %>/<%= complaint.reportAcceptedDate.getMonth() + 1 %>/<%= complaint.reportAcceptedDate.getFullYear() %></div>
                 <div class="collapsible-body"><span><%= complaint.report %></span></div>
             </li>
             <% } %>

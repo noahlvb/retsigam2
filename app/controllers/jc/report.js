@@ -24,6 +24,7 @@ router.post('/:id', auth.groups(['jc']), function (req, res) {
                 })
             } else if (req.body.saveApply == 'aannemen') {
                 documentComplaint[0].reportAccepted = true
+                documentComplaint[0].reportAcceptedDate = new Date()
                 documentComplaint[0].save(function (err) {
                     req.flash('info', 'Het JC raport is aangenomen')
                     return res.redirect('/jc/complaint/' + req.params.id)

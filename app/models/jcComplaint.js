@@ -19,7 +19,8 @@ const jcComplaintSchema = mongoose.Schema({
 
     accepted: Boolean,
     report: String,
-    reportAccepted: Boolean
+    reportAccepted: Boolean,
+    reportAcceptedDate: Date
 
 }, {timestamps: { createdAt: 'created_at' } })
 
