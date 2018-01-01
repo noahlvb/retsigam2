@@ -8,6 +8,7 @@ const router = express.Router()
 
 router.use('/account', require('./account'))
 router.use('/jc', require('./jc'))
+router.use('/law', require('./law'))
 
 router.get('/', auth.auth, function (req, res) {
     jcSubcommittees.find({
