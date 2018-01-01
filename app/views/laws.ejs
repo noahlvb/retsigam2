@@ -39,9 +39,18 @@
         row0.insertCell(2).innerHTML = '<b>Actie\'s</b>';
         for (var i = 0; i < Object.keys(laws).length; i++) {
             var row = table.insertRow(1);
+            row.setAttribute("id", "rule:" + laws[i]._id , 0);
             row.insertCell(0).innerHTML = laws[i].number;
-            row.insertCell(1).innerHTML = laws[i].content;
+            row.insertCell(1).innerHTML = '<span class="lawContent">' + laws[i].content + '</span>';
             row.insertCell(2).innerHTML = '<a href="/law/' + laws[i]._id  + '/delete"><i class="material-icons">delete</i></a>';
         }
     }
+
+    $('.lawContent').click(function () {
+        var lawContent = this.innerHTML
+        var lawID = $(this).parent().parent().attr('id').split(':')[1]
+
+        $(this).parent().html('<form action="/law/' + lawID + '" method="POST"><input type="text" value="' + lawContent + '"><input type="submit" value="Bijwerken" class="btn"></form>')
+    })
+
 </script>
