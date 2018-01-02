@@ -100,6 +100,74 @@
             </div>
         </div>
         <% } %>
+
+        <% if (complaint.proceeding) { %>
+        <div class="card blue darken-4">
+            <div class="card-content white-text">
+                <span class="card-title">Aanklachten</span>
+                <form action="/jc/charges/<%= complaint._id %>" method="POST">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <label for="accused">Aangeklaagde</label>
+                            <input type="text" name="accused" required>
+                        </div>
+                        <div class="input-field col s6">
+                            <label for="accused">Aanklacht</label>
+                            <input type="number" name="law" step=".01" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <select required>
+                                <option value="" disabled selected>Pleidooi</option>
+                                <option name="plea" value="true">Schuldig</option>
+                                <option name="plea" value="false">Onschuldig</option>
+                            </select>
+                        </div>
+                        <div class="col s6">
+                            <input type="submit" class="btn" value="Toevoegen">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-content">
+                <table class="bordered white-text">
+                    <tr>
+                        <th>Aangeklaagde</th>
+                        <th>Aanklacht</th>
+                        <th>Pleit</th>
+                        <th>Rechtzaak</th>
+                    </tr>
+                    <tr>
+                        <td>noah.bochove</td>
+                        <td>1200.01</td>
+                        <td>S</td>
+                        <td>Ja / O</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="card amber darken-1">
+            <div class="card-content white-text">
+                <span class="card-title">Sancties</span>
+            </div>
+            <div class="card-content">
+                <table class="bordered white-text">
+                    <tr>
+                        <th>Overtreder</th>
+                        <th>Sanctie</th>
+                        <th>Beroep</th>
+                    </tr>
+                    <tr>
+                        <td>noah.bochove</td>
+                        <td>Schoonmaken</td>
+                        <td>Nee</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <% } %>
     </div>
 </div>
 
