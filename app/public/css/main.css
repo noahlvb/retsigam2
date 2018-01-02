@@ -6,6 +6,10 @@ nav {
 	margin-bottom: 20px;
 }
 
+.form-white-text label {
+	color: white;
+}
+
 .tableRowDisabled {
 	opacity: 0.50;
     background-color: #b9b9b9;
