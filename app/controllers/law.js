@@ -1,8 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
-const auth = require('./../../middlewares/auth')
-const laws = require('./../../models/law')
+const auth = require('./../middlewares/auth')
+const laws = require('./../models/law')
 
 const router = express.Router()
 
