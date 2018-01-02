@@ -74,7 +74,7 @@ router.post('/:id', auth.groups(['jc']), function (req, res) {
                     }
 
                     let documentCharge = {
-                        record: documentComplaint.record,
+                        record: documentComplaint[0].record,
                         accused: [peopleIDs[0]],
                         law: req.body.law,
                         plea: Boolean(req.body.plea)

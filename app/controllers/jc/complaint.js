@@ -1,9 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const async = require('async');
 
 const auth = require('./../../middlewares/auth')
 const jcComplaints = require('./../../models/jcComplaint')
 const jcSubcommittee = require('./../../models/jcSubcommittee')
+const jcCharges = require('./../../models/jcCharge')
 
 const router = express.Router()
 
@@ -19,9 +21,23 @@ router.get('/:id', auth.groups(['jc']), function (req, res) {
                 return res.redirect('/jc/overview')
             }
 
-            jcSubcommittee.find({ complaint: documentComplaint[0].record }, function (err, documentSubcommittee) {
-                res.render('jc/complaint', {complaint: documentComplaint[0], subcommittee: documentSubcommittee[0]})
+            async.parallel({
+                subcommittee: function (callback) {
+                    jcSubcommittee.find({ complaint: documentComplaint[0].record }, function (err, documentSubcommittee) {
+                        callback(null, documentSubcommittee[0])
+                    })
+                },
+                charges: function (callback) {
+                    jcCharges.find({ record: documentComplaint[0].record }, function (err, documentCharges) {
+                        callback(null, documentCharges)
+                    })
+                }
+            }, function (err, result) {
+                res.render('jc/complaint', {complaint: documentComplaint[0], subcommittee: result.subcommittee, charges: result.charges})
             })
+
+
+
         })
     } else {
         req.flash('warning', 'Deze klacht bestaat niet!')

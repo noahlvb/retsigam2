@@ -105,7 +105,7 @@
         <div class="card blue darken-4">
             <div class="card-content white-text form-white-text">
                 <span class="card-title">Aanklachten</span>
-                <form action="/jc/charges/<%= complaint._id %>" method="POST">
+                <form id="chargeForm" action="/jc/charges/<%= complaint._id %>" method="POST">
                     <div class="row">
                         <div class="input-field col s5">
                             <label for="accused">Aangeklaagde</label>
@@ -116,10 +116,10 @@
                             <input type="number" name="law" step=".01" required>
                         </div>
                         <div class="input-field col s3">
-                            <select required>
+                            <select name="plea" form="chargeForm" required>
                                 <option value="" disabled selected>Pleidooi</option>
-                                <option name="plea" value="true">Schuldig</option>
-                                <option name="plea" value="false">Onschuldig</option>
+                                <option value="0">Schuldig</option>
+                                <option value="1">Onschuldig</option>
                             </select>
                         </div>
                     </div>
@@ -130,6 +130,7 @@
                     </div>
                 </form>
 
+                <% if (charges.length > 0) { %>
                 <table class="bordered white-text">
                     <tr>
                         <th>Aangeklaagde</th>
@@ -137,13 +138,19 @@
                         <th>Pleit</th>
                         <th>Rechtzaak</th>
                     </tr>
+
+                    <% charges.forEach(function (charge) { %>
                     <tr>
-                        <td>noah.bochove</td>
-                        <td>1200.01</td>
-                        <td>S</td>
+                        <td><%= charge.accused.map(user => {return user[1]}) %></td>
+                        <td><%= charge.law %></td>
+                        <td><%= (charge.plea ? 'S' : 'O') %></td>
                         <td>Ja / O</td>
                     </tr>
+                    <% }) %>
                 </table>
+                <% } else { %>
+                Er zijn nog geen aanklachten ingediend
+                <% } %>
             </div>
         </div>
 
