@@ -20,7 +20,7 @@ router.get('/:id', auth.groups(['jc']), function (req, res) {
             }
 
             jcSubcommittee.find({ complaint: documentComplaint[0].record }, function (err, documentSubcommittee) {
-                res.render('jc/complaint', {complaint: documentComplaint[0], subcommittee: documentSubcommittee})
+                res.render('jc/complaint', {complaint: documentComplaint[0], subcommittee: documentSubcommittee[0]})
             })
         })
     } else {

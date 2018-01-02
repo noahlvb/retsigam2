@@ -34,16 +34,16 @@
                 <div class="collapsible-body"><span><%= complaint.report %></span></div>
             </li>
             <% } %>
-            <% if (subcommittee.length > 0 && subcommittee[0].done === true) { %>
+            <% if (subcommittee && subcommittee.done === true) { %>
             <li>
                 <div class="collapsible-header"><i class="material-icons">search</i>subcommittee</div>
-                <div class="collapsible-body"><span><%= subcommittee[0].report %></span></div>
+                <div class="collapsible-body"><span><%= subcommittee.report %></span></div>
             </li>
             <% } %>
         </ul>
     </div>
     <div class="col s6">
-        <% if (complaint.accepted == undefined && subcommittee.length == 0) { %>
+        <% if (complaint.accepted == undefined && !subcommittee) { %>
         <div class="card blue-grey darken-4">
             <div class="card-content white-text">
                 <span class="card-title">Behandelen</span>
