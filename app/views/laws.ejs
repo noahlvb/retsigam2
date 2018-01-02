@@ -26,6 +26,17 @@
     <div class="modal-footer"></div>
 </div>
 
+<div id="lawDisable" class="modal">
+    <div class="modal-content">
+        <h4>Regel <span id="lawDisableNumber"></span> uitschakelen</h4>
+        <p>Het is niet mogelijk om regels te verwijderen omdat aanklachten nog gekoppeld kunnen zijn aan dit nummer. Daarom wordt de regel uitgeschakeld in plaats van verwijderd.</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn">Terug gaan</a>
+        <a href="#!" id="lawDisableConfirm" class="modal-action modal-close waves-effect waves-green btn red">Uitschakelen</a>
+    </div>
+</div>
+
 <script type="text/javascript">
     var laws = $.parseJSON('<%- JSON.stringify(laws) %>');
 
@@ -40,10 +51,14 @@
         for (var i = 0; i < Object.keys(laws).length; i++) {
             var row = table.insertRow(1);
             row.setAttribute("id", "rule:" + laws[i]._id , 0);
+            if (laws[i].enabled == false) {
+                row.setAttribute("class", "tableRowDisabled", 0)
+            }
+            
             row.insertCell(0).innerHTML = laws[i].number;
             row.insertCell(1).innerHTML = '<span class="lawContent">' + laws[i].content + '</span>';
             <% if(user.groups.indexOf('rechtscoordinator') !== -1){ %>
-            row.insertCell(2).innerHTML = '<a href="/law/' + laws[i]._id  + '/delete"><i class="material-icons">delete</i></a>';
+            row.insertCell(2).innerHTML = '<a href="#lawDisable" class="modal-trigger"><i class="material-icons">close</i></a>';
             <% } else { %>
             row.insertCell(2).innerHTML = '-';
             <% } %>
@@ -55,8 +70,16 @@
         var lawID = $(this).parent().parent().attr('id').split(':')[1]
 
         if (user.groups.indexOf('rechtscoordinator') !== -1) {
-            $(this).parent().html('<form action="/law/' + lawID + '" method="POST"><input type="text" value="' + lawContent + '"><input type="submit" value="Bijwerken" class="btn"></form>')
+            $(this).parent().html('<form action="/law/' + lawID + '" method="POST"><input type="text" name="content" value="' + lawContent + '"><input type="submit" value="Bijwerken" class="btn"></form>')
         }
+    })
+
+    $('a[href=#lawDisable] i').click(function () {
+        var lawID = $(this).parent().parent().parent().attr('id').split(':')[1]
+        var lawNumber = $(this).parent().parent().parent().children()[0].innerText
+
+        $('#lawDisableNumber').text(lawNumber)
+        $('#lawDisableConfirm').attr('href', '/law/' + lawID + '/disable')
     })
 
 </script>
