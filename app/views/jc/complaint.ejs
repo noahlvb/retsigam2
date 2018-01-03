@@ -118,8 +118,8 @@
                         <div class="input-field col s3">
                             <select name="plea" form="chargeForm" required>
                                 <option value="" disabled selected>Pleidooi</option>
-                                <option value="0">Schuldig</option>
-                                <option value="1">Onschuldig</option>
+                                <option value="1">Schuldig</option>
+                                <option value="0">Onschuldig</option>
                             </select>
                         </div>
                     </div>
@@ -144,7 +144,7 @@
                         <td><%= charge.accused.map(user => {return user[1]}) %></td>
                         <td><%= charge.law %></td>
                         <td><%= (charge.plea ? 'S' : 'O') %></td>
-                        <td>Ja / O</td>
+                        <td><%= (charge.plea ? '- / -' : 'e / -') %></td>
                     </tr>
                     <% }) %>
                 </table>

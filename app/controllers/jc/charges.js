@@ -49,6 +49,8 @@ router.post('/:id', auth.groups(['jc']), function (req, res) {
                 return console.log(err);
             }
 
+            console.log(req.body);
+
             if (documentComplaint.length == 0) {
                 req.flash('warning', 'Deze klacht bestaat niet!')
                 return res.redirect('/jc/overview')
@@ -77,7 +79,7 @@ router.post('/:id', auth.groups(['jc']), function (req, res) {
                         record: documentComplaint[0].record,
                         accused: [peopleIDs[0]],
                         law: req.body.law,
-                        plea: Boolean(req.body.plea)
+                        plea: Boolean(Number(req.body.plea))
                     }
 
                     new jcCharges(documentCharge).save(function (err) {
