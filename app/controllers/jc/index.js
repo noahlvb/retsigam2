@@ -10,6 +10,7 @@ router.use('/accepting', require('./accepting'))
 router.use('/subcommittees', require('./subcommittees'))
 router.use('/report', require('./report'))
 router.use('/charges', require('./charges'))
+router.use('/lawsuit', require('./lawsuit'))
 
 router.get('/overview', auth.groups(['jc']), function (req, res) {
     jcComplaints.find({}, function (err, document) {
