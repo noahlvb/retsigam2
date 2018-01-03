@@ -1,5 +1,5 @@
 module.exports = {
     webPort: 3000,
     secret: 'testding',
-    db: 'mongodb://localhost/retsigam2'
+    db: process.env.DB || 'mongodb://localhost/retsigam2'
 }
