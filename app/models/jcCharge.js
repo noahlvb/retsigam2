@@ -6,7 +6,8 @@ const jcChargeSchema = mongoose.Schema({
     record: String,
     accused: Array,
     law: String,
-    plea: Boolean
+    plea: Boolean,
+    pleaCase: Boolean
 
 }, {timestamps: { createdAt: 'created_at' } })
 

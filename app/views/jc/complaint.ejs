@@ -132,6 +132,7 @@
 
                 <% if (charges.length > 0) { %>
                 <form action="/jc/lawsuit/create" method="POST">
+                    <input type="hidden" name="complaint" value="<%= JSON.stringify(complaint) %>">
                     <table class="bordered white-text">
                         <tr>
                             <th>Aangeklaagde</th>
