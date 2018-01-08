@@ -6,10 +6,11 @@ Futures currently being developed / implemented:
 
 - [ ] JC -- IN CONSTRUCTION
 - - [x] Subcommittees
+- - [ ] Lawsuits
 - - [ ] Santions
 - - [ ] Ombudsman
 - [ ] School Meeting
-- [ ] Laws
+- [x] Laws
 
 
 ## Using the software
