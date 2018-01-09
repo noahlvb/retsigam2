@@ -177,12 +177,14 @@
                     <%
                         notInCase = false
                         chargeFor: for (charge of charges) {
-                            lawsuitFor: for (lawsuit of lawsuits) {
-                                if (lawsuit.charges.indexOf(charge._id) != -1) {
-                                    continue chargeFor;
+                            if (charge.plea == false) {
+                                lawsuitFor: for (lawsuit of lawsuits) {
+                                    if (lawsuit.charges.indexOf(charge._id) != -1) {
+                                        continue chargeFor;
+                                    }
                                 }
+                                notInCase = true
                             }
-                            notInCase = true
                         }
                         console.log(notInCase);
                     %>
