@@ -105,7 +105,7 @@ router.post('/create', auth.groups(['jc']), function (req, res) {
                 prosecutor: req.body.prosecutor
             }
 
-            new lawsuits(document).save(function (err) {
+            new jcLawsuits(document).save(function (err) {
                 req.flash('info', 'Rechtzaak met nummer: ' + document.record + ' aangemaakt!')
                 res.redirect('/jc/complaint/' + complaint._id)
             })
