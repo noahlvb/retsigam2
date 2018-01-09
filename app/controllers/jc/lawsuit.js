@@ -3,9 +3,9 @@ const async = require('async');
 
 const auth = require('./../../middlewares/auth')
 const namesConverter = require('./../../helpers/namesConverter');
-const lawsuits = require('./../../models/jcLawsuit')
-const complaints = require('./../../models/jcComplaint')
-const charges = require('./../../models/jcCharge')
+const jcLawsuits = require('./../../models/jcLawsuit')
+const jcComplaints = require('./../../models/jcComplaint')
+const jcCharges = require('./../../models/jcCharge')
 
 const router = express.Router()
 
@@ -22,7 +22,7 @@ router.post('/create', auth.groups(['jc']), function (req, res) {
             })
         },
         recordExists: function (callback) {
-            complaints.find({ record: complaint.record }, function (err, document) {
+            jcComplaints.find({ record: complaint.record }, function (err, document) {
                 if (err) {
                     return console.log(err);
                 }
@@ -34,7 +34,7 @@ router.post('/create', auth.groups(['jc']), function (req, res) {
             })
         },
         charges: function (callback) {
-            charges.find({ _id: req.body.charge }, function (err, document) {
+            jcCharges.find({ _id: req.body.charge }, function (err, document) {
                 chargesID = []
 
                 if (err) {
@@ -57,7 +57,7 @@ router.post('/create', auth.groups(['jc']), function (req, res) {
                     chargesID.push(String(charge._id))
                 }
 
-                lawsuits.find({ charges: { $in: chargesID } }, function (err, documentLawsuits) {
+                jcLawsuits.find({ charges: { $in: chargesID } }, function (err, documentLawsuits) {
                     if (err) {
                         return console.log(err);
                     }
@@ -97,7 +97,7 @@ router.post('/create', auth.groups(['jc']), function (req, res) {
             req.flash('warning', 'Een rechtzaak mag enkel over 1 of meerdere regels/personen gaan maar niet tergelijkertijd!')
             return res.redirect('/jc/complaint/' + complaint._id)
         }
-        lawsuits.generateRecord(record => {
+        jcLawsuits.generateRecord(record => {
             let document = {
                 record: record,
                 jcRecord: complaint.record,

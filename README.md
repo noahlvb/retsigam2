@@ -8,7 +8,7 @@ Futures currently being developed / implemented:
 - - [x] Subcommittees
 - - [ ] Lawsuits
 - - [ ] Santions
-- - [ ] Ombudsman
+- [ ] Ombudsman
 - [ ] School Meeting
 - [x] Laws
 

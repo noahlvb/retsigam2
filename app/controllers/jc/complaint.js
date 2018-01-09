@@ -6,6 +6,7 @@ const auth = require('./../../middlewares/auth')
 const jcComplaints = require('./../../models/jcComplaint')
 const jcSubcommittee = require('./../../models/jcSubcommittee')
 const jcCharges = require('./../../models/jcCharge')
+const jcLawsuits = require('./../../models/jcLawsuit')
 
 const router = express.Router()
 
@@ -23,21 +24,28 @@ router.get('/:id', auth.groups(['jc']), function (req, res) {
 
             async.parallel({
                 subcommittee: function (callback) {
-                    jcSubcommittee.find({ complaint: documentComplaint[0].record }, function (err, documentSubcommittee) {
-                        callback(null, documentSubcommittee[0])
+                    jcSubcommittee.find({ complaint: documentComplaint[0].record }, function (err, document) {
+                        callback(null, document[0])
                     })
                 },
                 charges: function (callback) {
-                    jcCharges.find({ record: documentComplaint[0].record }, function (err, documentCharges) {
-                        callback(null, documentCharges)
+                    jcCharges.find({ record: documentComplaint[0].record }, function (err, document) {
+                        callback(null, document)
+                    })
+                },
+                lawsuits: function (callback) {
+                    jcLawsuits.find({ jcRecord: documentComplaint[0].record }, function (err, document) {
+                        callback(null, document)
                     })
                 }
             }, function (err, result) {
-                res.render('jc/complaint', {complaint: documentComplaint[0], subcommittee: result.subcommittee, charges: result.charges})
+                res.render('jc/complaint', {
+                    complaint: documentComplaint[0],
+                    subcommittee: result.subcommittee,
+                    charges: result.charges,
+                    lawsuits: result.lawsuits
+                })
             })
-
-
-
         })
     } else {
         req.flash('warning', 'Deze klacht bestaat niet!')

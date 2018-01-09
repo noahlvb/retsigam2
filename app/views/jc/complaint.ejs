@@ -147,17 +147,47 @@
                             <td><%= charge.law %></td>
                             <td><%= (charge.plea ? 'S' : 'O') %></td>
                             <td>
-                                <% if (charge.plea) { %>
-                                - / -
-                                <% } else { %>
-                                <input type="checkbox" name="charge" value="<%= charge._id %>" id="select:<%= charge._id %>" />
-                                <label for="select:<%= charge._id %>"></label>
+                                <% if (charge.plea) {
+                                    %> - / - <%
+                                } else {
+
+                                    inCase = false
+                                    for (lawsuit of lawsuits) {
+                                        if (lawsuit.charges.indexOf(charge._id) != -1 ) {
+                                            %> <%= lawsuit.record %> / <%= (charge.pleaCase !== undefined) ? ((charge.pleaCase) ? 'S' : 'O') : '-'; %> <%
+                                            inCase = true
+                                            break;
+                                        }
+                                    }
+
+                                    if (!inCase) {
+                                        %>
+                                        <input type="checkbox" name="charge" value="<%= charge._id %>" id="select:<%= charge._id %>" />
+                                        <label for="select:<%= charge._id %>"></label>
+                                        <%
+                                    } %>
+
                                 <% } %>
                             </td>
                         </tr>
                         <% }) %>
 
                     </table>
+
+                    <%
+                        notInCase = false
+                        chargeFor: for (charge of charges) {
+                            lawsuitFor: for (lawsuit of lawsuits) {
+                                if (lawsuit.charges.indexOf(charge._id) != -1) {
+                                    continue chargeFor;
+                                }
+                            }
+                            notInCase = true
+                        }
+                        console.log(notInCase);
+                    %>
+
+                    <% if (notInCase) { %>
                     <div class="row">
                         <div class="input-field col s6">
                             <input type="text" name="prosecutor" required>
@@ -167,6 +197,7 @@
                             <input type="submit" value="Maak rechtzaak" class="btn">
                         </div>
                     </div>
+                    <% } %>
                 </form>
                 <% } else { %>
                 Er zijn nog geen aanklachten ingediend
