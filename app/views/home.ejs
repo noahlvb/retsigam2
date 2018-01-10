@@ -36,6 +36,32 @@
       	</div>
     </div>
     <div class="col s4">
-
+        <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              	<span class="card-title">Rechtzaken</span>
+              	<p>Hieronder staan alle rechtzaken waarin je jury bent</p>
+                <% if (lawsuits.length > 0) { %>
+                <table class="bordered">
+                    <tr>
+                        <th>Nummer</th>
+                        <th>jury</th>
+                        <th>datum en tijd</th>
+                    </tr>
+                    <% lawsuits.forEach(function (lawsuit) { %>
+                        <% if (new Date(lawsuit.date).getTime() > new Date().getTime()) { %>
+                        <tr>
+                            <td><%= lawsuit.record %></td>
+                            <td><%= lawsuit.jury.map(user => {return ' ' + user[1]}) %></td>
+                            <td><%= lawsuit.date.getDate() %>/<%= lawsuit.date.getMonth() + 1 %>/<%= lawsuit.date.getFullYear() %> - <%= lawsuit.date.getHours() %>:<%= lawsuit.date.getMinutes() %></td>
+                        </tr>
+                        <% } %>
+                    <% }) %>
+                </table>
+                <% } else { %>
+                    <br>
+                    <p><b>Er zijn momenteel geen rechtzaken waarin je jury bent</b></p>
+                <% } %>
+            </div>
+      	</div>
     </div>
 </div>

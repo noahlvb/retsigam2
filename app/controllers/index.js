@@ -1,8 +1,10 @@
 const express = require('express')
+const async = require('async');
 
 const auth = require('./../middlewares/auth')
 
 const jcSubcommittees = require('./../models/jcSubcommittee')
+const jcLawsuits = require('./../models/jcLawsuit')
 
 const router = express.Router()
 
@@ -11,13 +13,28 @@ router.use('/jc', require('./jc'))
 router.use('/law', require('./law'))
 
 router.get('/', auth.auth, function (req, res) {
-    jcSubcommittees.find({
-        $and: [
-            { assigned: { '$in': [req.user._id] } },
-            { done: false }
-        ]
-    }, function (err, document) {
-        res.render('home', { jcSubcommittees: document })
+    async.parallel({
+        subcommittees: function (callback) {
+            jcSubcommittees.find({
+                $and: [
+                    { assigned: { '$in': [req.user._id] } },
+                    { done: false }
+                ]
+            }, function (err, document) {
+                callback(null, document)
+            })
+        },
+        lawsuits: function (callback) {
+            jcLawsuits.find({
+                $and: [
+                    { jury: { '$in': [req.user._id] } }
+                ]
+            }, function (err, document) {
+                callback(null, document)
+            })
+        }
+    }, function (err, result) {
+        res.render('home', { jcSubcommittees: result.subcommittees, lawsuits: result.lawsuits })
     })
 })
 
