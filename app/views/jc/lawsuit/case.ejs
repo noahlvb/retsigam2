@@ -44,7 +44,7 @@
         </ul>
     </div>
     <div class="col s7">
-        <% if (complaint.proceeding) { %>
+        <% if (!lawsuit.date) { %>
         <div class="card indigo">
             <div class="card-content white-text">
                 <span class="card-title">Inplannen</span>
@@ -68,6 +68,7 @@
                 </form>
             </div>
         </div>
+        <% } %>
 
         <div class="card blue darken-4">
             <div class="card-content white-text form-white-text">
@@ -101,6 +102,7 @@
 
                 <br>
 
+                <% if (!lawsuit.date) { %>
                 <span class="card-title"><b>Overige</b> aanklachten</span>
                 <table class="bordered white-text">
                     <tr>
@@ -126,11 +128,10 @@
                         </tr>
                         <% } %>
                     <% }) %>
-
                 </table>
+                <% } %>
             </div>
         </div>
-        <% } %>
     </div>
 </div>
 
