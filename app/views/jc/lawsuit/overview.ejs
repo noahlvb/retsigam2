@@ -1,0 +1,56 @@
+<h2>Rechtzaken</h2>
+
+<div class="row">
+    <div class="col s6">
+        <div class="card-panel grey lighten-3">
+            <h5>ongepland</h5>
+            <% if (lawsuits.length > 0 && lawsuits[0].date == undefined) { %>
+            <table class="bordered">
+                <tr>
+                    <th>Nummer</th>
+                    <th>Klacht</th>
+                    <th>Aanklager</th>
+                </tr>
+
+                <% lawsuits.forEach(function (lawsuit) { %>
+                    <% if (lawsuit.date == undefined) { %>
+                        <tr>
+                        <td><a href="/jc/lawsuit/<%= lawsuit._id %>"><%= lawsuit.record %></a></td>
+                        <td><%= lawsuit.jcRecord %></td>
+                        <td><%= lawsuit.prosecutor %></td>
+                        </tr>
+                    <% } %>
+                <% }) %>
+            </table>
+            <% } else { %>
+                Er zijn geen ongeplande rechtzaken
+            <% } %>
+        </div>
+    </div>
+    <div class="col s6">
+        <div class="card-panel grey lighten-3">
+            <h5>gepland</h5>
+            <% if (lawsuits.length > 0 && lawsuits[0].date) { %>
+            <table class="bordered">
+                <tr>
+                    <th>Nummer</th>
+                    <th>Klacht</th>
+                    <th>Aanklager</th>
+                </tr>
+
+                <% lawsuits.forEach(function (lawsuit) { %>
+                    <% if (lawsuit.date == undefined) { %>
+                        <tr>
+                        <td><a href="/jc/lawsuit/<%= lawsuit._id %>"><%= lawsuit.record %></a></td>
+                        <td><%= lawsuit.jcRecord %></td>
+                        <td><%= lawsuit.prosecutor %></td>
+                        </tr>
+                    <% } %>
+                <% }) %>
+            </table>
+            <% } else { %>
+                Er zijn geen geplande rechtzaken
+            <% } %>
+        </div>
+    </div>
+</div>

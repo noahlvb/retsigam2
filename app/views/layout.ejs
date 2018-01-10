@@ -38,6 +38,9 @@
                 <% if(locals.user && user.groups.indexOf('jc') !== -1){ %>
                     <li><a href="/jc/overview">JC</a></li>
                 <% } %>
+                <% if(locals.user && user.groups.indexOf('schoolMeetingVoorzitter') !== -1){ %>
+                    <li><a href="/jc/lawsuit/">Rechtzaken</a></li>
+                <% } %>
                 <% if(locals.user){ %>
                     <li><a href="/law">Huishoudelijk reglement</a></li>
                     <li><a class="dropdown-button" href="#!" data-activates="dropdownAccount"><%= user.username %><i class="material-icons right">arrow_drop_down</i></a></li>

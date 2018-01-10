@@ -9,6 +9,16 @@ const jcCharges = require('./../../models/jcCharge')
 
 const router = express.Router()
 
+router.get('/', auth.groups(['schoolMeetingVoorzitter']), function (req, res) {
+    jcLawsuits.find({}, function (err, document) {
+        if (err) {
+            return console.log(err);
+        }
+
+        res.render('jc/lawsuit/overview', { lawsuits: document })
+    })
+})
+
 router.post('/create', auth.groups(['jc']), function (req, res) {
     let complaint = JSON.parse(req.body.complaint)
 
