@@ -50,15 +50,15 @@
                 <span class="card-title">Inplannen</span>
                 <p>Geef hieronder de datum en tijd aan waarop de rechtzaak gaat plaats vinden en de jury</p>
 
-                <form action="" method="POST">
+                <form action="/jc/lawsuit/schedule/<%= lawsuit._id %>" method="POST">
                     <div class="row">
                         <div class="input-field">
-                            <label for="datetime">Datum en tijd van indicent:</label>
+                            <label for="datetime">Datum en tijd van rechtzaak:</label>
                             <input type="datetime-local" id="datetime" name="datetime" required>
                         </div>
                         <div class="input-field">
-                            <label for="jury">Beschuldigde:</label>
-                            <input type="text" id="jury" name="jury">
+                            <label for="jury">Jury:</label>
+                            <input type="text" id="jury" name="jury" required>
                             <p>Bij meerdere jury leden scheid de namen met een komma</p>
                         </div>
                         <div class="input-field">
@@ -66,6 +66,16 @@
                         </div>
                     </div>
                 </form>
+            </div>
+        </div>
+        <% } %>
+
+        <% if (lawsuit.date) { %>
+        <div class="card indigo">
+            <div class="card-content white-text">
+                <span class="card-title">Ingepland</span>
+                <p>De rechtzaak is ingepland op: <b><%= lawsuit.date.getDate() %>/<%= lawsuit.date.getMonth() + 1 %>/<%= lawsuit.date.getFullYear() %> - <%= lawsuit.date.getHours() %>:<%= lawsuit.date.getMinutes() %></b>
+                met als jury leden: <b><%= lawsuit.jury.map(user => { return ' ' + user[1] }) %></b></p>
             </div>
         </div>
         <% } %>

@@ -1,10 +1,10 @@
 <h2>Rechtzaken</h2>
 
 <div class="row">
-    <div class="col s6">
+    <div class="col s5">
         <div class="card-panel grey lighten-3">
             <h5>ongepland</h5>
-            <% if (lawsuits.length > 0 && lawsuits[0].date == undefined) { %>
+            <% if (lawsuits.length > 0) { %>
             <table class="bordered">
                 <tr>
                     <th>Nummer</th>
@@ -13,7 +13,7 @@
                 </tr>
 
                 <% lawsuits.forEach(function (lawsuit) { %>
-                    <% if (lawsuit.date == undefined) { %>
+                    <% if (!lawsuit.date) { %>
                         <tr>
                         <td><a href="/jc/lawsuit/<%= lawsuit._id %>"><%= lawsuit.record %></a></td>
                         <td><%= lawsuit.jcRecord %></td>
@@ -27,7 +27,7 @@
             <% } %>
         </div>
     </div>
-    <div class="col s6">
+    <div class="col s7">
         <div class="card-panel grey lighten-3">
             <h5>gepland</h5>
             <% if (lawsuits.length > 0 && lawsuits[0].date) { %>
@@ -36,14 +36,18 @@
                     <th>Nummer</th>
                     <th>Klacht</th>
                     <th>Aanklager</th>
+                    <th>Datum en tijd</th>
+                    <th>Jury</th>
                 </tr>
 
                 <% lawsuits.forEach(function (lawsuit) { %>
-                    <% if (lawsuit.date == undefined) { %>
+                    <% if (lawsuit.date !== undefined) { %>
                         <tr>
                         <td><a href="/jc/lawsuit/<%= lawsuit._id %>"><%= lawsuit.record %></a></td>
                         <td><%= lawsuit.jcRecord %></td>
                         <td><%= lawsuit.prosecutor %></td>
+                        <td><%= lawsuit.date.getDate() %>/<%= lawsuit.date.getMonth() + 1 %>/<%= lawsuit.date.getFullYear() %> - <%= lawsuit.date.getHours() %>:<%= lawsuit.date.getMinutes() %></td>
+                        <td><%= lawsuit.jury.map(user => { return ' ' + user[1] }) %></td>
                         </tr>
                     <% } %>
                 <% }) %>
