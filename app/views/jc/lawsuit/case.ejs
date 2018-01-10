@@ -1,0 +1,165 @@
+<h2>Rechtzaak ( <%= lawsuit.record %> )</h2>
+<div class="row">
+    <div class="col s5">
+        <div class="card blue-grey darken">
+            <div class="card-content white-text">
+                <span class="card-title">Klacht</span>
+                <p>
+                    <b>Klacht nr:</b> <%= complaint.record %><br>
+                    <b>Opbrenger:</b> <%= complaint.originator.map(user => {return ' ' + user[1]}) %><br>
+                    <b>Datum en tijd incident:</b> <%= complaint.complaintDateTime %><br>
+                    <b>Locatie:</b> <%= complaint.complaintLocation %><br>
+                    <b>Beschuldigde:</b> <%= complaint.accused.map(user => {return ' ' + user[1]}) %><br>
+                    <b>Getuigen:</b> <%= complaint.witnesses.map(user => {return ' ' + user[1]}) %><br>
+
+                    <% if (complaint.accepted !== undefined) { %>
+                    <br>
+                    <b>Inbehandeling genomen:</b> <%- (complaint.accepted) ? '<b class="green-text">Ja</b>' : '<b class="red-text">Nee</b>' %>
+                    <% } %>
+
+                    <% if (complaint.proceeding !== undefined) { %>
+                    <br>
+                    <b>Klacht in te dienen:</b> <%- (complaint.proceeding) ? '<b class="green-text">Ja</b>' : '<b class="red-text">Nee</b>' %>
+                    <% } %>
+                </p>
+            </div>
+        </div>
+        <ul class="collapsible" data-collapsible="accordion">
+            <li>
+                <div class="collapsible-header active"><i class="material-icons">attach_file</i>Wat is er gebeurd</div>
+                <div class="collapsible-body"><span><%= complaint.happend %></span></div>
+            </li>
+            <% if (complaint.report && complaint.report.length > 0 && complaint.reportAccepted) { %>
+            <li>
+                <div class="collapsible-header"><i class="material-icons">forum</i>Raport -<b class="green-text">&nbsp;aangenomen&nbsp;</b>op: <%= complaint.reportAcceptedDate.getDate() %>/<%= complaint.reportAcceptedDate.getMonth() + 1 %>/<%= complaint.reportAcceptedDate.getFullYear() %></div>
+                <div class="collapsible-body"><span><%= complaint.report %></span></div>
+            </li>
+            <% } %>
+            <% if (subcommittee && subcommittee.done === true) { %>
+            <li>
+                <div class="collapsible-header"><i class="material-icons">search</i>subcommittee</div>
+                <div class="collapsible-body"><span><%= subcommittee.report %></span></div>
+            </li>
+            <% } %>
+        </ul>
+    </div>
+    <div class="col s7">
+        <% if (complaint.proceeding) { %>
+        <div class="card indigo">
+            <div class="card-content white-text">
+                <span class="card-title">Inplannen</span>
+                <p>Geef hieronder de datum en tijd aan waarop de rechtzaak gaat plaats vinden en de jury</p>
+
+                <form action="" method="POST">
+                    <div class="row">
+                        <div class="input-field">
+                            <label for="datetime">Datum en tijd van indicent:</label>
+                            <input type="datetime-local" id="datetime" name="datetime" required>
+                        </div>
+                        <div class="input-field">
+                            <label for="jury">Beschuldigde:</label>
+                            <input type="text" id="jury" name="jury">
+                            <p>Bij meerdere jury leden scheid de namen met een komma</p>
+                        </div>
+                        <div class="input-field">
+                            <input type="submit" class="btn" value="Opsturen">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card blue darken-4">
+            <div class="card-content white-text form-white-text">
+                <span class="card-title">Aanklachten <b>in deze rechtzaak</b></span>
+                <table class="bordered white-text">
+                    <tr>
+                        <th>Aangeklaagde</th>
+                        <th>Aanklacht</th>
+                        <th>Pleit</th>
+                        <th>Rechtzaak</th>
+                    </tr>
+
+                    <% charges.forEach(function (charge) { %>
+                        <% if (lawsuit.charges.indexOf(charge._id) !== -1) { %>
+                        <tr>
+                            <td><%= charge.accused.map(user => {return user[1]}) %></td>
+                            <td><%= charge.law %></td>
+                            <td><%= (charge.plea ? 'S' : 'O') %></td>
+                            <td>
+                                <% for (lawsuit1 of lawsuits) {
+                                    if (lawsuit1.charges.indexOf(charge._id) != -1 ) {
+                                        %> <%= lawsuit1.record %> / <%= (charge.pleaCase !== undefined) ? ((charge.pleaCase) ? 'S' : 'O') : '-'; %> <%
+                                    }
+                                } %>
+                            </td>
+                        </tr>
+                        <% } %>
+                    <% }) %>
+
+                </table>
+
+                <br>
+
+                <span class="card-title"><b>Overige</b> aanklachten</span>
+                <table class="bordered white-text">
+                    <tr>
+                        <th>Aangeklaagde</th>
+                        <th>Aanklacht</th>
+                        <th>Pleit</th>
+                        <th>Rechtzaak</th>
+                    </tr>
+
+                    <% charges.forEach(function (charge) { %>
+                        <% if (lawsuit.charges.indexOf(charge._id) == -1) { %>
+                        <tr>
+                            <td><%= charge.accused.map(user => {return user[1]}) %></td>
+                            <td><%= charge.law %></td>
+                            <td><%= (charge.plea ? 'S' : 'O') %></td>
+                            <td>
+                                <% for (lawsuit1 of lawsuits) {
+                                    if (lawsuit1.charges.indexOf(charge._id) != -1 ) {
+                                        %> <%= lawsuit1.record %> / <%= (charge.pleaCase !== undefined) ? ((charge.pleaCase) ? 'S' : 'O') : '-'; %> <%
+                                    }
+                                } %>
+                            </td>
+                        </tr>
+                        <% } %>
+                    <% }) %>
+
+                </table>
+            </div>
+        </div>
+        <% } %>
+    </div>
+</div>
+
+<div class="fixed-action-btn">
+    <a href="#complaintSideAction" class="btn-floating btn-large red modal-trigger">
+        <i class="large material-icons">mode_edit</i>
+    </a>
+</div>
+
+
+<div id="complaintSideAction" class="modal bottom-sheet">
+    <div class="modal-content">
+        <div class="container">
+            <div class="row">
+                <div class="col s6">
+                    <h4>Modal Header</h4>
+                    <p>Hier komen dingen die met de klacht te maken hebben</p>
+                </div>
+                <div class="col s6">
+                    <p>Hier ook</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Sluiten</a>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#report').val('<%= complaint.report %>')
+</script>
