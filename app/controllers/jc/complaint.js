@@ -7,6 +7,7 @@ const jcComplaints = require('./../../models/jcComplaint')
 const jcSubcommittee = require('./../../models/jcSubcommittee')
 const jcCharges = require('./../../models/jcCharge')
 const jcLawsuits = require('./../../models/jcLawsuit')
+const jcSanctions = require('./../../models/jcSanction')
 
 const router = express.Router()
 
@@ -37,13 +38,19 @@ router.get('/:id', auth.groups(['jc']), function (req, res) {
                     jcLawsuits.find({ jcRecord: documentComplaint[0].record }, function (err, document) {
                         callback(null, document)
                     })
+                },
+                sanctions: function (callback) {
+                    jcSanctions.find({ record: documentComplaint[0].record }, function (err, document) {
+                        callback(null, document)
+                    })
                 }
             }, function (err, result) {
                 res.render('jc/complaint', {
                     complaint: documentComplaint[0],
                     subcommittee: result.subcommittee,
                     charges: result.charges,
-                    lawsuits: result.lawsuits
+                    lawsuits: result.lawsuits,
+                    sanctions: result.sanctions
                 })
             })
         })

@@ -237,11 +237,14 @@
                         <th>Sanctie</th>
                         <th>Beroep</th>
                     </tr>
+
+                    <% sanctions.forEach(function (sanction) { %>
                     <tr>
-                        <td>noah.bochove</td>
-                        <td>Schoonmaken</td>
-                        <td>Nee</td>
+                        <td><%= sanction.offender.map(user => { return user[1] }) %></td>
+                        <td><%= sanction.sanction %></td>
+                        <td><%= (sanction.appeal) ? 'Ja' : 'Nee' %></td>
                     </tr>
+                    <% }) %>
                 </table>
             </div>
         </div>
