@@ -41,7 +41,6 @@ router.get('/', auth.auth, function (req, res) {
                     { done: false }
                 ]
             }, function (err, document) {
-                console.log(document);
                 callback(null, document)
             })
         }
