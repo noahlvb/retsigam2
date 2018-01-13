@@ -8,6 +8,12 @@ const namesConverter = require('./../../helpers/namesConverter')
 
 const router = express.Router()
 
+router.get('/overview', auth.groups(['jc']), function (req, res) {
+    jcSanctions.find({}, function (err, document) {
+        res.render('jc/sanctions', { sanctions: document })
+    })
+})
+
 router.post('/:id', auth.groups(['jc']), function (req, res) {
     if (mongoose.Types.ObjectId.isValid(req.params.id)) {
         jcComplaints.find({_id: req.params.id}, function (err, documentComplaint) {
@@ -36,7 +42,8 @@ router.post('/:id', auth.groups(['jc']), function (req, res) {
                 let document = {
                     record: documentComplaint[0].record,
                     offender: peopleIDs,
-                    sanction: req.body.sanction
+                    sanction: req.body.sanction,
+                    done: false
                 }
 
                 new jcSanctions(document).save(function (err) {

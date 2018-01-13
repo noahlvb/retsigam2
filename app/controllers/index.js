@@ -5,6 +5,7 @@ const auth = require('./../middlewares/auth')
 
 const jcSubcommittees = require('./../models/jcSubcommittee')
 const jcLawsuits = require('./../models/jcLawsuit')
+const jcSanctions = require('./../models/jcSanction')
 
 const router = express.Router()
 
@@ -32,9 +33,20 @@ router.get('/', auth.auth, function (req, res) {
             }, function (err, document) {
                 callback(null, document)
             })
+        },
+        sanctions: function (callback) {
+            jcSanctions.find({
+                $and: [
+                    { offender: { '$in': [req.user._id] } },
+                    { done: false }
+                ]
+            }, function (err, document) {
+                console.log(document);
+                callback(null, document)
+            })
         }
     }, function (err, result) {
-        res.render('home', { jcSubcommittees: result.subcommittees, lawsuits: result.lawsuits })
+        res.render('home', { jcSubcommittees: result.subcommittees, lawsuits: result.lawsuits, sanctions: result.sanctions })
     })
 })
 

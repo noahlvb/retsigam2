@@ -1,0 +1,29 @@
+<h2>Sancties</h2>
+
+<div class="row">
+    <div class="card-panel grey lighten-3">
+        <% if (sanctions.length > 0) { %>
+        <table class="bordered">
+            <tr>
+                <th>Klacht</th>
+                <th>Persoon</th>
+                <th>Sanctie</th>
+                <th>Goedkeuren</th>
+            </tr>
+
+            <% sanctions.forEach(function (sanction) { %>
+                <% if (!sanction.done) { %>
+                    <tr>
+                    <td><%= sanction.record %></td>
+                    <td><%= sanction.offender.map(user => { return user[1] }) %></td>
+                    <td><%= sanction.sanction %></td>
+                    <td><a href="/jc/santion/approve/<%= sanction._id %>"><i class="small material-icons">check</i></a></td>
+                    </tr>
+                <% } %>
+            <% }) %>
+        </table>
+        <% } else { %>
+            Er zijn geen ongeplande rechtzaken
+        <% } %>
+    </div>
+</div>
