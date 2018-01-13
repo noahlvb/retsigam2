@@ -207,8 +207,30 @@
         </div>
 
         <div class="card amber darken-1">
-            <div class="card-content white-text">
+            <div class="card-content white-text form-white-text">
                 <span class="card-title">Sancties</span>
+                <form action="/jc/sanction/<%= complaint._id %>" method="POST">
+                    <div class="row">
+                        <div class="input-field col s5">
+                            <label for="accused">Overtreder</label>
+                            <input type="text" name="offender" required>
+                        </div>
+                        <div class="input-field col s4">
+                            <label for="accused">Sanctie</label>
+                            <input type="text" name="sanction" required>
+                        </div>
+                        <div class="col s3" style="margin-top: 25px">
+                            <input type="checkbox" name="beroep" value="1" id="beroep" />
+                            <label for="beroep">Beroep</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <input type="submit" class="btn" value="Toevoegen">
+                        </div>
+                    </div>
+                </form>
+
                 <table class="bordered white-text">
                     <tr>
                         <th>Overtreder</th>
