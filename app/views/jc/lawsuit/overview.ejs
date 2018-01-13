@@ -41,7 +41,36 @@
                 </tr>
 
                 <% lawsuits.forEach(function (lawsuit) { %>
-                    <% if (lawsuit.date !== undefined) { %>
+                    <% if (lawsuit.date !== undefined && new Date(lawsuit.date).getTime() > new Date().getTime()) { %>
+                        <tr>
+                        <td><a href="/jc/lawsuit/<%= lawsuit._id %>"><%= lawsuit.record %></a></td>
+                        <td><%= lawsuit.jcRecord %></td>
+                        <td><%= lawsuit.prosecutor %></td>
+                        <td><%= lawsuit.date.getDate() %>/<%= lawsuit.date.getMonth() + 1 %>/<%= lawsuit.date.getFullYear() %> - <%= lawsuit.date.getHours() %>:<%= lawsuit.date.getMinutes() %></td>
+                        <td><%= lawsuit.jury.map(user => { return ' ' + user[1] }) %></td>
+                        </tr>
+                    <% } %>
+                <% }) %>
+            </table>
+            <% } else { %>
+                Er zijn geen geplande rechtzaken
+            <% } %>
+        </div>
+
+        <div class="card-panel grey lighten-3">
+            <h5><b>Moeten worden afgehandeld</b></h5>
+            <% if (lawsuits.length > 0 && lawsuits[0].date) { %>
+            <table class="bordered">
+                <tr>
+                    <th>Nummer</th>
+                    <th>Klacht</th>
+                    <th>Aanklager</th>
+                    <th>Datum en tijd</th>
+                    <th>Jury</th>
+                </tr>
+
+                <% lawsuits.forEach(function (lawsuit) { %>
+                    <% if (lawsuit.date !== undefined && new Date(lawsuit.date).getTime() < new Date().getTime() && !lawsuit.done) { %>
                         <tr>
                         <td><a href="/jc/lawsuit/<%= lawsuit._id %>"><%= lawsuit.record %></a></td>
                         <td><%= lawsuit.jcRecord %></td>

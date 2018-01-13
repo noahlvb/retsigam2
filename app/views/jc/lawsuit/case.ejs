@@ -70,10 +70,10 @@
         </div>
         <% } %>
 
-        <% if (lawsuit.date) { %>
+        <% if (lawsuit.date && new Date(lawsuit.date).getTime() > new Date().getTime()) { %>
         <div class="card indigo">
             <div class="card-content white-text">
-                <span class="card-title">Ingepland</span>
+                <span class="card-title">Actie verijst</span>
                 <p>De rechtzaak is ingepland op: <b><%= lawsuit.date.getDate() %>/<%= lawsuit.date.getMonth() + 1 %>/<%= lawsuit.date.getFullYear() %> - <%= lawsuit.date.getHours() %>:<%= lawsuit.date.getMinutes() %></b>
                 met als jury leden: <b><%= lawsuit.jury.map(user => { return ' ' + user[1] }) %></b></p>
             </div>
@@ -83,32 +83,57 @@
         <div class="card blue darken-4">
             <div class="card-content white-text form-white-text">
                 <span class="card-title">Aanklachten <b>in deze rechtzaak</b></span>
-                <table class="bordered white-text">
-                    <tr>
-                        <th>Aangeklaagde</th>
-                        <th>Aanklacht</th>
-                        <th>Pleit</th>
-                        <th>Rechtzaak</th>
-                    </tr>
-
-                    <% charges.forEach(function (charge) { %>
-                        <% if (lawsuit.charges.indexOf(charge._id) !== -1) { %>
+                <form id="caseForm" action="/jc/lawsuit/close/<%= lawsuit._id %>" method="POST">
+                    <table class="bordered white-text">
                         <tr>
-                            <td><%= charge.accused.map(user => {return user[1]}) %></td>
-                            <td><%= charge.law %></td>
-                            <td><%= (charge.plea ? 'S' : 'O') %></td>
-                            <td>
-                                <% for (lawsuit1 of lawsuits) {
-                                    if (lawsuit1.charges.indexOf(charge._id) != -1 ) {
-                                        %> <%= lawsuit1.record %> / <%= (charge.pleaCase !== undefined) ? ((charge.pleaCase) ? 'S' : 'O') : '-'; %> <%
-                                    }
-                                } %>
-                            </td>
+                            <th>Aangeklaagde</th>
+                            <th>Aanklacht</th>
+                            <th>Pleit</th>
+                            <th>Rechtzaak</th>
                         </tr>
-                        <% } %>
-                    <% }) %>
 
-                </table>
+                        <% charges.forEach(function (charge) { %>
+                            <% if (lawsuit.charges.indexOf(charge._id) !== -1) { %>
+                            <tr>
+                                <td><%= charge.accused.map(user => {return user[1]}) %></td>
+                                <td><%= charge.law %></td>
+                                <td><%= (charge.plea ? 'S' : 'O') %></td>
+                                <td>
+                                    <% for (lawsuit1 of lawsuits) {
+                                        if (lawsuit1.charges.indexOf(charge._id) != -1 ) {
+                                            if (lawsuit.date && new Date(lawsuit.date).getTime() < new Date().getTime()) {
+                                                if (charge.pleaCase !== undefined) {
+                                                    %> <%= lawsuit1.record %> / <%= (charge.pleaCase) ? 'S' : 'O'; %> <%
+                                                } else {
+                                                    %> <%= lawsuit1.record %> / <select name="pleaCase:<%= charge._id %>" form="caseForm" required>
+                                                        <option value="" disabled>Schuld</option>
+                                                        <option value="1">Schuldig</option>
+                                                        <option value="0" selected>Onschuldig</option>
+                                                    </select> <%
+                                                }
+                                            } else {
+                                                %> <%= lawsuit1.record %> / <%= (charge.pleaCase !== undefined) ? ((charge.pleaCase) ? 'S' : 'O') : '-'; %> <%
+                                            }
+                                        }
+                                    } %>
+                                </td>
+                            </tr>
+                            <% } %>
+                        <% }) %>
+                    </table>
+
+                    <% if (lawsuit.date && new Date(lawsuit.date).getTime() < new Date().getTime() && !lawsuit.done) { %>
+                    <br>
+                    <h5>Eventuele raports wijziging</h5>
+                    <p>Laat onaangepast als je niets wil veranderen</p>
+                    <br>
+                    <div class="input-field">
+                        <label for="report">Rapport</label>
+                        <textarea rows="6" class="materialize-textarea" id="report" name="report" required></textarea>
+                    </div>
+                    <input class="btn" type="submit" value="Zaak sluiten">
+                    <% } %>
+                </form>
 
                 <br>
 
@@ -142,32 +167,6 @@
                 <% } %>
             </div>
         </div>
-    </div>
-</div>
-
-<div class="fixed-action-btn">
-    <a href="#complaintSideAction" class="btn-floating btn-large red modal-trigger">
-        <i class="large material-icons">mode_edit</i>
-    </a>
-</div>
-
-
-<div id="complaintSideAction" class="modal bottom-sheet">
-    <div class="modal-content">
-        <div class="container">
-            <div class="row">
-                <div class="col s6">
-                    <h4>Modal Header</h4>
-                    <p>Hier komen dingen die met de klacht te maken hebben</p>
-                </div>
-                <div class="col s6">
-                    <p>Hier ook</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Sluiten</a>
     </div>
 </div>
 

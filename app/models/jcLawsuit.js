@@ -8,7 +8,8 @@ const jcLawsuitSchema = mongoose.Schema({
     prosecutor: String,
     charges: Array,
     date: Date,
-    jury: Array
+    jury: Array,
+    done: Boolean
 
 }, {timestamps: { createdAt: 'created_at' } })
 

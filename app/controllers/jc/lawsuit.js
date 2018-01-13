@@ -87,6 +87,50 @@ router.post('/schedule/:id', auth.groups(['schoolMeetingVoorzitter']), function 
     }
 })
 
+router.post('/close/:id', auth.groups(['schoolMeetingVoorzitter']), function (req, res) {
+    if (mongoose.Types.ObjectId.isValid(req.params.id)) {
+        jcLawsuits.find({ _id: req.params.id }, function (err, document) {
+            if (document.length !== 1) {
+                req.flash('warning', 'Deze rechtzaak bestaat niet!')
+                res.redirect('/jc/lawsuit')
+            }
+
+            let lawsuitOutcome = []
+            let chargesID = []
+
+            for (object in req.body) {
+                if (object.slice(':', 8) == 'pleaCase') {
+                    lawsuitOutcome[object.slice(9)] = req.body[object]
+                    chargesID.push(object.slice(9))
+                }
+            }
+
+            jcCharges.find({ _id: { $in: chargesID } }, function (err, documentCharges) {
+                for (charge of documentCharges) {
+                    console.log(lawsuitOutcome[charge._id]);
+                    console.log(Boolean(lawsuitOutcome[charge._id]));
+                    charge.pleaCase = Boolean(Number(lawsuitOutcome[charge._id]))
+                    charge.save()
+                }
+            })
+
+            jcComplaints.find({ record: document[0].jcRecord }, function (err, documentComplaint) {
+                documentComplaint[0].report = req.body.report
+                documentComplaint[0].save()
+            })
+
+            document[0].done = true
+            document[0].save(function (err) {
+                req.flash('info', 'Rechtzaak succesvol afgerond')
+                res.redirect('/jc/lawsuit/')
+            })
+        })
+    } else {
+        req.flash('warning', 'Deze rechtzaak bestaat niet!')
+        return res.redirect('/lawsuit/overview')
+    }
+})
+
 router.post('/create', auth.groups(['jc']), function (req, res) {
     let complaint = JSON.parse(req.body.complaint)
 
