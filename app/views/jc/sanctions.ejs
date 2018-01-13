@@ -12,18 +12,16 @@
             </tr>
 
             <% sanctions.forEach(function (sanction) { %>
-                <% if (!sanction.done) { %>
-                    <tr>
-                    <td><%= sanction.record %></td>
-                    <td><%= sanction.offender.map(user => { return user[1] }) %></td>
-                    <td><%= sanction.sanction %></td>
-                    <td><a href="/jc/santion/approve/<%= sanction._id %>"><i class="small material-icons">check</i></a></td>
-                    </tr>
-                <% } %>
+            <tr>
+                <td><%= sanction.record %></td>
+                <td><%= sanction.offender.map(user => { return user[1] }) %></td>
+                <td><%= sanction.sanction %></td>
+                <td><a href="/jc/sanction/approve/<%= sanction._id %>"><i class="small material-icons">check</i></a></td>
+            </tr>
             <% }) %>
         </table>
         <% } else { %>
-            Er zijn geen ongeplande rechtzaken
+            Er zijn geen open sanctie
         <% } %>
     </div>
 </div>
