@@ -63,12 +63,12 @@ router.post('/schedule/:id', auth.groups(['schoolMeetingVoorzitter']), function 
         jcLawsuits.find({ _id: req.params.id }, function (err, document) {
             if (document.length !== 1) {
                 req.flash('warning', 'Deze rechtzaak bestaat niet!')
-                res.redirect('/jc/lawsuit')
+                return res.redirect('/jc/lawsuit')
             }
 
             if (new Date(req.body.datetime).getTime() < new Date().getTime()) {
                 req.flash('warning', 'Je kan een rechtzaak niet in het verleden plannen!')
-                res.redirect('/jc/lawsuit/' + req.params.id)
+                return res.redirect('/jc/lawsuit/' + req.params.id)
             }
 
             namesConverter.toID(req.body.jury, function (peopleIDs) {
