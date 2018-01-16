@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const idsToNamesFunc = require('./functions/idsToNames')
+const idsToNamesFunc = require('./../functions/idsToNames')
 
 const jcSanctionSchema = mongoose.Schema({
     record: String,
