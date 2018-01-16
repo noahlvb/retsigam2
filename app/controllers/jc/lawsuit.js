@@ -107,8 +107,6 @@ router.post('/close/:id', auth.groups(['schoolMeetingVoorzitter']), function (re
 
             jcCharges.find({ _id: { $in: chargesID } }, function (err, documentCharges) {
                 for (charge of documentCharges) {
-                    console.log(lawsuitOutcome[charge._id]);
-                    console.log(Boolean(lawsuitOutcome[charge._id]));
                     charge.pleaCase = Boolean(Number(lawsuitOutcome[charge._id]))
                     charge.save()
                 }
