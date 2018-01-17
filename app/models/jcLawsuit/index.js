@@ -17,6 +17,7 @@ jcLawsuitSchema.index({ record: 1 }, { unique: true })
 
 jcLawsuitSchema.statics.new = require('./new')
 jcLawsuitSchema.methods.schedule = require('./schedule')
+jcLawsuitSchema.methods.close = require('./close')
 
 jcLawsuitSchema.post('find', idsToNamesFunc(['jury']))
 
