@@ -8,29 +8,45 @@
         </div>
     </div>
     <div class="col s9">
-        <table id="complaints-table" class="table"></table>
+        <table id="complaints-table" class="table">
+            <thead>
+                <tr>
+                    <th>Klachtnummer</th>
+                    <th>Binnengekomen</th>
+                    <th>Opbrenger</th>
+                    <th>Aangeklaagde</th>
+                    <th>Getuigen</th>
+                    <th>Wat is er gebeurd</th>
+                </tr>
+            </thead>
+            <tbody>
+            <% complaints.forEach(function (complaint) {
+                let colorClass
+
+                if (complaint.accepted) {
+                    colorClass = 'yellow'
+                } 
+
+                %>
+
+                <tr class="<%= colorClass %>">
+                    <th><a href="/jc/complaint/<%= complaint._id %>"><%= complaint.record %></a></th>
+                    <th><%= complaint.created_at.getDate() %>/<%= complaint.created_at.getMonth() + 1 %>/<%= complaint.created_at.getFullYear() %> - <%= complaint.created_at.getHours() %>:<%= complaint.created_at.getMinutes() %></th>
+                    <th><%= complaint.originator.map(user => {return ' ' + user[1]}) %></th>
+                    <th><%= complaint.accused.map(user => {return ' ' + user[1]}) %></th>
+                    <th><%= complaint.witnesses.map(user => {return ' ' + user[1]}) %></th>
+                    <th><%= complaint.happend %></th>
+                </tr>
+            <% }) %>
+            </tbody>
+        </table>
     </div>
 </div>
 
 <script type="text/javascript">
-    var complaints = $.parseJSON('<%- JSON.stringify(complaints) %>');
-    draw_table_complaints(complaints);
-
-    function draw_table_complaints (complaints) {
-        var table = document.getElementById('complaints-table');
-        var row0 = table.insertRow(0);
-        row0.insertCell(0).innerHTML = '<b>Klachtnummer</b>';
-        row0.insertCell(1).innerHTML = '<b>Opbrenger</b>';
-        row0.insertCell(2).innerHTML = '<b>Aangeklaagde</b>';
-        row0.insertCell(3).innerHTML = '<b>Getuigen</b>';
-        row0.insertCell(4).innerHTML = '<b>Wat is er gebeurd</b>';
-        for (var i = 0; i < Object.keys(complaints).length; i++) {
-            var row = table.insertRow(1);
-            row.insertCell(0).innerHTML = '<a href="/jc/complaint/' + complaints[i]._id + '/">' + complaints[i].record + '</a>';
-            row.insertCell(1).innerHTML = complaints[i].originator.map(user => {return ' ' + user[1]});
-            row.insertCell(2).innerHTML = complaints[i].accused.map(user => {return ' ' + user[1]});
-            row.insertCell(3).innerHTML = complaints[i].witnesses.map(user => {return ' ' + user[1]});
-            row.insertCell(4).innerHTML = complaints[i].happend;
-        }
-    }
+    $(document).ready(function(){
+        $('#complaints-table').DataTable({
+            "order": [[ 0, 'desc' ]]
+        })
+    })
 </script>
