@@ -8,6 +8,10 @@ const lawSchema = mongoose.Schema({
 
 lawSchema.index({ number: 1 }, { unique: true })
 
+lawSchema.statics.new = require('./new')
+lawSchema.methods.edit = require('./edit')
+lawSchema.methods.disable = require('./disable')
+
 const lawModel = mongoose.model('laws', lawSchema)
 
 module.exports = lawModel
