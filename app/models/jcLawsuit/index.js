@@ -16,6 +16,7 @@ const jcLawsuitSchema = mongoose.Schema({
 jcLawsuitSchema.index({ record: 1 }, { unique: true })
 
 jcLawsuitSchema.statics.new = require('./new')
+jcLawsuitSchema.methods.schedule = require('./schedule')
 
 jcLawsuitSchema.post('find', idsToNamesFunc(['jury']))
 
