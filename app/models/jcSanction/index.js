@@ -10,6 +10,8 @@ const jcSanctionSchema = mongoose.Schema({
 
 }, {timestamps: { createdAt: 'created_at' } })
 
+jcSanctionSchema.statics.new = require('./new')
+
 jcSanctionSchema.post('find', idsToNamesFunc(['offender']))
 
 const jcChargeModel = mongoose.model('jcSanctions', jcSanctionSchema)
