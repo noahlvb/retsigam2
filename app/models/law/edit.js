@@ -1,6 +1,6 @@
 module.exports = function (content, callback) {
     if (content === '' || content === null || content === undefined) {
-        callback('notAllFields')
+        return callback('notAllFields')
     }
 
     this.content = content

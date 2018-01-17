@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
 
 const namesConverter = require('./../../../helpers/namesConverter');
-const jcComplaints = require('./../../../models/jcComplaint')
 const jcCharges = require('./../../../models/jcCharge')
-const laws = require('./../../../models/law')
 
 module.exports = function (req, res) {
     if (mongoose.Types.ObjectId.isValid(req.params.id)) {

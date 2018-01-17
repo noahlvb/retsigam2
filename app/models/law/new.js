@@ -1,7 +1,7 @@
 module.exports = function (newLaw, callback) {
     for (field in newLaw) {
         if (newLaw[field] === '' || newLaw[field] === null || newLaw[field] === undefined) {
-            callback('notAllFields')
+            return callback('notAllFields')
         }
     }
 
@@ -13,7 +13,7 @@ module.exports = function (newLaw, callback) {
 
     new this(document).save(function (err, document) {
         if (err) {
-            callback('dubbleNumber')
+            return callback('dubbleNumber')
         }
 
         callback(null, document.number)
