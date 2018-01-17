@@ -15,21 +15,10 @@ const jcLawsuitSchema = mongoose.Schema({
 
 jcLawsuitSchema.index({ record: 1 }, { unique: true })
 
+jcLawsuitSchema.statics.new = require('./new')
+
 jcLawsuitSchema.post('find', idsToNamesFunc(['jury']))
 
 const jcLawsuitModel = mongoose.model('jcLawsuit', jcLawsuitSchema)
 
 module.exports = jcLawsuitModel
-
-module.exports.generateRecord = (callback) => {
-    let records = []
-
-    jcLawsuitModel.find({}, function (err, document) {
-        for (lawsuit of document) {
-            records.push(parseInt(lawsuit.record.split('-')[1]))
-        }
-
-        newRecord = 'R-' + ((Math.max.apply(null, records) == -Infinity) ? 1 : Math.max.apply(null, records) + 1)
-        callback(newRecord)
-    })
-}
