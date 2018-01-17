@@ -15,21 +15,16 @@ router.post('/:id', auth.groups(['jc']), function (req, res) {
                 return res.redirect('/jc/overview')
             }
 
-            documentComplaint[0].report = req.body.report
-
-            if (req.body.saveApply == 'opslaan') {
-                documentComplaint[0].save(function (err) {
+            documentComplaint[0].reportSaveAccept(req.body.report, req.body.saveApply, function (err, action) {
+                if (action == 'saved') {
                     req.flash('info', 'Het JC raport is opgeslagen')
-                    return res.redirect('/jc/complaint/' + req.params.id)
-                })
-            } else if (req.body.saveApply == 'aannemen') {
-                documentComplaint[0].reportAccepted = true
-                documentComplaint[0].reportAcceptedDate = new Date()
-                documentComplaint[0].save(function (err) {
+                }
+                if (action == 'accepted') {
                     req.flash('info', 'Het JC raport is aangenomen')
-                    return res.redirect('/jc/complaint/' + req.params.id)
-                })
-            }
+                }
+
+                return res.redirect('/jc/complaint/' + req.params.id)
+            })
         })
     } else {
         req.flash('warning', 'Deze klacht bestaat niet!')
