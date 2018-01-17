@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const jcSubcommittees = require('./../../../models/jcSubcommittee')
-const jcComplaints = require('./../../../models/jcComplaint')
 
 module.exports = function (req, res) {
     if (mongoose.Types.ObjectId.isValid(req.params.id)) {
@@ -17,25 +16,15 @@ module.exports = function (req, res) {
                 return res.redirect('/')
             }
 
-            documentSubcommittee[0].report = req.body.investigation
-
-            if (req.body.saveApply == 'opslaan') {
-                documentSubcommittee[0].save(function (err) {
+            documentSubcommittee[0].reportSaveAccept(req.body.investigation, req.body.saveApply, function (err, action) {
+                if (action == 'saved') {
                     req.flash('info', 'Het subcommittee onderzoek is opgeslagen')
                     return res.redirect('/jc/subcommittees/' + req.params.id)
-                })
-            } else if (req.body.saveApply == 'inleveren') {
-                documentSubcommittee[0].done = true
-                documentSubcommittee[0].save(function (err) {
-                    jcComplaints.find({ record: documentSubcommittee[0].complaint }, function (err, documentComplaint) {
-                        documentComplaint[0].accepted = true
-                        documentComplaint[0].save(function (err) {
-                            req.flash('info', 'Het subcommittee onderzoek is afgerond')
-                            return res.redirect('/')
-                        })
-                    })
-                })
-            }
+                } else if (action == 'sendIn') {
+                    req.flash('info', 'Het subcommittee onderzoek is afgerond')
+                    return res.redirect('/')
+                }
+            })
         })
     } else {
         req.flash('warning', 'Dit subcommittee bestaat niet!')

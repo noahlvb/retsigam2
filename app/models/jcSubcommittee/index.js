@@ -13,6 +13,7 @@ const jcSubcommitteeSchema = mongoose.Schema({
 jcSubcommitteeSchema.index({ complaint: 1 }, { unique: true })
 
 jcSubcommitteeSchema.statics.create = require('./new')
+jcSubcommitteeSchema.methods.reportSaveAccept = require('./report')
 
 jcSubcommitteeSchema.post('find', idsToNamesFunc(['assigned']))
 
