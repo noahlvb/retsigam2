@@ -13,6 +13,8 @@ const jcChargeSchema = mongoose.Schema({
 
 jcChargeSchema.index({ record: 1, accused: 1, law: 1 }, { unique: true })
 
+jcChargeSchema.statics.new = require('./new')
+
 jcChargeSchema.post('find', idsToNamesFunc(['accused']))
 
 const jcChargeModel = mongoose.model('jcCharges', jcChargeSchema)
