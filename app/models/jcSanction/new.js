@@ -30,6 +30,10 @@ module.exports = function (id, newSanction, callback) {
             }
 
             new this(document).save(function (err) {
+                if (err) {
+                    return callback('dubbleSanction')
+                }
+
                 callback(null)
             })
         }.bind(this))

@@ -16,6 +16,9 @@ module.exports = function (req, res) {
             } else if (err && err == 'noNames'){
                 req.flash('warning', 'Geef een naam op!')
                 return res.redirect('/jc/complaint/' + req.params.id)
+            } else if (err && err == 'dubbleSanction'){
+                req.flash('warning', 'Er is al een sanctie gemaakt voor deze persoon!')
+                return res.redirect('/jc/complaint/' + req.params.id)
             }
 
             req.flash('info', 'Sanctie is aangemaakt')

@@ -3,31 +3,46 @@
     <thead>
         <tr>
             <th>Klachtnummer</th>
+            <th>rapport</th>
             <th>Aangeklaagde</th>
+            <th>Aanklacht</th>
             <th>Regelnummer</th>
             <th>Pleit</th>
             <th>Rechtzaak oordeel</th>
             <th>Datum</th>
+            <th>Sanctie</th>
         </tr>
     </thead>
     <tbody>
     <% charges.forEach(function (charge) { %>
         <% let chargeComplaint
+            let chargeSanction
+
             for (complaint of complaints) {
                 if (complaint.record == charge.record) {
-                    chargeComplaint = complaints
+                    chargeComplaint = complaint
+                    break
+                }
+            }
+
+            for (sanction of sanctions) {
+                if (sanction.record == charge.record && sanction.offender[0][1] == charge.accused[0][1] ) {
+                    chargeSanction = sanction
                     break
                 }
             }
         %>
 
         <tr class="<%= complaint.tableColor %>">
-            <th><a class="black-text link-black-text" href="/jc/complaint/<%= complaint._id %>"><%= complaint.record %></a></th>
+            <th><a class="black-text link-black-text" href="/jc/complaint/<%= complaint._id %>"><%= chargeComplaint.record %></a></th>
+            <th><%= chargeComplaint.report %></th>
+            <th><%= charge.accused.map(user => { return user[1] }) %></th>
             <th><%= charge.accused.map(user => { return user[1] }) %></th>
             <th><%= charge.law %></th>
             <th><%= (charge.plea) ? 'S' : 'O' %></th>
             <th><%= (charge.pleaCase !== undefined) ? ((charge.pleaCase) ? 'S' : 'O' ) : '-' %></th>
             <th><%= charge.created_at.getDate() %>/<%= charge.created_at.getMonth() + 1 %>/<%= charge.created_at.getFullYear() %> - <%= charge.created_at.getHours() %>:<%= charge.created_at.getMinutes() %></th>
+            <th><%= (chargeSanction) ? chargeSanction.sanction : '-' %></th>
         </tr>
     <% }) %>
     </tbody>

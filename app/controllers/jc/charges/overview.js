@@ -2,6 +2,7 @@ const async = require('async');
 
 const jcComplaints = require('./../../../models/jcComplaint')
 const jcCharges = require('./../../../models/jcCharge')
+const jcSanctions = require('./../../../models/jcSanction')
 
 module.exports = function (req, res) {
     async.parallel({
@@ -14,8 +15,13 @@ module.exports = function (req, res) {
             jcCharges.find({}, function (err, document) {
                 callback(null, document)
             })
+        },
+        sanctions: function (callback) {
+            jcSanctions.find({}, function (err, document) {
+                callback(null, document)
+            })
         }
     }, function (err, result) {
-        res.render('jc/charge/overview', { complaints: result.complaints, charges: result.charges })
+        res.render('jc/charge/overview', { complaints: result.complaints, charges: result.charges, sanctions: result.sanctions })
     })
 }
