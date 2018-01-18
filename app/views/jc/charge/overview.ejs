@@ -1,0 +1,42 @@
+<h2>JC aanklachten</h2>
+<table id="charges-table" class="table">
+    <thead>
+        <tr>
+            <th>Klachtnummer</th>
+            <th>Aangeklaagde</th>
+            <th>Regelnummer</th>
+            <th>Pleit</th>
+            <th>Rechtzaak oordeel</th>
+            <th>Datum</th>
+        </tr>
+    </thead>
+    <tbody>
+    <% charges.forEach(function (charge) { %>
+        <% let chargeComplaint
+            for (complaint of complaints) {
+                if (complaint.record == charge.record) {
+                    chargeComplaint = complaints
+                    break
+                }
+            }
+        %>
+
+        <tr class="<%= complaint.tableColor %>">
+            <th><a class="black-text link-black-text" href="/jc/complaint/<%= complaint._id %>"><%= complaint.record %></a></th>
+            <th><%= charge.accused.map(user => { return user[1] }) %></th>
+            <th><%= charge.law %></th>
+            <th><%= (charge.plea) ? 'S' : 'O' %></th>
+            <th><%= (charge.pleaCase !== undefined) ? ((charge.pleaCase) ? 'S' : 'O' ) : '-' %></th>
+            <th><%= charge.created_at.getDate() %>/<%= charge.created_at.getMonth() + 1 %>/<%= charge.created_at.getFullYear() %> - <%= charge.created_at.getHours() %>:<%= charge.created_at.getMinutes() %></th>
+        </tr>
+    <% }) %>
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#charges-table').DataTable({
+            "order": [[ 0, 'desc' ]]
+        })
+    })
+</script>
