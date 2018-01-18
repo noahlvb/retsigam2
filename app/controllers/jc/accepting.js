@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 const auth = require('./../../middlewares/auth')
 const jcComplaints = require('./../../models/jcComplaint')
+const jcSubcommittees = require('./../../models/jcSubcommittee')
 
 const router = express.Router()
 
@@ -18,23 +19,31 @@ router.get('/:id/:action', auth.groups(['jc']), function (req, res) {
                 return res.redirect('/jc/overview')
             }
 
-            document[0].accept(req.params.action, req.query.assigned, function (err, feedback) {
-                if (feedback == 'accepted') {
-                    req.flash('info', 'De klacht is in behandeling genomen')
-                } else if (feedback == 'denied') {
-                    req.flash('info', 'De klacht wordt niet behandeld')
-                } else if (feedback == 'subcommitteeOK') {
-                    req.flash('info', 'Het subcommittee is aangemaakt')
-                } else if (err == 'subcommitteeNoPeople') {
-                    req.flash('warning', 'Geef op zijn minst een persoon op voor het subcommittee!')
-                } else if (err == 'subcommitteeFailed') {
-                    req.flash('error', 'Something went wrong while creating a subcommittee')
-                } else if (err == 'noAction') {
-                    req.flash('warning', 'Deze actie is niet mogelijk!')
-                }
+            if (req.params.action !== 'subcommittee') {
+                document[0].accept(req.params.action, function (err, feedback) {
+                    if (feedback == 'accepted') {
+                        req.flash('info', 'De klacht is in behandeling genomen')
+                    } else if (feedback == 'denied') {
+                        req.flash('info', 'De klacht wordt niet behandeld')
+                    } else if (err == 'noAction') {
+                        req.flash('warning', 'Deze actie is niet mogelijk!')
+                    }
 
-                res.redirect('/jc/complaint/' + req.params.id)
-            })
+                    res.redirect('/jc/complaint/' + req.params.id)
+                })
+            } else if (req.params.action == 'subcommittee') {
+                jcSubcommittees.create(document[0], req.query.assigned, function (err) {
+                    if (err && err == 'subcommitteeNoPeople') {
+                        req.flash('warning', 'Geef op zijn minst een persoon op voor het subcommittee!')
+                    } else if (err) {
+                        req.flash('error', 'Something went wrong while creating a subcommittee')
+                    } else {
+                        req.flash('info', 'Het subcommittee is aangemaakt')
+                    }
+
+                    res.redirect('/jc/complaint/' + req.params.id)
+                })
+            }
         })
     } else {
         req.flash('warning', 'Deze klacht bestaat niet!')

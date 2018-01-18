@@ -16,6 +16,6 @@ module.exports = function (report, action, callback) {
                     callback(null, 'sendIn')
                 })
             })
-        })
+        }.bind(this))
     }
 }

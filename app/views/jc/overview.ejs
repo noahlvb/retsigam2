@@ -20,17 +20,9 @@
                 </tr>
             </thead>
             <tbody>
-            <% complaints.forEach(function (complaint) {
-                let colorClass
-
-                if (complaint.accepted) {
-                    colorClass = 'yellow'
-                } 
-
-                %>
-
-                <tr class="<%= colorClass %>">
-                    <th><a href="/jc/complaint/<%= complaint._id %>"><%= complaint.record %></a></th>
+            <% complaints.forEach(function (complaint) { %>
+                <tr class="<%= complaint.tableColor %>">
+                    <th><a class="black-text link-black-text" href="/jc/complaint/<%= complaint._id %>"><%= complaint.record %></a></th>
                     <th><%= complaint.created_at.getDate() %>/<%= complaint.created_at.getMonth() + 1 %>/<%= complaint.created_at.getFullYear() %> - <%= complaint.created_at.getHours() %>:<%= complaint.created_at.getMinutes() %></th>
                     <th><%= complaint.originator.map(user => {return ' ' + user[1]}) %></th>
                     <th><%= complaint.accused.map(user => {return ' ' + user[1]}) %></th>

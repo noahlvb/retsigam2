@@ -1,6 +1,7 @@
 const express = require('express')
 
 const auth = require('./../../middlewares/auth')
+const addColorToComplaint = require('./../../helpers/addColorToComplaint')
 const jcComplaints = require('./../../models/jcComplaint');
 
 const router = express.Router()
@@ -15,7 +16,9 @@ router.use('/sanction', require('./sanction'))
 
 router.get('/overview', auth.groups(['jc']), function (req, res) {
     jcComplaints.find({}, function (err, document) {
-        res.render('jc/overview', {complaints: document})
+        addColorToComplaint(document, function (document) {
+            res.render('jc/overview', {complaints: document})
+        })
     })
 })
 

@@ -10,6 +10,11 @@ nav {
 	color: white;
 }
 
+.link-black-text {
+	text-decoration: underline;
+    text-decoration-color: rgb(21, 108, 223);
+}
+
 .tableRowDisabled {
 	opacity: 0.50;
     background-color: #b9b9b9;
