@@ -24,7 +24,7 @@
 <body>
     <div id="blackOverlay" class="blackOverlay"></div>
 
-    <ul id="slide-out" class="side-nav">
+    <ul id="account-bar" class="side-nav">
         <li>
             <% if (locals.user) { %>
             <div class="user-view">
@@ -66,7 +66,8 @@
     <nav>
         <div class="nav-wrapper purple lighten-1">
             <a href="/" class="brand-logo">Retsigam</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <a href="#" data-activates="menu-bar-mobile" class="button-collapse-mobile-menu"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
                 <% if(locals.user && user.groups.indexOf('jc') !== -1){ %>
                     <li><a class="dropdown-button" href="/jc/overview" data-activates="dropdownJC">JC<i class="material-icons right">arrow_drop_down</i></a></li>
                 <% } %>
@@ -75,10 +76,38 @@
                 <% } %>
                 <% if(locals.user){ %>
                     <li><a href="/law">Huishoudelijk reglement</a></li>
-                    <li><a href="#" data-activates="slide-out" class="1button-collapse"><%= user.username %></a></li>
+                    <li><a href="#" data-activates="account-bar" class="button-collapse"><%= user.username %></a></li>
                 <% } %>
                 <% if(!locals.user) { %>
                     <a class="waves-effect waves-light btn" href="/account/login">Login</a>
+                <% } %>
+            </ul>
+
+            <ul id="menu-bar-mobile" class="side-nav">
+                <% if(locals.user && user.groups.indexOf('jc') !== -1){ %>
+                    <ul class="collapsible collapsible-accordion">
+                        <li class="bold"><a class="collapsible-header waves-effect waves-teal">JC</a>
+                            <div class="collapsible-body" style="">
+                                <ul>
+                                    <li><a href="/jc/overview">Overzicht</a></li>
+                                    <li><a href="/jc/charges/overview">Aanklachten</a></li>
+                                    <li><a href="/jc/sanction/overview">Sancties</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                <% } %>
+                <% if(locals.user && user.groups.indexOf('schoolMeetingVoorzitter') !== -1){ %>
+                    <ul class="collapsible collapsible-accordion">
+                        <li class="bold"><a class="collapsible-header waves-effect waves-teal" href="/jc/lawsuit/">Rechtzaken</a>
+                        </li>
+                    </ul>
+                <% } %>
+                <% if(locals.user){ %>
+                    <ul class="collapsible collapsible-accordion">
+                        <li class="bold"><a class="collapsible-header waves-effect waves-teal" href="/law">Huishoudelijk reglement</a>
+                        </li>
+                    </ul>
                 <% } %>
             </ul>
         </div>
@@ -99,10 +128,11 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $(".dropdown-button").dropdown();
-            $('.modal').modal();
-            $('select').material_select();
-            $(".1button-collapse").sideNav({ edge: 'rigth' });
+            $(".dropdown-button").dropdown()
+            $('.modal').modal()
+            $('select').material_select()
+            $(".button-collapse").sideNav({ edge: 'rigth' })
+            $(".button-collapse-mobile-menu").sideNav({ edge: 'left' })
         })
     </script>
 </body>
