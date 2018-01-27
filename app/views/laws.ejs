@@ -2,8 +2,31 @@
 
 <table id="laws-table" class="table bordered">
     <col width="20%">
-    <col width="65%">
+    <col width="55%">
+    <col width="25%">
     <col width="15%">
+    <thead>
+        <tr>
+            <th>Regel nummer</th>
+            <th>Inhoud</th>
+            <th>Datum laatst gewijzigd</th>
+            <th>Acties</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% laws.forEach(function(law) { %>
+        <tr id="rule:<%= law._id %>" class="<%= (!law.enabled) ? 'tableRowDisabled' : ''%>" >
+            <td><%= law.number %></td>
+            <td><span class="lawContent"><%= law.content %></span></td>
+            <td><%= law.updatedAt %></td>
+            <% if(user.groups.indexOf('rechtscoordinator') !== -1){ %>
+            <td><a href="#lawDisable" class="modal-trigger"><i class="material-icons">close</i></a></td>
+            <% } else { %>
+            <td>-</td>
+            <% } %>
+        </tr>
+        <% }) %>
+    </tbody>
 </table>
 
 <div id="addLaw" class="modal">
@@ -38,33 +61,6 @@
 </div>
 
 <script type="text/javascript">
-    var laws = $.parseJSON('<%- JSON.stringify(laws) %>');
-
-    draw_table_laws(laws);
-
-    function draw_table_laws (laws) {
-        var table = document.getElementById('laws-table');
-        var row0 = table.insertRow(0);
-        row0.insertCell(0).innerHTML = '<b>Regel nummer</b>';
-        row0.insertCell(1).innerHTML = '<b>Inhoud</b>';
-        row0.insertCell(2).innerHTML = '<b>Actie\'s</b>';
-        for (var i = 0; i < Object.keys(laws).length; i++) {
-            var row = table.insertRow(1);
-            row.setAttribute("id", "rule:" + laws[i]._id , 0);
-            if (laws[i].enabled == false) {
-                row.setAttribute("class", "tableRowDisabled", 0)
-            }
-            
-            row.insertCell(0).innerHTML = laws[i].number;
-            row.insertCell(1).innerHTML = '<span class="lawContent">' + laws[i].content + '</span>';
-            <% if(user.groups.indexOf('rechtscoordinator') !== -1){ %>
-            row.insertCell(2).innerHTML = '<a href="#lawDisable" class="modal-trigger"><i class="material-icons">close</i></a>';
-            <% } else { %>
-            row.insertCell(2).innerHTML = '-';
-            <% } %>
-        }
-    }
-
     $('.lawContent').click(function () {
         var lawContent = this.innerHTML
         var lawID = $(this).parent().parent().attr('id').split(':')[1]
