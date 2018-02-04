@@ -4,7 +4,7 @@ const schoolmeeting = require('./../models/schoolmeeting');
 
 class NewSchoolmeetingWorker extends AbstractWorker {
     getInterval () {
-        return 2
+        return 60
     }
 
     handle () {
