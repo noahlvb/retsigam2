@@ -6,6 +6,7 @@
         <table class="bordered">
             <tr>
                 <th>Klacht</th>
+                <th>Aangemaakt op</th>
                 <th>Persoon</th>
                 <th>Sanctie</th>
                 <th>Goedkeuren</th>
@@ -14,6 +15,7 @@
             <% sanctions.forEach(function (sanction) { %>
             <tr>
                 <td><%= sanction.record %></td>
+                <td><%= sanction.created_at %></td>
                 <td><%= sanction.offender.map(user => { return user[1] }) %></td>
                 <td><%= sanction.sanction %></td>
                 <td><a href="/jc/sanction/approve/<%= sanction._id %>"><i class="small material-icons">check</i></a></td>

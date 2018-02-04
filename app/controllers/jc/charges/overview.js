@@ -22,6 +22,6 @@ module.exports = function (req, res) {
             })
         }
     }, function (err, result) {
-        res.render('jc/charge/overview', { complaints: result.complaints, charges: result.charges, sanctions: result.sanctions })
+        res.render('jc/charges', { complaints: result.complaints, charges: result.charges, sanctions: result.sanctions })
     })
 }
