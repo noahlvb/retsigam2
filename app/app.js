@@ -7,7 +7,7 @@ const connectMongo = require('connect-mongo')(sessions)
 const passport = require('passport')
 const gitRev = require('git-rev')
 
-const config = require('./config')
+const config = require('./../config')
 const app = express()
 
 require('./helpers/passport')(passport)

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const config = require('./app/config')
+const config = require('./config')
 
 console.log('Retsigam2 is starting!')
 
