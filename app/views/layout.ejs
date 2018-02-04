@@ -18,6 +18,16 @@
 
     <script type="text/javascript">
         var user = $.parseJSON('<%- JSON.stringify(user) %>');
+        var autocompleteUsers = $.parseJSON('<%- JSON.stringify(autocompleteUsers) %>');
+
+        function addChipData (self) {
+            $('#' + $(self).attr('id') + ' div[id^="chips:"]').each(function () {
+                var input = $("<input>")
+                       .attr("type", "hidden")
+                       .attr("name", $(this).attr('id').split(':')[1]).val(String($(this).material_chip('data').map(tag => { return ',' + tag.tag })).slice(1));
+                $(self).append(input)
+            })
+        }
     </script>
 
 </head>
@@ -133,6 +143,14 @@
             $('select').material_select()
             $(".button-collapse").sideNav({ edge: 'rigth' })
             $(".button-collapse-mobile-menu").sideNav({ edge: 'left' })
+
+            $('.chips-autocompleteUsers').material_chip({
+                autocompleteOptions: {
+                    data: autocompleteUsers,
+                    limit: Infinity,
+                    minLength: 1
+                }
+            });
         })
     </script>
 </body>

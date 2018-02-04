@@ -36,6 +36,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.use(require('./middlewares/insertUserProfile'))
+app.use(require('./middlewares/autocompleteUsers'))
 
 app.use(function (err, req, res, next) {
     res.status(500).render('error/500', { error : err })

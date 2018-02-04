@@ -1,6 +1,6 @@
 <h2>Klacht indienen</h2>
 
-<form action="/jc/apply" method="post">
+<form id="complaintApply" action="/jc/apply" method="post">
     <div class="row">
         <div class="input-field col s6">
             <label for="locatie">Locatie:</label>
@@ -16,14 +16,12 @@
     <div class="row">
         <div class="input-field col s6">
             <label for="accused">Beschuldigde:</label>
-            <input type="text" id="accused" name="accused">
-            <p>Bij meerdere beschuldigde scheid de namen met een komma</p>
+            <div id="chips:accused" class="chips chips-autocompleteUsers"></div>
         </div>
 
         <div class="input-field col s6">
             <label for="witnesses">Getuigen:</label>
-            <input type="text" id="witnesses" name="witnesses">
-            <p>Bij meerdere getuigen scheid de namen met een komma</p>
+            <div id="chips:witnesses" class="chips chips-autocompleteUsers"></div>
         </div>
     </div>
 
@@ -33,3 +31,9 @@
         <input type="submit" class="btn" value="Opsturen">
     </div>
 </form>
+
+<script type="text/javascript">
+    $('#complaintApply').submit(function (event) {
+        addChipData(this)
+    })
+</script>

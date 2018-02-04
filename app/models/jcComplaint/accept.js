@@ -1,4 +1,4 @@
-module.exports = function (action, assigned, callback) {
+module.exports = function (action, callback) {
     if (!this.accepted && action == 'accept') {
         this.accepted = true
         this.save()

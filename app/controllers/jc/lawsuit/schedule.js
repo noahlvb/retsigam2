@@ -14,6 +14,9 @@ module.exports = function (req, res) {
                 if (err && err == 'pastDatetime') {
                     req.flash('warning', 'Je kan een rechtzaak niet in het verleden plannen!')
                     return res.redirect('/jc/lawsuit/' + req.params.id)
+                } else if (err && err == 'noNames') {
+                    req.flash('warning', 'Je moet op zijn minst 1 jury lid toewijzen')
+                    return res.redirect('/jc/lawsuit/' + req.params.id)
                 }
 
                 req.flash('info', 'Rechtzaak is ingepland')

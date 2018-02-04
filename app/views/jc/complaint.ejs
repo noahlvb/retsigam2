@@ -56,9 +56,9 @@
             <div class="card-reveal blue-grey darken-3 white-text">
                 <span class="card-title">Subcommittee<i class="material-icons right">close</i></span>
                 <p>Geef hieronder de namen op van de mensen wie worden toegewezen aan het subcommittee. (Bij meerdere namen scheid met een komma)</p>
-                <form class="" action="/jc/accepting/<%= complaint.id %>/subcommittee" method="get">
+                <form id="createSubcommittee" action="/jc/accepting/<%= complaint.id %>/subcommittee" method="get">
                     <div class="input-field">
-                        <input type="text" name="assigned" value="">
+                        <div id="chips:assigned" class="chips chips-autocompleteUsers"></div>
                         <label for="assigned">Geef namen op</label>
                     </div>
                     <input type="submit" class="btn" value="Subcommittee maken">
@@ -109,7 +109,7 @@
                     <div class="row">
                         <div class="input-field col s5">
                             <label for="accused">Aangeklaagde</label>
-                            <input type="text" name="accused" required>
+                            <div id="chips:accused" class="chips chips-autocompleteUsers"></div>
                         </div>
                         <div class="input-field col s4">
                             <label for="accused">Aanklacht</label>
@@ -131,7 +131,7 @@
                 </form>
 
                 <% if (charges.length > 0) { %>
-                <form action="/jc/lawsuit/create" method="POST">
+                <form id="newLawsuit" action="/jc/lawsuit/create" method="POST">
                     <input type="hidden" name="complaint" value="<%= JSON.stringify(complaint) %>">
                     <table class="bordered white-text">
                         <tr>
@@ -191,7 +191,7 @@
                     <% if (notInCase) { %>
                     <div class="row">
                         <div class="input-field col s6">
-                            <input type="text" name="prosecutor" required>
+                            <div id="chips:prosecutor" class="chips chips-autocompleteUsers"></div>
                             <label>Aanklager</label>
                         </div>
                         <div class="input-field col s6">
@@ -209,11 +209,11 @@
         <div class="card amber darken-1">
             <div class="card-content white-text form-white-text">
                 <span class="card-title">Sancties</span>
-                <form action="/jc/sanction/<%= complaint._id %>" method="POST">
+                <form id="newSanction" action="/jc/sanction/<%= complaint._id %>" method="POST">
                     <div class="row">
                         <div class="input-field col s5">
                             <label for="accused">Overtreder</label>
-                            <input type="text" name="offender" required>
+                            <div id="chips:offender" class="chips chips-autocompleteUsers"></div>
                         </div>
                         <div class="input-field col s4">
                             <label for="accused">Sanctie</label>
@@ -280,4 +280,20 @@
 
 <script type="text/javascript">
     $('#report').val('<%= complaint.report %>')
+
+    $('#createSubcommittee').submit(function (event) {
+        addChipData(this)
+    })
+
+    $('#chargeForm').submit(function (event) {
+        addChipData(this)
+    })
+
+    $('#newLawsuit').submit(function (event) {
+        addChipData(this)
+    })
+
+    $('#newSanction').submit(function (event) {
+        addChipData(this)
+    })
 </script>

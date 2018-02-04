@@ -50,7 +50,7 @@
                 <span class="card-title">Inplannen</span>
                 <p>Geef hieronder de datum en tijd aan waarop de rechtzaak gaat plaats vinden en de jury</p>
 
-                <form action="/jc/lawsuit/schedule/<%= lawsuit._id %>" method="POST">
+                <form id="scheduleLawsuit" action="/jc/lawsuit/schedule/<%= lawsuit._id %>" method="POST">
                     <div class="row">
                         <div class="input-field">
                             <label for="datetime">Datum en tijd van rechtzaak:</label>
@@ -58,8 +58,7 @@
                         </div>
                         <div class="input-field">
                             <label for="jury">Jury:</label>
-                            <input type="text" id="jury" name="jury" required>
-                            <p>Bij meerdere jury leden scheid de namen met een komma</p>
+                            <div id="chips:jury" class="chips chips-autocompleteUsers"></div>
                         </div>
                         <div class="input-field">
                             <input type="submit" class="btn" value="Opsturen">
@@ -172,4 +171,8 @@
 
 <script type="text/javascript">
     $('#report').val('<%= complaint.report %>')
+
+    $('#scheduleLawsuit').submit(function (event) {
+        addChipData(this)
+    })
 </script>
