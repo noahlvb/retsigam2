@@ -11,6 +11,8 @@
                     <b>Locatie:</b> <%= complaint.complaintLocation %><br>
                     <b>Beschuldigde:</b> <%= complaint.accused.map(user => {return ' ' + user[1]}) %><br>
                     <b>Getuigen:</b> <%= complaint.witnesses.map(user => {return ' ' + user[1]}) %><br>
+                    <br>
+                    <b>Jc leden:</b> <%= lawsuit.jcMembers.map(user => { return ' ' + user[1] }) %><br>
 
                     <% if (complaint.accepted !== undefined) { %>
                     <br>

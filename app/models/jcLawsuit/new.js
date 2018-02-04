@@ -6,12 +6,20 @@ const jcCharges = require('./../jcCharge')
 
 module.exports = function(complaint, newLawsuit, callback) {
     async.parallel({
-        namesExist: function (callback) {
+        namesExistProsecutor: function (callback) {
             namesConverter.toID(newLawsuit.prosecutor, function (peopleIDs) {
                 if (peopleIDs.length !== 1) {
                     return callback('namesIncorrect')
                 }
                 callback(null, true)
+            })
+        },
+        namesExistJCMembers: function (callback) {
+            namesConverter.toID(newLawsuit.jcmembers, function (peopleIDs) {
+                if (peopleIDs.length == 0) {
+                    return callback('namesIncorrect')
+                }
+                callback(null, peopleIDs)
             })
         },
         recordExists: function (callback) {
@@ -92,6 +100,7 @@ module.exports = function(complaint, newLawsuit, callback) {
         let document = {
             record: result.record,
             jcRecord: complaint.record,
+            jcMembers: result.namesExistJCMembers,
             charges: newLawsuit.charge,
             prosecutor: newLawsuit.prosecutor
         }
