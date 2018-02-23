@@ -17,7 +17,6 @@ const jcComplaintSchema = mongoose.Schema({
     reportAccepted: Boolean,
     reportAcceptedDate: Date,
     proceeding: Boolean
-
 }, {timestamps: { createdAt: 'created_at' } })
 
 jcComplaintSchema.index({ record: 1 }, { unique: true })
@@ -25,6 +24,7 @@ jcComplaintSchema.index({ record: 1 }, { unique: true })
 jcComplaintSchema.methods.accept = require('./accept')
 jcComplaintSchema.statics.apply = require('./new')
 jcComplaintSchema.methods.reportSaveAccept = require('./report')
+jcComplaintSchema.methods.sendToJC = require('./sendToJC')
 
 jcComplaintSchema.post('find', idsToNamesFunc(['accused', 'originator', 'witnesses']))
 
