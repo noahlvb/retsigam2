@@ -23,7 +23,7 @@ router.get('/:id', auth.groups(['jc']), function (req, res) {
                 if (err && err == 'alreadyAdded') {
                     req.flash('warning', 'Deze klacht is al toegevoegd')
                 } else {
-                    req.flash('info', 'Klacht is succesvol toegevoegd aan de schoolmeeting van' + schoolmeetingDate)
+                    req.flash('info', 'Klacht is succesvol toegevoegd aan de schoolmeeting van ' + schoolmeetingDate)
                 }
 
                 res.redirect('/jc/complaint/' + req.params.id)
