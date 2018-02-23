@@ -1,0 +1,5 @@
+{
+    "webPort": 3000,
+    "secret": "your-secret",
+    "db": "mongodb://<your-database>"
+}
