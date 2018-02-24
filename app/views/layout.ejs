@@ -81,6 +81,9 @@
                 <% if(locals.user && user.groups.indexOf('jc') !== -1){ %>
                     <li><a class="dropdown-button" href="/jc/overview" data-activates="dropdownJC">JC<i class="material-icons right">arrow_drop_down</i></a></li>
                 <% } %>
+                <% if(locals.user) { %>
+                    <li><a href="/schoolmeeting">Schoolmeeting</a></li>
+                <% } %>
                 <% if(locals.user && user.groups.indexOf('schoolMeetingVoorzitter') !== -1){ %>
                     <li><a href="/jc/lawsuit/">Rechtzaken</a></li>
                 <% } %>
@@ -104,6 +107,12 @@
                                     <li><a href="/jc/sanction/overview">Sancties</a></li>
                                 </ul>
                             </div>
+                        </li>
+                    </ul>
+                <% } %>
+                <% if(locals.user) { %>
+                    <ul class="collapsible collapsible-accordion">
+                        <li class="bold"><a class="collapsible-header waves-effect waves-teal" href="/schoolmeeting">Schoolmeeting</a>
                         </li>
                     </ul>
                 <% } %>

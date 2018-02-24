@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col s12 l6">
+        <div class="card teal">
+            <div class="card-content white-text">
+                <span class="card-title">Aankomende Schoolmeeting</span>
+                <p>
+                    <b>Tijd:</b> <%= schoolmeetings[0].datetime %><br>
+                    <b>Locatie:</b> <%= schoolmeetings[0].location %><br>
+                    <b>Type:</b> <%= schoolmeetings[0].type %><br>
+                    <br>
+                    <b>doorgestuurd voor goedkeuring</b>
+                    <hr>
+                    <% schoolmeetings[0].jcComplaints.forEach(function (complaint) { %>
+                        <b>Klacht:</b> <%= complaint.record %><br>
+                    <% }) %>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col s12 l6">
+        klfdfkjg
+    </div>
+</div>

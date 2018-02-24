@@ -12,6 +12,7 @@ const router = express.Router()
 router.use('/account', require('./account'))
 router.use('/jc', require('./jc'))
 router.use('/law', require('./law'))
+router.use('/schoolmeeting', require('./schoolmeeting'))
 
 router.get('/', auth.auth, function (req, res) {
     async.parallel({
