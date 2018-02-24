@@ -1,8 +1,6 @@
-const express = require('express');
 const mongoose = require('mongoose');
 const async = require('async');
 
-const auth = require('./../../middlewares/auth')
 const jcComplaints = require('./../../models/jcComplaint')
 const jcSubcommittee = require('./../../models/jcSubcommittee')
 const jcCharges = require('./../../models/jcCharge')
@@ -10,9 +8,7 @@ const jcLawsuits = require('./../../models/jcLawsuit')
 const jcSanctions = require('./../../models/jcSanction')
 const schoolmeetings = require('./../../models/schoolmeeting')
 
-const router = express.Router()
-
-router.get('/:id', auth.groups(['jc']), function (req, res) {
+module.exports = function (req, res) {
     if (mongoose.Types.ObjectId.isValid(req.params.id)) {
         jcComplaints.find({_id: req.params.id}, function (err, documentComplaint) {
             if (err) {
@@ -65,6 +61,4 @@ router.get('/:id', auth.groups(['jc']), function (req, res) {
         req.flash('warning', 'Deze klacht bestaat niet!')
         return res.redirect('/jc/overview')
     }
-})
-
-module.exports = router
+}

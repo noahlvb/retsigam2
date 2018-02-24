@@ -1,12 +1,11 @@
-const express = require('express');
-const async = require('async');
+const AbstractController = require('./../../AbstractController')
 
-const auth = require('./../../../middlewares/auth')
+class ChargesController extends AbstractController {
+    registerRoutes() {
+        this.router.get('/overview', this.auth.groups(['jc']), require('./overview'))
+        this.router.get('/proceeding/:id/:action', this.auth.groups(['jc']), require('./proceeding'))
+        this.router.post('/:id', this.auth.groups(['jc']), require('./new'))
+    }
+}
 
-const router = express.Router()
-
-router.get('/overview', auth.groups(['jc']), require('./overview'))
-router.get('/proceeding/:id/:action', auth.groups(['jc']), require('./proceeding'))
-router.post('/:id', auth.groups(['jc']), require('./new'))
-
-module.exports = router
+module.exports = ChargesController

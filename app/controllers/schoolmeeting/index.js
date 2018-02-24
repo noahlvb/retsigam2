@@ -1,9 +1,9 @@
-const express = require('express')
+const AbstractController = require('./../AbstractController')
 
-const auth = require('./../../middlewares/auth')
+class SchoolmeetingController extends AbstractController {
+    registerRoutes() {
+        this.router.get('/', this.auth.auth, require('./overview'))
+    }
+}
 
-const router = express.Router()
-
-router.use('/', auth.auth, require('./overview'))
-
-module.exports = router
+module.exports = SchoolmeetingController

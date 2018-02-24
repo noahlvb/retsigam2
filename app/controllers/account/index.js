@@ -1,61 +1,33 @@
-const express = require('express')
-const passport = require('passport')
+const AbstractController = require('./../AbstractController')
 
 const users = require('./../../models/users')
-const auth = require('./../../middlewares/auth')
 
-const router = express.Router()
+class AccountController extends AbstractController {
+    registerRoutes() {
+        this.router.get('/login', require('./authentication/login'))
+        this.router.get('/logout', require('./authentication/logout'))
+        this.router.post('/login/local', require('./authentication/loginLocal'))
 
-router.get('/login', function (req, res) {
-    res.set({ 'Content-Type' : 'text/html' })
-    res.render('login')
-})
+        this.router.get('/manage', this.auth.groups(['admin']), require('./manage/overview'))
+        this.router.get('/manage/:id', this.auth.groups(['admin']), require('./manage/individuel'))
+        this.router.get('/manage/add', this.auth.groups(['admin']), require('./manage/addGET'))
+        this.router.post('/manage/add', this.auth.groups(['admin']), require('./manage/addPOST'))
+        this.router.get('/manage/:id/delete', this.auth.groups(['admin']), require('./manage/delete'))
+        this.router.post('/manage/:id/group/add', this.auth.groups(['admin']), require('./manage/groupAdd'))
+        this.router.get('/manage/:id/group/remove', this.auth.groups(['admin']), require('./manage/groupRemove'))
 
-router.post('/login/local',
-    passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/account/login',
-        failureFlash: true
-    })
-)
+        this.router.get('/userList', this.auth.groups(['admin']), this.getUserList)
+    }
 
-router.get('/logout', function (req, res) {
-    req.logout()
-    res.redirect('/')
-})
+    getUserList (req, res) {
+        users.find({}, function (err, document) {
+            if (err) {
+                return console.error(err)
+            }
 
-router.get('/manage', auth.groups(['admin']), function (req, res) {
-    res.set({ 'Content-Type' : 'text/html' })
-    res.render('accountManage')
-})
+            res.json(document)
+        })
+    }
+}
 
-router.get('/manage/add', auth.groups(['admin']), function (req, res) {
-    res.render('accountAdd')
-})
-
-router.get('/manage/:id', auth.groups(['admin']), function (req, res) {
-    users.findOne({ _id: req.params.id }, function (err, document) {
-        if (err) {
-            return console.log(err)
-        }
-
-        res.render('accountManageIndiv', { userProfile: document})
-    })
-})
-
-router.get('/userList', auth.groups(['admin']), function (req, res) {
-    users.find({}, function (err, document) {
-        if (err) {
-            return console.error(err)
-        }
-
-        res.json(document)
-    })
-})
-
-router.post('/manage/add', auth.groups(['admin']), require('./new'))
-router.get('/manage/:id/delete', auth.groups(['admin']), require('./delete'))
-router.post('/manage/:id/group/add', auth.groups(['admin']), require('./groupAdd'))
-router.get('/manage/:id/group/remove', auth.groups(['admin']), require('./groupRemove'))
-
-module.exports = router
+module.exports = AccountController

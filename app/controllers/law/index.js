@@ -1,13 +1,12 @@
-const express = require('express');
-const mongoose = require('mongoose');
+const AbstractController = require('./../AbstractController')
 
-const auth = require('./../../middlewares/auth')
+class LawController extends AbstractController{
+    registerRoutes () {
+        this.router.get('/', require('./overview'))
+        this.router.post('/', this.auth.groups(['rechtscoordinator']), require('./new'))
+        this.router.post('/:id', this.auth.groups(['rechtscoordinator']), require('./edit'))
+        this.router.get('/:id/disable', this.auth.groups(['rechtscoordinator']), require('./disable'))
+    }
+}
 
-const router = express.Router()
-
-router.get('/', require('./overview'))
-router.post('/', auth.groups(['rechtscoordinator']), require('./new'))
-router.post('/:id', auth.groups(['rechtscoordinator']), require('./edit'))
-router.get('/:id/disable', auth.groups(['rechtscoordinator']), require('./disable'))
-
-module.exports = router
+module.exports = LawController

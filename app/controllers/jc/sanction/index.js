@@ -1,11 +1,11 @@
-const express = require('express');
+const AbstractController = require('./../../AbstractController')
 
-const auth = require('./../../../middlewares/auth')
+class SanctionController extends AbstractController {
+    registerRoutes() {
+        this.router.get('/overview', this.auth.groups(['jc']), require('./overview'))
+        this.router.get('/approve/:id', this.auth.groups(['jc']), require('./approve'))
+        this.router.post('/:id', this.auth.groups(['jc']), require('./new'))
+    }
+}
 
-const router = express.Router()
-
-router.get('/overview', auth.groups(['jc']), require('./overview'))
-router.get('/approve/:id', auth.groups(['jc']), require('./approve'))
-router.post('/:id', auth.groups(['jc']), require('./new'))
-
-module.exports = router
+module.exports = SanctionController

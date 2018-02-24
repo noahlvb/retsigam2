@@ -1,44 +1,20 @@
-const express = require('express')
+const AbstractController = require('./../AbstractController')
 
-const auth = require('./../../middlewares/auth')
-const addColorToComplaint = require('./../../helpers/addColorToComplaint')
-const jcComplaints = require('./../../models/jcComplaint');
+class JCController extends AbstractController {
+    registerRoutes() {
+        this.router.use('/subcommittees', new (require('./subcommittees')))
+        this.router.use('/charges', new (require('./charges')))
+        this.router.use('/lawsuit', new (require('./lawsuit')))
+        this.router.use('/sanction', new (require('./sanction')))
 
-const router = express.Router()
+        this.router.get('/complaint/:id', this.auth.groups(['jc']), require('./complaint'))
+        this.router.get('/accepting/:id/:action', this.auth.groups(['jc']), require('./accepting'))
+        this.router.get('/report/:id', this.auth.groups(['jc']), require('./report'))
+        this.router.get('/sendToJC/:id', this.auth.groups(['jc']), require('./sendToJC'))
+        this.router.get('/overview', this.auth.groups(['jc']), require('./overview'))
+        this.router.get('/apply', this.auth.auth, require('./applyGET'))
+        this.router.post('/apply', this.auth.auth, require('./applyPOST'))
+    }
+}
 
-router.use('/complaint', require('./complaint'))
-router.use('/accepting', require('./accepting'))
-router.use('/subcommittees', require('./subcommittees'))
-router.use('/report', require('./report'))
-router.use('/charges', require('./charges'))
-router.use('/lawsuit', require('./lawsuit'))
-router.use('/sanction', require('./sanction'))
-router.use('/sendToJC', require('./sendToJC'))
-
-router.get('/overview', auth.groups(['jc']), function (req, res) {
-    jcComplaints.find({}, function (err, document) {
-        addColorToComplaint(document, function (document) {
-            res.render('jc/overview', {complaints: document})
-        })
-    })
-})
-
-router.get('/apply', auth.auth, function (req, res) {
-    res.render('jc/apply')
-})
-
-router.post('/apply', auth.auth, function (req, res) {
-    jcComplaints.apply(req.user, req.body, function (feedback) {
-        if (feedback === 0) {
-            req.flash('info', 'Klacht succesvol opgebracht')
-        } else if (feedback === 1) {
-            req.flash('error', 'Er is iets mis gegaan')
-        } else if (feedback === 2) {
-            req.flash('warning', 'Not all fields are filled in!')
-            return res.redirect('/jc/apply')
-        }
-        res.redirect('/')
-    })
-})
-
-module.exports = router
+module.exports = JCController

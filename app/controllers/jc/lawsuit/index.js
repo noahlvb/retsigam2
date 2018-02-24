@@ -1,13 +1,13 @@
-const express = require('express');
+const AbstractController = require('./../../AbstractController')
 
-const auth = require('./../../../middlewares/auth')
+class LawsuitController extends AbstractController {
+    registerRoutes() {
+        this.router.get('/', this.auth.groups(['schoolMeetingVoorzitter']), require('./overview'))
+        this.router.get('/:id', this.auth.groups(['schoolMeetingVoorzitter']), require('./view'))
+        this.router.post('/schedule/:id', this.auth.groups(['schoolMeetingVoorzitter']), require('./schedule'))
+        this.router.post('/close/:id', this.auth.groups(['schoolMeetingVoorzitter']), require('./close'))
+        this.router.post('/create', this.auth.groups(['jc']), require('./new'))
+    }
+}
 
-const router = express.Router()
-
-router.get('/', auth.groups(['schoolMeetingVoorzitter']), require('./overview'))
-router.get('/:id', auth.groups(['schoolMeetingVoorzitter']), require('./view'))
-router.post('/schedule/:id', auth.groups(['schoolMeetingVoorzitter']), require('./schedule'))
-router.post('/close/:id', auth.groups(['schoolMeetingVoorzitter']), require('./close'))
-router.post('/create', auth.groups(['jc']), require('./new'))
-
-module.exports = router
+module.exports = LawsuitController

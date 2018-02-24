@@ -9,10 +9,10 @@ const jcSanctions = require('./../models/jcSanction')
 
 const router = express.Router()
 
-router.use('/account', require('./account'))
-router.use('/jc', require('./jc'))
-router.use('/law', require('./law'))
-router.use('/schoolmeeting', require('./schoolmeeting'))
+router.use('/account', new (require('./account')))
+router.use('/jc', new (require('./jc')))
+router.use('/law', new (require('./law')))
+router.use('/schoolmeeting', new (require('./schoolmeeting')))
 
 router.get('/', auth.auth, function (req, res) {
     async.parallel({

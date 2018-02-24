@@ -1,4 +1,4 @@
-const users = require('./../../models/users')
+const users = require('./../../../models/users')
 
 module.exports = function (req, res) {
     users.findByIdAndRemove(req.params.id, function (err) {
