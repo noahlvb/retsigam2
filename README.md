@@ -18,8 +18,12 @@ Features currently being developed / implemented:
 
 ## Using the software
 Retsigam stores all its data in a MongoDB Database so you will have to set that up first.
+<<<<<<< HEAD
 
 **Note:** Retsigam currently is still in heavy development and running it in production is not recommended!
+=======
+**Note:** Retsigam currently is still in heavy development en running it in production is not recommended
+>>>>>>> 2002a840aed42b48c1f9d0f3a7fd393c15be5a3c
 
 1. Copy and rename config.dist.json to config.json and put your database uri in there
 2. Run the application!
