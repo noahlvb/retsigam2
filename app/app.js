@@ -42,7 +42,7 @@ function app (config) {
         res.status(500).render('error/500', { error : err })
     })
 
-    app.use(require('./controllers'))
+    app.use(new (require('./controllers')))
 
     app.listen(config.webPort, function () {
         console.log('WebApp is running on port: ' + config.webPort + '!')

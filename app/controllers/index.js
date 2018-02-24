@@ -1,57 +1,20 @@
-const express = require('express')
-const async = require('async');
+const AbstractController = require('./AbstractController');
 
-const auth = require('./../middlewares/auth')
+class MainController extends AbstractController {
+    registerRoutes() {
+        this.router.use('/account', new (require('./account')))
+        this.router.use('/jc', new (require('./jc')))
+        this.router.use('/law', new (require('./law')))
+        this.router.use('/schoolmeeting', new (require('./schoolmeeting')))
 
-const jcSubcommittees = require('./../models/jcSubcommittee')
-const jcLawsuits = require('./../models/jcLawsuit')
-const jcSanctions = require('./../models/jcSanction')
+        this.router.get('/', this.auth.auth, require('./home'))
 
-const router = express.Router()
+        this.router.use(this.errorHandler)
+    }
 
-router.use('/account', new (require('./account')))
-router.use('/jc', new (require('./jc')))
-router.use('/law', new (require('./law')))
-router.use('/schoolmeeting', new (require('./schoolmeeting')))
+    errorHandler (req, res) {
+        res.status(404).render('error/404', { page_url : req.hostname + req.path })
+    }
+}
 
-router.get('/', auth.auth, function (req, res) {
-    async.parallel({
-        subcommittees: function (callback) {
-            jcSubcommittees.find({
-                $and: [
-                    { assigned: { '$in': [req.user._id] } },
-                    { done: false }
-                ]
-            }, function (err, document) {
-                callback(null, document)
-            })
-        },
-        lawsuits: function (callback) {
-            jcLawsuits.find({
-                $and: [
-                    { jury: { '$in': [req.user._id] } }
-                ]
-            }, function (err, document) {
-                callback(null, document)
-            })
-        },
-        sanctions: function (callback) {
-            jcSanctions.find({
-                $and: [
-                    { offender: { '$in': [req.user._id] } },
-                    { done: false }
-                ]
-            }, function (err, document) {
-                callback(null, document)
-            })
-        }
-    }, function (err, result) {
-        res.render('home', { jcSubcommittees: result.subcommittees, lawsuits: result.lawsuits, sanctions: result.sanctions })
-    })
-})
-
-router.use(function (req, res) {
-    res.status(404).render('error/404', { page_url : req.hostname + req.path })
-})
-
-module.exports = router
+module.exports = MainController
