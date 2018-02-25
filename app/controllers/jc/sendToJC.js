@@ -18,7 +18,7 @@ module.exports = function (req, res) {
                 if (err && err == 'alreadyAdded') {
                     req.flash('warning', 'Deze klacht is al toegevoegd')
                 } else if (err && err == 'double') {
-                    req.flash('warning', 'Deze klacht is al doorgestuurd naar deze schoolmeeting!')
+                    req.flash('warning', 'Deze klacht kan niet worden doorgestuurd naar de schoolmeeting, probeer het later opnieuw! (eSM_1)')
                 } else {
                     req.flash('info', 'Klacht is succesvol toegevoegd aan de schoolmeeting van ' + schoolmeetingDate)
                 }
