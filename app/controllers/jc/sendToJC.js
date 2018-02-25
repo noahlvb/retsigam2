@@ -17,6 +17,8 @@ module.exports = function (req, res) {
             document[0].sendToJC(function (err, schoolmeetingDate) {
                 if (err && err == 'alreadyAdded') {
                     req.flash('warning', 'Deze klacht is al toegevoegd')
+                } else if (err && err == 'double') {
+                    req.flash('warning', 'Deze klacht is al doorgestuurd naar deze schoolmeeting!')
                 } else {
                     req.flash('info', 'Klacht is succesvol toegevoegd aan de schoolmeeting van ' + schoolmeetingDate)
                 }
