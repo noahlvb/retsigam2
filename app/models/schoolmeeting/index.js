@@ -10,6 +10,8 @@ const schoolmeetingSchema = mongoose.Schema({
 
 schoolmeetingSchema.index({ datetime: 1 }, { unique: true })
 
+schoolmeetingSchema.statics.approveComplaint = require('./approveComplaint')
+
 const schoolmeetingModel = mongoose.model('schoolmeeting', schoolmeetingSchema)
 
 module.exports = schoolmeetingModel

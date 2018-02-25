@@ -18,6 +18,28 @@
         </div>
     </div>
     <div class="col s12 l6">
-        klfdfkjg
+        <div class="card teal darken-3">
+            <div class="card-content white-text">
+                <span class="card-title">Aankomende Schoolmeetings</span>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Datum en tijd</th>
+                            <th>Type</th>
+                            <th>Locatie</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <% schoolmeetings.forEach(function (schoolmeeting) { %>
+                        <tr>
+                            <td><a href="/schoolmeeting/<%= schoolmeeting._id %>"><%= schoolmeeting.datetime %></a></td>
+                            <td><%= schoolmeeting.type %></td>
+                            <td><%= schoolmeeting.location %></td>
+                        </tr>
+                    <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>

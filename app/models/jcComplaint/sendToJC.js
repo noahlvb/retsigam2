@@ -1,8 +1,16 @@
 const schoolmeetings = require('./../schoolmeeting')
 
-function alreadyAdded (record) {
+function AllowedToAdd (record) {
     return new Promise(function (resolve, reject) {
-        schoolmeetings.find({ 'jcComplaints.handled': false, 'jcComplaints.record': { '$in': [record] } }, function (err, document) {
+        schoolmeetings.find({
+            '$and' : [
+                { 'jcComplaints.record': { '$in': [record] } },
+                { '$or': [
+                    { 'jcComplaints.approved': { $exists: false } },
+                    { 'jcComplaints.approved': true }
+                ] }
+            ]
+        }, function (err, document) {
             if (document.length > 0) {
                 return resolve(true)
             }
@@ -18,11 +26,11 @@ module.exports = function (callback) {
             return console.log(err);
         }
 
-        if (await alreadyAdded(this.record)) {
+        if (await AllowedToAdd(this.record)) {
             return callback('alreadyAdded')
         }
 
-        document[0].jcComplaints.push({ record: this.record, handled: false})
+        document[0].jcComplaints.push({ record: this.record })
         document[0].save(function (err) {
             callback(null, document[0].datetime)
         })

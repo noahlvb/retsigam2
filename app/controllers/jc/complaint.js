@@ -42,7 +42,7 @@ module.exports = function (req, res) {
                     })
                 },
                 schoolmeeting: function (callback) {
-                    schoolmeetings.find({ jcComplaints: { '$in': [documentComplaint[0].record] } }, function (err, document) {
+                    schoolmeetings.find({ 'jcComplaints.record': { '$in': [documentComplaint[0].record] } }, null, { sort: {datetime: -1} }, function (err, document) {
                         callback(null, document[0])
                     })
                 }

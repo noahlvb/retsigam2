@@ -1,0 +1,11 @@
+<p>
+    <b>Tijd:</b> <%= schoolmeeting.datetime %><br>
+    <b>Locatie:</b> <%= schoolmeeting.location %><br>
+    <b>Type:</b> <%= schoolmeeting.type %><br>
+    <br>
+    <b>doorgestuurd voor goedkeuring</b>
+    <hr>
+    <% schoolmeeting.jcComplaints.forEach(function (complaint) { %>
+        <b>Klacht:</b> <%= complaint.record %> <a href="/schoolmeeting/approve/<%= complaint.record %>/true">goedkeuren</a> <a href="/schoolmeeting/approve/<%= complaint.record %>/false">afkeuren</a><br>
+    <% }) %>
+</p>
