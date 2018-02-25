@@ -7,7 +7,7 @@ class MainController extends AbstractController {
         this.router.use('/law', new (require('./law')))
         this.router.use('/schoolmeeting', new (require('./schoolmeeting')))
 
-        this.router.get('/', this.auth.auth, require('./home'))
+        this.router.get('/', this.auth(), require('./home'))
 
         this.router.use(this.errorHandler)
     }

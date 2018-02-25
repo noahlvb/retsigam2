@@ -1,12 +1,4 @@
-exports.auth = function (req, res, next) {
-    if (req.isAuthenticated()) {
-        return next()
-    } else {
-        res.status(403).redirect('/account/login')
-    }
-}
-
-exports.groups = function (groups) {
+module.exports = function (groups) {
     return function (req, res, next) {
         if (!req.isAuthenticated()) {
             return res.status(403).redirect('/account/login')

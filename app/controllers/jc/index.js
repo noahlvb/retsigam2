@@ -7,13 +7,13 @@ class JCController extends AbstractController {
         this.router.use('/lawsuit', new (require('./lawsuit')))
         this.router.use('/sanction', new (require('./sanction')))
 
-        this.router.get('/complaint/:id', this.auth.groups(['jc']), require('./complaint'))
-        this.router.get('/accepting/:id/:action', this.auth.groups(['jc']), require('./accepting'))
-        this.router.get('/report/:id', this.auth.groups(['jc']), require('./report'))
-        this.router.get('/sendToJC/:id', this.auth.groups(['jc']), require('./sendToJC'))
-        this.router.get('/overview', this.auth.groups(['jc']), require('./overview'))
-        this.router.get('/apply', this.auth.auth, require('./applyGET'))
-        this.router.post('/apply', this.auth.auth, require('./applyPOST'))
+        this.router.get('/complaint/:id', this.auth(['jc']), require('./complaint'))
+        this.router.get('/accepting/:id/:action', this.auth(['jc']), require('./accepting'))
+        this.router.get('/report/:id', this.auth(['jc']), require('./report'))
+        this.router.get('/sendToJC/:id', this.auth(['jc']), require('./sendToJC'))
+        this.router.get('/overview', this.auth(['jc']), require('./overview'))
+        this.router.get('/apply', this.auth(), require('./applyGET'))
+        this.router.post('/apply', this.auth(), require('./applyPOST'))
     }
 }
 
