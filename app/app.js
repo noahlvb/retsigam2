@@ -6,10 +6,14 @@ const bodyParser = require('body-parser')
 const connectMongo = require('connect-mongo')(sessions)
 const passport = require('passport')
 const gitRev = require('git-rev')
+const helmet = require('helmet');
 
-function app (config) {
+const logger = require('./services/logger')
+
+function App (config) {
     const app = express()
 
+    app.use(helmet())
     require('./helpers/passport')(passport)
 
     app.set('view engine', 'ejs')
@@ -38,6 +42,8 @@ function app (config) {
     app.use(require('./middlewares/insertUserProfile'))
     app.use(require('./middlewares/autocompleteUsers'))
 
+    app.use(require('morgan')('combined', { "stream": logger.stream }))
+
     app.use(function (err, req, res, next) {
         res.status(500).render('error/500', { error : err })
     })
@@ -49,4 +55,4 @@ function app (config) {
     })
 }
 
-module.exports = app
+module.exports = App
