@@ -4,7 +4,7 @@ const namesConverter = require('./../../helpers/namesConverter')
 module.exports = function (id, newSanction, callback) {
     jcComplaints.find({_id: id}, function (err, documentComplaint) {
         if (err) {
-            return console.log(err);
+            return console.log(err)
         }
 
         if (documentComplaint.length == 0) {

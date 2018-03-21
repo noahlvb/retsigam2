@@ -1,6 +1,6 @@
-const async = require('async');
+const async = require('async')
 
-const namesConverter = require('./../../helpers/namesConverter');
+const namesConverter = require('./../../helpers/namesConverter')
 const jcComplaints = require('./../jcComplaint')
 const jcCharges = require('./../jcCharge')
 
@@ -25,7 +25,7 @@ module.exports = function(complaint, newLawsuit, callback) {
         recordExists: function (callback) {
             jcComplaints.find({ record: complaint.record }, function (err, document) {
                 if (err) {
-                    return console.log(err);
+                    return console.log(err)
                 }
 
                 if (document.length !== 1) {
@@ -39,7 +39,7 @@ module.exports = function(complaint, newLawsuit, callback) {
                 chargesID = []
 
                 if (err) {
-                    return console.log(err);
+                    return console.log(err)
                 }
 
                 if (!newLawsuit.charge) {
@@ -60,7 +60,7 @@ module.exports = function(complaint, newLawsuit, callback) {
 
                 this.find({ charges: { $in: chargesID } }, function (err, documentLawsuits) {
                     if (err) {
-                        return console.log(err);
+                        return console.log(err)
                     }
 
                     if (documentLawsuits.length > 0) {

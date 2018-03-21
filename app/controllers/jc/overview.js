@@ -1,4 +1,4 @@
-const jcComplaints = require('./../../models/jcComplaint');
+const jcComplaints = require('./../../models/jcComplaint')
 const addColorToComplaint = require('./../../helpers/addColorToComplaint')
 
 module.exports = function (req, res) {

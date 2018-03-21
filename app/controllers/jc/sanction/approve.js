@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const jcSanctions = require('./../../../models/jcSanction')
 
@@ -6,7 +6,7 @@ module.exports = function (req, res) {
     if (mongoose.Types.ObjectId.isValid(req.params.id)) {
         jcSanctions.find({ _id: req.params.id }, function (err, document) {
             if (err) {
-                return console.log(err);
+                return console.log(err)
             }
 
             if (document.length == 0) {

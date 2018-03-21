@@ -6,7 +6,7 @@ const bodyParser = require('body-parser')
 const connectMongo = require('connect-mongo')(sessions)
 const passport = require('passport')
 const gitRev = require('git-rev')
-const helmet = require('helmet');
+const helmet = require('helmet')
 
 const logger = require('./services/logger')
 
@@ -22,11 +22,11 @@ function App (config) {
     app.use(ejsLayout)
     app.use(require('./helpers/langauge'))
     gitRev.short(function(str){
-        app.locals.commit = str;
+        app.locals.commit = str
     })
 
     app.use(flash())
-    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(bodyParser.urlencoded({ extended: false }))
     app.use(sessions({
         secret: config.secret,
         store: new connectMongo({ url : config.db }),

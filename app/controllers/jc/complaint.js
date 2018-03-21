@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const async = require('async');
+const mongoose = require('mongoose')
+const async = require('async')
 
 const jcComplaints = require('./../../models/jcComplaint')
 const jcSubcommittee = require('./../../models/jcSubcommittee')
@@ -12,7 +12,7 @@ module.exports = function (req, res) {
     if (mongoose.Types.ObjectId.isValid(req.params.id)) {
         jcComplaints.find({_id: req.params.id}, function (err, documentComplaint) {
             if (err) {
-                return console.log(err);
+                return console.log(err)
             }
 
             if (documentComplaint.length == 0) {

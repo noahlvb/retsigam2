@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const jcComplaints = require('./../../../models/jcComplaint')
 const jcSanctions = require('./../../../models/jcSanction')

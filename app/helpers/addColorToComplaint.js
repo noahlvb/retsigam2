@@ -1,4 +1,4 @@
-const async = require('async');
+const async = require('async')
 
 const complaintStadium = require('./complaintStadium')
 

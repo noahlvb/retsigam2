@@ -1,4 +1,4 @@
-const namesConverter = require('./../../helpers/namesConverter');
+const namesConverter = require('./../../helpers/namesConverter')
 
 module.exports = function (complaint, assigned, callback) {
     namesConverter.toID(assigned, function (peopleIDs) {

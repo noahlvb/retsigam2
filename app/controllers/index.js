@@ -1,4 +1,4 @@
-const AbstractController = require('./AbstractController');
+const AbstractController = require('./AbstractController')
 
 class MainController extends AbstractController {
     registerRoutes() {

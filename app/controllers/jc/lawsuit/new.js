@@ -1,4 +1,4 @@
-const async = require('async');
+const async = require('async')
 
 const jcLawsuits = require('./../../../models/jcLawsuit')
 

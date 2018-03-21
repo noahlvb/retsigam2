@@ -1,4 +1,4 @@
-const namesConverter = require('./../../helpers/namesConverter');
+const namesConverter = require('./../../helpers/namesConverter')
 
 module.exports = function (plans, callback) {
     if (new Date(plans.datetime).getTime() < new Date().getTime()) {

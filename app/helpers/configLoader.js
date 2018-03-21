@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs')
 
 let fallback = {
     "webPort": process.env.PORT,

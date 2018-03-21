@@ -1,6 +1,6 @@
 const AbstractWorker = require('./AbstractWorker')
 
-const schoolmeeting = require('./../models/schoolmeeting');
+const schoolmeeting = require('./../models/schoolmeeting')
 
 class NewSchoolmeetingWorker extends AbstractWorker {
     getInterval () {
@@ -11,20 +11,20 @@ class NewSchoolmeetingWorker extends AbstractWorker {
         let currentDate = new Date()
 
         function getNextSchoolmeetingDate(date, dayOfWeek, hours, minutes) {
-            let resultDate = new Date(date.getTime());
+            let resultDate = new Date(date.getTime())
 
             let newDate = date.getDate() + (7 + dayOfWeek - date.getDay()) % 7
             if (date.getDate() == newDate) {
                 newDate += 7
             }
 
-            resultDate.setDate(newDate);
+            resultDate.setDate(newDate)
             resultDate.setHours(hours)
             resultDate.setMinutes(minutes)
             resultDate.setSeconds(0)
             resultDate.setMilliseconds(0)
 
-            return resultDate;
+            return resultDate
         }
 
         schoolmeeting.findOne().sort({ 'created_at': -1 }).exec(function (err, document) {

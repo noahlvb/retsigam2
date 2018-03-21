@@ -1,4 +1,4 @@
-const async = require('async');
+const async = require('async')
 
 const users = require('./../users')
 
@@ -12,7 +12,7 @@ module.exports = function (convertFields) {
                     calls.push(function (callback) {
                         users.findOne({_id: id}, function (err, documentUser) {
                             if (err) {
-                                return console.log(err);
+                                return console.log(err)
                             }
 
                             document[index][field][indexId] = [id, documentUser.username]

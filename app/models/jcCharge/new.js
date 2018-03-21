@@ -1,11 +1,11 @@
-const namesConverter = require('./../../helpers/namesConverter');
+const namesConverter = require('./../../helpers/namesConverter')
 const jcComplaints = require('./../jcComplaint')
 const laws = require('./../law')
 
 module.exports = function (id, newCharge, callback) {
     jcComplaints.find({_id: id}, function (err, documentComplaint) {
         if (err) {
-            return console.log(err);
+            return console.log(err)
         }
 
         if (documentComplaint.length == 0) {

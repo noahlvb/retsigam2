@@ -1,6 +1,6 @@
-const async = require('async');
+const async = require('async')
 
-const namesConverter = require('./../../helpers/namesConverter');
+const namesConverter = require('./../../helpers/namesConverter')
 
 module.exports = function (user, newComplaint, callback) {
     for (field in newComplaint) {

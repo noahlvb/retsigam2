@@ -1,4 +1,4 @@
-const jcComplaints = require('./../../models/jcComplaint');
+const jcComplaints = require('./../../models/jcComplaint')
 
 module.exports = function (req, res) {
     jcComplaints.apply(req.user, req.body, function (feedback) {

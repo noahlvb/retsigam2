@@ -1,5 +1,5 @@
-const async = require('async');
-const mongoose = require('mongoose');
+const async = require('async')
+const mongoose = require('mongoose')
 
 const jclawsuits = require('./../models/jcLawsuit')
 const jcSubcommittees = require('./../models/jcSubcommittee')

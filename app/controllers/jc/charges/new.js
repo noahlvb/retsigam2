@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
-const namesConverter = require('./../../../helpers/namesConverter');
+const namesConverter = require('./../../../helpers/namesConverter')
 const jcCharges = require('./../../../models/jcCharge')
 
 module.exports = function (req, res) {

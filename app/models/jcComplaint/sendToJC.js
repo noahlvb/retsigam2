@@ -23,7 +23,7 @@ function AllowedToAdd (record) {
 module.exports = function (callback) {
     schoolmeetings.find({ type: 'regular' }, null, { sort: {datetime: -1}, limit: 1 }, async function (err, document) {
         if (err) {
-            return console.log(err);
+            return console.log(err)
         }
 
         if (await AllowedToAdd(this.record)) {
