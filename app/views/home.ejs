@@ -1,96 +1,121 @@
 <div class="row">
-    <div class="col s12 l4">
-		<div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              	<span class="card-title">Opbrengen</span>
-              	<p>Let bij het opbrengen wel op dat het een bkldvbkjvkjdf</p>
+    <div class="col s12 l8">
+        <div class="row">
+            <div class="col s12 l6">
+        		<div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                      	<span class="card-title">Opbrengen</span>
+                      	<p>Let bij het opbrengen wel op dat het een bkldvbkjvkjdf</p>
+                    </div>
+                    <div class="card-action">
+                      	<a href="/jc/apply">Klacht opbrengen</a>
+                    </div>
+              	</div>
             </div>
-            <div class="card-action">
-              	<a href="/jc/apply">Klacht opbrengen</a>
-            </div>
-      	</div>
-    </div>
-</div>
-<div class="row">
-    <div class="col s12 l4">
-        <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-                <span class="card-title">Subcommittees</span>
-                <p>Hieronder staan alle Subcommittees waar aan je bent toegewezen</p>
-                <% if (jcSubcommittees.length > 0) { %>
-                <table class="bordered">
-                    <tr>
-                        <th>Klacht</th>
-                        <th>toegewezen</th>
-                    </tr>
-                    <% jcSubcommittees.forEach(function (subcommittee) { %>
-                    <tr>
-                        <td><a href="/jc/subcommittees/<%= subcommittee.id %>" class="white-text"><%= subcommittee.complaint %></a></td>
-                        <td><%= subcommittee.assigned.map(user => {return ' ' + user[1]}) %></td>
-                    </tr>
-                    <% }) %>
-                </table>
-                <% } else { %>
-                    <br>
-                    <p><b>Er zijn momenteel geen subcommittees waar je aan bent toegewezen</b></p>
-                <% } %>
-            </div>
-        </div>
-    </div>
-    <div class="col s12 l4">
-        <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-                <span class="card-title">Rechtzaken</span>
-                <p>Hieronder staan alle rechtzaken waarin je jury bent</p>
-                <% if (lawsuits.length > 0) { %>
-                <table class="bordered">
-                    <tr>
-                        <th>Nummer</th>
-                        <th>jury</th>
-                        <th>datum en tijd</th>
-                    </tr>
-                    <% lawsuits.forEach(function (lawsuit) { %>
-                        <% if (new Date(lawsuit.date).getTime() > new Date().getTime()) { %>
-                        <tr>
-                            <td><%= lawsuit.record %></td>
-                            <td><%= lawsuit.jury.map(user => {return ' ' + user[1]}) %></td>
-                            <td><%= lawsuit.date.getDate() %>/<%= lawsuit.date.getMonth() + 1 %>/<%= lawsuit.date.getFullYear() %> - <%= lawsuit.date.getHours() %>:<%= lawsuit.date.getMinutes() %></td>
-                        </tr>
-                        <% } %>
-                    <% }) %>
-                </table>
-                <% } else { %>
-                    <br>
-                    <p><b>Er zijn momenteel geen rechtzaken waarin je jury bent</b></p>
-                <% } %>
-            </div>
-        </div>
-    </div>
-    <div class="col s12 l4">
-        <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-                <span class="card-title">Sancties</span>
-                <p>Hieronder staan alle sancties die je hebt gekregen</p>
-                <% if (sanctions.length > 0) { %>
-                <table class="bordered">
-                    <tr>
-                        <th>Klacht</th>
-                        <th>Sanctie</th>
-                    </tr>
+            <div class="col s12 l6">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">Sancties</span>
+                        <p>Hieronder staan alle sancties die je hebt gekregen</p>
+                        <% if (sanctions.length > 0) { %>
+                        <table class="bordered">
+                            <tr>
+                                <th>Klacht</th>
+                                <th>Sanctie</th>
+                            </tr>
 
-                    <% sanctions.forEach(function (sanction) { %>
-                        <% if (!sanction.done) { %>
-                        <tr>
-                            <td><%= sanction.record %></td>
-                            <td><%= sanction.sanction %></td>
-                        </tr>
+                            <% sanctions.forEach(function (sanction) { %>
+                                <% if (!sanction.done) { %>
+                                <tr>
+                                    <td><%= sanction.record %></td>
+                                    <td><%= sanction.sanction %></td>
+                                </tr>
+                                <% } %>
+                            <% }) %>
+                        </table>
+                        <% } else { %>
+                            <br>
+                            <p><b>Er zijn momenteel geen sancties aan jouw gegeven</b></p>
                         <% } %>
-                    <% }) %>
-                </table>
-                <% } else { %>
-                    <br>
-                    <p><b>Er zijn momenteel geen sancties aan jouw gegeven</b></p>
-                <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 l6">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">Subcommittees</span>
+                        <p>Hieronder staan alle Subcommittees waar aan je bent toegewezen</p>
+                        <% if (jcSubcommittees.length > 0) { %>
+                        <table class="bordered">
+                            <tr>
+                                <th>Klacht</th>
+                                <th>toegewezen</th>
+                            </tr>
+                            <% jcSubcommittees.forEach(function (subcommittee) { %>
+                            <tr>
+                                <td><a href="/jc/subcommittees/<%= subcommittee.id %>" class="white-text"><%= subcommittee.complaint %></a></td>
+                                <td><%= subcommittee.assigned.map(user => {return ' ' + user[1]}) %></td>
+                            </tr>
+                            <% }) %>
+                        </table>
+                        <% } else { %>
+                            <br>
+                            <p><b>Er zijn momenteel geen subcommittees waar je aan bent toegewezen</b></p>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 l6">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">Rechtzaken</span>
+                        <p>Hieronder staan alle rechtzaken waarin je jury bent</p>
+                        <% if (lawsuits.length > 0) { %>
+                        <table class="bordered">
+                            <tr>
+                                <th>Nummer</th>
+                                <th>jury</th>
+                                <th>datum en tijd</th>
+                            </tr>
+                            <% lawsuits.forEach(function (lawsuit) { %>
+                                <% if (new Date(lawsuit.date).getTime() > new Date().getTime()) { %>
+                                <tr>
+                                    <td><%= lawsuit.record %></td>
+                                    <td><%= lawsuit.jury.map(user => {return ' ' + user[1]}) %></td>
+                                    <td><%= lawsuit.date.getDate() %>/<%= lawsuit.date.getMonth() + 1 %>/<%= lawsuit.date.getFullYear() %> - <%= lawsuit.date.getHours() %>:<%= lawsuit.date.getMinutes() %></td>
+                                </tr>
+                                <% } %>
+                            <% }) %>
+                        </table>
+                        <% } else { %>
+                            <br>
+                            <p><b>Er zijn momenteel geen rechtzaken waarin je jury bent</b></p>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col s12 l4">
+        <div class="col s12 l12">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">Berichten</span>
+                    <table class="bordered">
+                        <tbody>
+                            <tr>
+                                <td>dit is een test bericht</td>
+                                <td><i class="material-icons">access_time</i>1d</td>
+                            </tr>
+                            <tr>
+                                <td>en dit is nog een test bericht</td>
+                                <td><i class="material-icons">access_time</i><span>1d</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
