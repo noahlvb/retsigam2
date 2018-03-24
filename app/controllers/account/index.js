@@ -9,7 +9,7 @@ class AccountController extends AbstractController {
         this.router.post('/login/local', require('./authentication/loginLocal'))
 
         this.router.get('/manage', this.auth(['admin']), require('./manage/overview'))
-        this.router.get('/manage/:id', this.auth(['admin']), require('./manage/individuel'))
+        this.router.get('/manage/:id', this.auth(), require('./manage/individuel'))
         this.router.get('/manage/add', this.auth(['admin']), require('./manage/addGET'))
         this.router.post('/manage/add', this.auth(['admin']), require('./manage/addPOST'))
         this.router.get('/manage/:id/delete', this.auth(['admin']), require('./manage/delete'))

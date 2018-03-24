@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>welcome <% if(locals.user){ %><%= user.username %><% } %> to Retsigam</title>
+    <title>Retsigam2: SSH</title>
 
     <!-- style -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -41,9 +41,9 @@
                 <div class="background">
                     <img src="http://materializecss.com/images/office.jpg">
                 </div>
-                <a href="#!user"><img class="circle" src="https://i.stack.imgur.com/34AD2.jpg"></a>
-                <a href="#!name"><span class="white-text name"><%= user.username %></span></a>
-                <a href="#!email"><span class="white-text email"><%= user.email %></span></a>
+                <a href="/account/manage/<%= user._id %>"><img class="circle" src="https://i.stack.imgur.com/34AD2.jpg"></a>
+                <a href="/account/manage/<%= user._id %>"><span class="white-text name"><%= user.username %></span></a>
+                <a href="/account/manage/<%= user._id %>"><span class="white-text email"><%= user.email %></span></a>
             </div>
             <% } %>
         </li>

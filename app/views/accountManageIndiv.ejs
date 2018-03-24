@@ -6,32 +6,55 @@
 
 </style>
 
-<ul class="collection with-header">
-    <li class="collection-header"><h3><%= userProfile.username %></h3></li>
-	<li class="collection-item">id: <%= userProfile.id%></li>
-    <li class="collection-item"><%= __('ACCOUNTPROFILE_infoFullname')%> <%= userProfile.firstName%> <%= userProfile.secondName %></li>
-    <li class="collection-item"><%= __('ACCOUNTPROFILE_infoEmail')%> <%= userProfile.email%></li>
-    <li class="collection-item"><a class="modal-trigger" href="#modal1"><%= __('ACCOUNTPROFILE_infoGroup')%> <%= userProfile.groups%></a></li>
-</ul>
+<div class="row">
+	<div class="card">
+		<div class="card-content">
+			<span class="card-title"><h4><%= userProfile.username %></h4></span>
+			<p><%= userProfile.id %></p>
+		</div>
+	</div>
+</div>
 
-<div id="modal1" class="modal" style="min-height: 400px;">
-	<div class="modal-content">
-		<h4>Groepen aanpassen</h4>
-		<p>Hieronder kunt u groepen toewijzen aan deze gebruiker of juist verwijderen</p>
+<div class="row">
+	<div class="col s12 l4">
+		<div class="collection userSectionSelector">
+	        <a href="#profile" class="collection-item active"><i class="material-icons secondary-content">assignment_ind</i>Persoonlijke gegevens</a>
+	        <a href="#groups" class="collection-item"><i class="material-icons secondary-content">group</i>Groepen</a>
+      	</div>
+	</div>
 
-		<form action="/account/manage/<%= userProfile.id %>/group/add" method="post">
-			<div class="input-field">
-				<select name="group" onchange="this.form.submit()">
-					<option value="" disabled selected>Groep toevoegen</option>
-			    	<option value="admin">admin</option>
-			    	<option value="jc">JC</option>
-					<option value="schoolMeetingVoorzitter">School Meeting Voorzitter</option>
-					<option value="rechtscoordinator">Rechtscoordinator</option>
-				</select>
+	<div class="col s12 l8 userSections">
+		<div class="userSection" id="profile">
+			<ul class="collection">
+				<li class="collection-item"><b>Gebruikersnaam:</b> <%= userProfile.username%></li>
+				<li class="collection-item"><b>Voornaam:</b> <%= userProfile.firstName%></li>
+				<li class="collection-item"><b>Achternaam:</b> <%= userProfile.secondName%></li>
+				<li class="collection-item"><b>Email:</b> <%= userProfile.email%></li>
+			</ul>
+		</div>
+
+		<div class="userSection" id="groups" style="display: none;">
+			<div class="card-panel">
+				<h4>Groepen</h4>
+				<p>Hieronder kun je zien in welke groepen je zit</p>
+
+				<% if (user.groups.indexOf('admin') !== -1) { %>
+				<form action="/account/manage/<%= userProfile.id %>/group/add" method="post">
+					<div class="input-field">
+						<select name="group" onchange="this.form.submit()">
+							<option value="" disabled selected>Groep toevoegen</option>
+							<option value="admin">admin</option>
+							<option value="jc">JC</option>
+							<option value="schoolMeetingVoorzitter">School Meeting Voorzitter</option>
+							<option value="rechtscoordinator">Rechtscoordinator</option>
+						</select>
+					</div>
+				</form>
+				<% } %>
+
+				<ul id="group_list" class="collection"></ul>
 			</div>
-		</form>
-
-		<ul id="group_list" class="collection"></ul>
+		</div>
 	</div>
 </div>
 
@@ -40,7 +63,25 @@
     userProfile = JSON.parse('<%- JSON.stringify(userProfile) %>')
 
     for(i = 0; i < userProfile.groups.length; i++){
-        $('ul[id="group_list"]').append('<li class="collection-item"><a href="/account/manage/' + userProfile._id + '/group/remove?group=' + userProfile.groups[i] + '"><i class="material-icons left">cancel</i></a>' + userProfile.groups[i] + '</li>');
+		if (user.groups.indexOf('admin') !== -1) {
+			$('ul[id="group_list"]').append('<li class="collection-item"><a href="/account/manage/' + userProfile._id + '/group/remove?group=' + userProfile.groups[i] + '"><i class="material-icons left">cancel</i></a>' + userProfile.groups[i] + '</li>');
+		} else {
+			$('ul[id="group_list"]').append('<li class="collection-item">' + userProfile.groups[i] + '</li>');
+		}
     }
+
+</script>
+<script type="text/javascript">
+
+	$('.userSectionSelector a').click(function (event) {
+		let hash = event.target.hash
+
+		$('.userSectionSelector a').removeClass('active')
+		$('.userSectionSelector a[href="' + hash + '"]').addClass('active')
+
+		$('.userSections').children().css('display', 'none')
+		$('.userSections ' + hash).css('display', 'block')
+
+	})
 
 </script>
