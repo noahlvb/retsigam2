@@ -29,7 +29,8 @@
 				<li class="collection-item"><b>Gebruikersnaam:</b> <%= userProfile.username%></li>
 				<li class="collection-item"><b>Voornaam:</b> <%= userProfile.firstName%></li>
 				<li class="collection-item"><b>Achternaam:</b> <%= userProfile.secondName%></li>
-				<li class="collection-item"><b>Email:</b> <%= userProfile.email%></li>
+				<li class="collection-item"><b>Email:</b> <a class="modal-trigger" href="#emailModal"><%= userProfile.email%></a></li>
+				<li class="collection-item"><b>Wachtwoord:</b> <a class="waves-effect waves-light btn modal-trigger" href="#passwordModal">Wijzigen</a></li>
 			</ul>
 		</div>
 
@@ -55,6 +56,35 @@
 				<ul id="group_list" class="collection"></ul>
 			</div>
 		</div>
+	</div>
+</div>
+
+<div id="emailModal" class="modal">
+	<form action="/account/manage/<%= userProfile.id%>/email" method="post">
+		<div class="modal-content">
+			<h4>Email adres wijzigen</h4>
+			<div class="input-field">
+				<input id="email" name="email" type="email" class="validate" required>
+				<label for="email">Email</label>
+	        </div>
+			<div class="input-field">
+				<input id="emailConfirm" name="emailConfirm" type="email" class="validate" autocomplete="off" required>
+				<label for="emailConfirm">Bevestig email</label>
+	        </div>
+		</div>
+		<div class="modal-footer">
+			<input type="submit" class="modal-action modal-close waves-effect waves-green btn-flat" value="Wijzigen">
+		</div>
+	</form>
+</div>
+
+<div id="passwordModal" class="modal">
+	<div class="modal-content">
+		<h4>Modal Header</h4>
+		<p>A bunch of text</p>
+	</div>
+	<div class="modal-footer">
+		<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
 	</div>
 </div>
 

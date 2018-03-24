@@ -15,6 +15,7 @@ userSchema.index({ username: 1 }, { unique: true })
 userSchema.statics.validatePassword = require('./validatePassword')
 userSchema.statics.generateHash = require('./generateHash')
 userSchema.methods.group = require('./group')
+userSchema.methods.changeEmail = require('./email')
 userSchema.statics.add = require('./new')
 
 const userModel = mongoose.model('users', userSchema)
