@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Retsigam2: SSH</title>
+    <title>Retsigam: SSH</title>
 
     <!-- style -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -48,9 +48,9 @@
             <% } %>
         </li>
         <% if(locals.user && user.groups.indexOf('admin') !== -1) { %>
-        <li><a href="/account/manage">accounts</a></li>
+        <li><a href="/account/manage"><%= __('layout_menuAccount') %></a></li>
         <% } %>
-        <li><a href="/account/logout">logout</a></li>
+        <li><a href="/account/logout"><%= __('layout_menuLogout') %></a></li>
         <li><div class="divider"></div></li>
         <li><a class="subheader">Info</a></li>
         <li><a href="#!">Version: <%= locals.commit %></a></li>
@@ -58,19 +58,19 @@
 
     <ul id="dropdownAccount" class="dropdown-content">
         <% if(locals.user && user.groups.indexOf('admin') !== -1) { %>
-        <li><a href="/account/manage">accounts</a></li>
+        <li><a href="/account/manage"><%= __('layout_menuAccount') %></a></li>
         <% } %>
-        <li><a href="/account/logout">logout</a></li>
+        <li><a href="/account/logout"><%= __('layout_menuLogout') %></a></li>
         <li class="divider"></li>
         <li><a href="#!">Version: <%= locals.commit %></a></li>
     </ul>
 
     <ul id="dropdownJC" class="dropdown-content">
-        <li><a href=""><b>JC</b></a></li>
+        <li><a href=""><b><%= __('layout_menuJC') %></b></a></li>
         <li class="divider"></li>
-        <li><a href="/jc/overview">Overzicht</a></li>
-        <li><a href="/jc/charges/overview">Aanklachten</a></li>
-        <li><a href="/jc/sanction/overview">Sancties</a></li>
+        <li><a href="/jc/overview"><%= __('layout_menuJCOverview') %></a></li>
+        <li><a href="/jc/charges/overview"><%= __('layout_menuJCCharges') %></a></li>
+        <li><a href="/jc/sanction/overview"><%= __('layout_menuJCSanctions') %></a></li>
     </ul>
 
     <nav>
@@ -79,16 +79,16 @@
             <a href="#" data-activates="menu-bar-mobile" class="button-collapse-mobile-menu hide-on-large-only"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
                 <% if(locals.user && user.groups.indexOf('jc') !== -1){ %>
-                    <li><a class="dropdown-button" href="/jc/overview" data-activates="dropdownJC">JC<i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li><a class="dropdown-button" href="/jc/overview" data-activates="dropdownJC"><%= __('layout_menuJC') %><i class="material-icons right">arrow_drop_down</i></a></li>
                 <% } %>
                 <% if(locals.user) { %>
-                    <li><a href="/schoolmeeting">Schoolmeeting</a></li>
+                    <li><a href="/schoolmeeting"><%= __('layout_menuSchoolmeeting') %></a></li>
                 <% } %>
                 <% if(locals.user && user.groups.indexOf('schoolMeetingVoorzitter') !== -1){ %>
-                    <li><a href="/jc/lawsuit/">Rechtzaken</a></li>
+                    <li><a href="/jc/lawsuit/"><%=  __('layout_menuLawsuit') %></a></li>
                 <% } %>
                 <% if(locals.user){ %>
-                    <li><a href="/law">Huishoudelijk reglement</a></li>
+                    <li><a href="/law"><%= __('layout_menuLaws') %></a></li>
                     <li><a href="#" data-activates="account-bar" class="button-collapse show-on-medium-and-up"><%= user.username %></a></li>
                 <% } %>
             </ul>
@@ -96,12 +96,12 @@
             <ul id="menu-bar-mobile" class="side-nav">
                 <% if(locals.user && user.groups.indexOf('jc') !== -1){ %>
                     <ul class="collapsible collapsible-accordion">
-                        <li class="bold"><a class="collapsible-header waves-effect waves-teal">JC</a>
+                        <li class="bold"><a class="collapsible-header waves-effect waves-teal"><%= __('layout_menuJC') %></a>
                             <div class="collapsible-body" style="">
                                 <ul>
-                                    <li><a href="/jc/overview">Overzicht</a></li>
-                                    <li><a href="/jc/charges/overview">Aanklachten</a></li>
-                                    <li><a href="/jc/sanction/overview">Sancties</a></li>
+                                    <li><a href="/jc/overview"><%= __('layout_menuJCOverview') %></a></li>
+                                    <li><a href="/jc/charges/overview"><%= __('layout_menuJCCharges') %></a></li>
+                                    <li><a href="/jc/sanction/overview"><%= __('layout_menuJCSanctions') %></a></li>
                                 </ul>
                             </div>
                         </li>
@@ -109,19 +109,19 @@
                 <% } %>
                 <% if(locals.user) { %>
                     <ul class="collapsible collapsible-accordion">
-                        <li class="bold"><a class="collapsible-header waves-effect waves-teal" href="/schoolmeeting">Schoolmeeting</a>
+                        <li class="bold"><a class="collapsible-header waves-effect waves-teal" href="/schoolmeeting"><%= __('layout_menuSchoolmeeting') %></a>
                         </li>
                     </ul>
                 <% } %>
                 <% if(locals.user && user.groups.indexOf('schoolMeetingVoorzitter') !== -1){ %>
                     <ul class="collapsible collapsible-accordion">
-                        <li class="bold"><a class="collapsible-header waves-effect waves-teal" href="/jc/lawsuit/">Rechtzaken</a>
+                        <li class="bold"><a class="collapsible-header waves-effect waves-teal" href="/jc/lawsuit/"><%=  __('layout_menuLawsuit') %></a>
                         </li>
                     </ul>
                 <% } %>
                 <% if(locals.user){ %>
                     <ul class="collapsible collapsible-accordion">
-                        <li class="bold"><a class="collapsible-header waves-effect waves-teal" href="/law">Huishoudelijk reglement</a>
+                        <li class="bold"><a class="collapsible-header waves-effect waves-teal" href="/law"><%= __('layout_menuLaws') %></a>
                         </li>
                     </ul>
                 <% } %>

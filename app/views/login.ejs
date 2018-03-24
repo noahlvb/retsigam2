@@ -2,12 +2,12 @@
     <form action='/account/login/local', method='post'>
         <div class="input-field">
             <input type="text" id="inputNaam" name="username" required="" autofocus="">
-            <label for="inputNaam" class="sr-only">username: </label>
+            <label for="inputNaam" class="sr-only"><%= __('loginPage_username') %></label>
         </div>
         <div class="input-field">
             <input type="password" id="inputPassword" name='password' required="">
-            <label for="inputPassword" class="sr-only">Password: </label>
+            <label for="inputPassword" class="sr-only"><%= __('loginPage_password') %></label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit"><%= __('loginPage_loginButton') %></button>
     </form>
 </div>
