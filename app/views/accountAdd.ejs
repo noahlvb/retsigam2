@@ -1,27 +1,27 @@
-<h3><%= __('ACCOUNTADD_header')%></h3>
+<h3>Create new user</h3>
 <form id="user-add-form" method="post" action="/account/manage/add">
 	<table>
         <div class="input-field">
-            <label><%= __('ACCOUNTADD_formFirstName')%></label>
+            <label>First name: </label>
     		<input name="firstName" type='text'></input>
         </div>
 
         <div class="input-field">
-            <label><%= __('ACCOUNTADD_formSecondName')%></label>
+            <label>Second name: </label>
     		<input name="secondName" type='text'></input>
         </div>
 
         <div class="input-field">
-            <label><%= __('ACCOUNTADD_formPassword')%></label>
+            <label>Password: </label>
     		<input name="password" type='password'></input>
         </div>
 
         <div class="input-field">
-            <label><%= __('ACCOUNTADD_formEmail')%></label>
+            <label>Email:</label>
     		<input name="email" type='email'></input>
         </div>
-		
-		<input type='submit' class="btn" value="<%= __('ACCOUNTADD_formSubmit')%>"></input>
+
+		<input type='submit' class="btn" value="Create user"></input>
 		</tr>
 	</table>
 </form>

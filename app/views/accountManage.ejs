@@ -1,4 +1,4 @@
-<h2><%= __('ACCOUNT_headerTable')%> <button type="button" class="btn" onclick="window.location.href='/account/manage/add'"><%= __('ACCOUNT_headerAddUser')%></button></h2>
+<h2>Account management <button type="button" class="btn" onclick="window.location.href='/account/manage/add'">Add user</button></h2>
 <table id="user-table" class="table"></table>
 
 <script type="text/javascript">
@@ -16,16 +16,16 @@
     function draw_table_users (users) {
         var table = document.getElementById('user-table');
         var row0 = table.insertRow(0);
-        row0.insertCell(0).innerHTML = '<b><%= __("ACCOUNT_tableName")%></b>';
-        row0.insertCell(1).innerHTML = '<b><%= __("ACCOUNT_tableEmail")%></b>';
-        row0.insertCell(2).innerHTML = '<b><%= __("ACCOUNT_tableGroup")%></b>';
-        row0.insertCell(3).innerHTML = '<b><%= __("ACCOUNT_tableAction")%></b>';
+        row0.insertCell(0).innerHTML = '<b>Name</b>';
+        row0.insertCell(1).innerHTML = '<b>Email</b>';
+        row0.insertCell(2).innerHTML = '<b>Groups</b>';
+        row0.insertCell(3).innerHTML = '<b>Actions</b>';
         for (var i = 0; i < Object.keys(users).length; i++) {
             var row = table.insertRow(1);
             row.insertCell(0).innerHTML = '<a href="/account/manage/' + users[i]._id + '/">' + users[i].username + '</a>';
             row.insertCell(1).innerHTML = users[i].email;
             row.insertCell(2).innerHTML = users[i].groups;
-            row.insertCell(3).innerHTML = '<a href="/account/manage/' + users[i]._id + '/delete"><%= __("ACCOUNT_tableDelete")%></a>';
+            row.insertCell(3).innerHTML = '<a href="/account/manage/' + users[i]._id + '/delete">Delete</a>';
         }
     }
 </script>
