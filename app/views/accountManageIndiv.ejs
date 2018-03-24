@@ -79,13 +79,22 @@
 </div>
 
 <div id="passwordModal" class="modal">
-	<div class="modal-content">
-		<h4>Modal Header</h4>
-		<p>A bunch of text</p>
-	</div>
-	<div class="modal-footer">
-		<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-	</div>
+	<form action="/account/manage/<%= userProfile.id%>/password" method="post">
+		<div class="modal-content">
+			<h4>Wachtwoord wijzigen</h4>
+			<div class="input-field">
+				<input id="password" name="password" type="password" required>
+				<label for="email">Wachtwoord</label>
+	        </div>
+			<div class="input-field">
+				<input id="passwordConfirm" name="passwordConfirm" type="password" required>
+				<label for="passwordConfirm">Bevestig wachtwoord</label>
+	        </div>
+		</div>
+		<div class="modal-footer">
+			<input type="submit" class="modal-action modal-close waves-effect waves-green btn-flat" value="Wijzigen">
+		</div>
+	</form>
 </div>
 
 <script type="text/javascript">
