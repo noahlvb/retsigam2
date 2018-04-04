@@ -1,1 +1,15 @@
-{}
+{
+    "loginPage_username": "Gebruikersnaam",
+    "loginPage_password": "Wachtwoord",
+    "loginPage_loginButton": "Login",
+
+    "layout_menuAccount": "Account",
+    "layout_menuLogout": "Uitloggen",
+    "layout_menuJC": "JC",
+    "layout_menuJCOverview": "Overzicht",
+    "layout_menuJCCharges": "Aanklachten",
+    "layout_menuJCSanctions": "Sancties",
+    "layout_menuSchoolmeeting": "Schoolmeeting",
+    "layout_menuLawsuit": "Rechtzaken",
+    "layout_menuLaws": "Huishoudelijk reglement"
+}
