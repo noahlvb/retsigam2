@@ -1,4 +1,7 @@
-<h2>Huishoudelijk reglement <% if(user.groups.indexOf('rechtscoordinator') !== -1){ %><a href="#addLaw" class="btn waves-effect waves-light modal-trigger">Regel toevoegen</a><% } %></h2>
+<h2>Huishoudelijk reglement <% if(user.groups.indexOf('rechtscoordinator') !== -1){ %>
+    <a href="#addLaw" class="btn waves-effect waves-light modal-trigger">Regel toevoegen</a>
+    <a href="#importLaws" class="btn waves-effect waves-light modal-trigger">HHR importeren</a>
+<% } %></h2>
 
 <table id="laws-table" class="table bordered">
     <col width="20%">
@@ -58,6 +61,21 @@
         <a href="#!" class="modal-action modal-close waves-effect waves-green btn">Terug gaan</a>
         <a href="#!" id="lawDisableConfirm" class="modal-action modal-close waves-effect waves-green btn red">Uitschakelen</a>
     </div>
+</div>
+
+<div id="importLaws" class="modal">
+    <div class="modal-content">
+        <h4>HHR importeren</h4>
+        <form action="/law/import" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="input-field col s3">
+                    <input type="file" name="csv" required>
+                </div>
+            </div>
+            <input type="submit" value="Uploaden" class="right btn waves-effect waves-light">
+        </form>
+    </div>
+    <div class="modal-footer"></div>
 </div>
 
 <script type="text/javascript">

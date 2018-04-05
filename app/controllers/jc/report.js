@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const jcComplaints = require('./../../models/jcComplaint')
 
 module.exports =  function (req, res) {
+    console.log(req);
     if (mongoose.Types.ObjectId.isValid(req.params.id)) {
         jcComplaints.find({ _id: req.params.id }, function (err, documentComplaint) {
             if (documentComplaint.length == 0) {
