@@ -23,6 +23,10 @@ module.exports = function (file, callback) {
 
     })
 
+    lineReader.on('error', function () {
+        return callback('err')
+    })
+
     lineReader.on('close', function () {
         let rolesToProcess = HHR.map((role) => {
             return new Promise((resolve) => {
