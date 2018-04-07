@@ -33,3 +33,8 @@ nav {
 	z-index: 1001;
 	opacity: 0.80;
 }
+
+table.slim td {
+	padding: 5px;
+	vertical-align: top;
+}
