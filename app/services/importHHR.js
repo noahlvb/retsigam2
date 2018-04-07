@@ -12,10 +12,16 @@ module.exports = function (file, callback) {
 
     lineReader.on('line', function (line) {
         let number = line.split(/,(.+)/)[0].trim()
+        let content = String(line.split(/,(.+)/)[1])
+
+        if (content.charAt(0) == '"') {
+            content = content.slice(1, -1)
+        }
+
         if (number.length != 0 && !isNaN(number[0])) {
             let role = {
-                number: line.split(/,(.+)/)[0],
-                content: line.split(/,(.+)/)[1]
+                number: number,
+                content: content
             }
 
             HHR.push(role)

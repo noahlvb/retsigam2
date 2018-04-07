@@ -66,9 +66,12 @@
 <div id="importLaws" class="modal">
     <div class="modal-content">
         <h4>HHR importeren</h4>
+        <h5 style="color: red;">Let op! lees de instructies zorgvuldig!</h5>
         <p>Deze functie is uitsluitend bedoeld voor het importeren van nieuwe regels. Regels die al bestaan zullen niet worden overschreven en verwijdere na het importeren is niet mogelijk.<br>
             <br>
-            De eerste kolom moet een nummer bevatten met maximaal 1 punt en alleen rijen met valiede regel nummers zullen worden opgenomen.
+            De eerste kolom moet een nummer bevatten met maximaal 1 punt en alleen rijen met valide regel nummers zullen worden opgenomen.<br>
+            <br>
+            In het geval van koppen(bijvoorbeeld 1000 preambule) moet de kop bijvoorbeeld op regel 1000 staan en de beschrijving van bijvoorbeeld op 1000.001 omdat dubbelen regels niet zijn toegestaan.
         </p>
         <form action="/law/import" method="post" enctype="multipart/form-data">
             <div class="row">

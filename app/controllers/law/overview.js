@@ -1,7 +1,7 @@
 const laws = require('./../../models/law')
 
 module.exports = function (req, res) {
-    laws.find({}, function (err, document) {
+    laws.find({}, null, { sort: { number: 1 } }, function (err, document) {
         if (err) {
             return console.log(err)
         }
