@@ -1,6 +1,7 @@
 const schoolmeetings = require('./../schoolmeeting')
+const lawsuits = require('./../jcLawsuit')
 
-function AllowedToAdd (record) {
+function checkAlreadySendTo (record) {
     return new Promise(function (resolve, reject) {
         schoolmeetings.find({
             '$and' : [
@@ -20,14 +21,34 @@ function AllowedToAdd (record) {
     })
 }
 
+function checkOpenLawsuits (record) {
+    return new Promise(function (resolve, reject) {
+        lawsuits.find({ jcRecord: record, done: false }, function (err, document) {
+            if (err) {
+                return console.log(err);
+            }
+
+            if (document.length != 0) {
+                resolve(true)
+            }
+
+            resolve(false)
+        })
+    })
+}
+
 module.exports = function (callback) {
     schoolmeetings.find({ type: 'regular' }, null, { sort: {datetime: -1}, limit: 1 }, async function (err, document) {
         if (err) {
             return console.log(err)
         }
 
-        if (await AllowedToAdd(this.record)) {
+        if (await checkAlreadySendTo(this.record)) {
             return callback('alreadyAdded')
+        }
+        
+        if (await checkOpenLawsuits(this.record)) {
+            return callback('openLawsuits')
         }
 
         for (complaint of document[0].jcComplaints) {
