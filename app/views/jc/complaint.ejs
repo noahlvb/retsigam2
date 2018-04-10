@@ -117,6 +117,21 @@
         </div>
         <% } %>
 
+        <% if ( complaint.proceeding == undefined) { %>
+        <div class="card cyan lighten-4">
+            <div class="card-content">
+                <span class="card-title">Notities</span>
+                <form action="/jc/notes/<%= complaint._id %>" method="post">
+                    <div class="input-field">
+                        <label for="notes">Notities</label>
+                        <textarea rows="6" class="materialize-textarea" id="notes" name="notes" required></textarea>
+                    </div>
+                    <input class="btn" type="submit" value="Opslaan">
+                </form>
+            </div>
+        </div>
+        <% } %>
+
         <% if (complaint.proceeding) { %>
 
         <%
@@ -341,6 +356,7 @@
 </div>
 
 <script type="text/javascript">
+    $('#notes').val('<%= complaint.notes %>')
     $('#report').val('<%= complaint.report %>')
 
     $('#createSubcommittee').submit(function (event) {

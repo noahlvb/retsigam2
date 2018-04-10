@@ -12,6 +12,8 @@ const jcComplaintSchema = mongoose.Schema({
     witnesses: Array,
     happend: String,
 
+    notes: String,
+
     accepted: Boolean,
     report: String,
     reportAccepted: Boolean,
@@ -21,8 +23,9 @@ const jcComplaintSchema = mongoose.Schema({
 
 jcComplaintSchema.index({ record: 1 }, { unique: true })
 
-jcComplaintSchema.methods.accept = require('./accept')
 jcComplaintSchema.statics.apply = require('./new')
+jcComplaintSchema.methods.notesSave = require('./notes')
+jcComplaintSchema.methods.accept = require('./accept')
 jcComplaintSchema.methods.reportSaveAccept = require('./report')
 jcComplaintSchema.methods.sendToSM = require('./sendToSM')
 

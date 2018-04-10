@@ -8,6 +8,7 @@ class JCController extends AbstractController {
         this.router.use('/sanction', new (require('./sanction')))
 
         this.router.get('/complaint/:id', this.auth(['jc']), require('./complaint'))
+        this.router.post('/notes/:id', this.auth(['jc']), require('./notes'))
         this.router.get('/accepting/:id/:action', this.auth(['jc']), require('./accepting'))
         this.router.post('/report/:id', this.auth(['jc']), require('./report'))
         this.router.get('/sendToJC/:id', this.auth(['jc']), require('./sendToSM'))
