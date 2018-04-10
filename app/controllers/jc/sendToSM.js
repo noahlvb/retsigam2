@@ -14,9 +14,11 @@ module.exports = function (req, res) {
                 return res.redirect('/jc/overview')
             }
 
-            document[0].sendToJC(function (err, schoolmeetingDate) {
+            document[0].sendToSM(function (err, schoolmeetingDate) {
                 if (err && err == 'alreadyAdded') {
                     req.flash('warning', 'Deze klacht is al toegevoegd')
+                } else if (err && err == 'openLawsuits') {
+                    req.flash('warning', 'Deze klacht heeft nog lopende rechtzaken')
                 } else if (err && err == 'double') {
                     req.flash('warning', 'Deze klacht kan niet worden doorgestuurd naar de schoolmeeting, probeer het later opnieuw! (eSM_1)')
                 } else {

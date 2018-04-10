@@ -24,7 +24,7 @@ jcComplaintSchema.index({ record: 1 }, { unique: true })
 jcComplaintSchema.methods.accept = require('./accept')
 jcComplaintSchema.statics.apply = require('./new')
 jcComplaintSchema.methods.reportSaveAccept = require('./report')
-jcComplaintSchema.methods.sendToJC = require('./sendToJC')
+jcComplaintSchema.methods.sendToSM = require('./sendToSM')
 
 jcComplaintSchema.post('find', idsToNamesFunc(['accused', 'originator', 'witnesses']))
 
