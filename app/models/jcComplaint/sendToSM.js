@@ -1,5 +1,5 @@
 const schoolmeetings = require('./../schoolmeeting')
-const lawsuits = require('./../jcLawsuit')
+//const lawsuits = require('./../jcLawsuit')
 
 function checkAlreadySendTo (record) {
     return new Promise(function (resolve, reject) {
@@ -22,7 +22,7 @@ function checkAlreadySendTo (record) {
 }
 
 function checkOpenLawsuits (record) {
-    return new Promise(function (resolve, reject) {
+    /*return new Promise(function (resolve, reject) {
         lawsuits.find({ jcRecord: record, done: false }, function (err, document) {
             if (err) {
                 return console.log(err);
@@ -34,7 +34,8 @@ function checkOpenLawsuits (record) {
 
             resolve(false)
         })
-    })
+    })*/ 
+    return false
 }
 
 module.exports = function (callback) {
